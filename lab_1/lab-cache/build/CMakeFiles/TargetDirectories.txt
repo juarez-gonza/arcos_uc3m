@@ -1,0 +1,6 @@
+/mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/CMakeFiles/rebuild_cache.dir
+/mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/CMakeFiles/edit_cache.dir
+/mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/CMakeFiles/soa.dir
+/mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/CMakeFiles/aos.dir
+/mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/CMakeFiles/loop_merge_opt.dir
+/mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/CMakeFiles/loop_merge.dir
