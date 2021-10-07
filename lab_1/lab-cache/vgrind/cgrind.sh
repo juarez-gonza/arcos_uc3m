@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+# script para crear y organizar en carpetas las capturas.
+# uso "./vgrind [ tamaño L1 en KiB ] [ tamaño LL en KiB ] [ path a ejecutable ]"
+# nota: las carpetas se crean en el directorio de este script
+
 # configuracion constante por consigna.
 LINESIZE=64
 NWAY=8

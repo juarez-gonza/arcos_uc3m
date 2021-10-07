@@ -2,8 +2,8 @@
 I1 cache:         32768 B, 64 B, 8-way associative
 D1 cache:         8192 B, 64 B, 8-way associative
 LL cache:         262144 B, 64 B, 8-way associative
-Command:          /mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/aos
-Data file:        /mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/vgrind//aos/8192.cg
+Command:          /mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/lab_1/lab-cache/build/aos
+Data file:        /mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/lab_1/lab-cache/vgrind//aos/8192.cg
 Events recorded:  Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
 Events shown:     Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
 Event sort order: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw
@@ -31,27 +31,7 @@ Ir                 I1mr         ILmr         Dr                 D1mr            
     6,545 ( 0.10%)  63 ( 4.92%)  63 ( 4.93%)     1,482 ( 0.09%)    129 ( 0.19%)     96 ( 0.17%)     641 ( 0.17%)     67 ( 0.24%)     54 ( 0.20%)  ???:_dl_map_object_from_fd
 
 --------------------------------------------------------------------------------
--- Auto-annotated source: /mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/aos.cpp
+The following files chosen for auto-annotation could not be found:
 --------------------------------------------------------------------------------
-Ir                 I1mr       ILmr       Dr               D1mr            DLmr            Dw               D1mw            DLmw            
-
-        .          .          .                .               .               .                .               .               .           struct point {
-        .          .          .                .               .               .                .               .               .             double x;
-        .          .          .                .               .               .                .               .               .             double y;
-        .          .          .                .               .               .                .               .               .           };
-        .          .          .                .               .               .                .               .               .           
-        3 ( 0.00%) 0          0                0               0               0                1 ( 0.00%)      0               0           int main() {
-        1 ( 0.00%) 0          0                0               0               0                1 ( 0.00%)      0               0             constexpr int maxsize = 100000;
-        .          .          .                .               .               .                .               .               .             point a[maxsize], b[maxsize], c[maxsize];  
-        .          .          .                .               .               .                .               .               .           
-  300,004 ( 4.81%) 2 ( 0.16%) 2 ( 0.16%) 200,001 (11.76%)      0               0                1 ( 0.00%)      0               0             for (int i=0; i<maxsize; ++i) {
-1,900,000 (30.45%) 1 ( 0.08%) 1 ( 0.08%) 500,000 (29.39%) 50,000 (74.80%) 50,000 (86.03%) 100,000 (26.55%) 25,000 (90.46%) 25,000 (94.34%)      a[i].x = b[i].x + c[i].x;
-1,900,000 (30.45%) 0          0          500,000 (29.39%)      0               0          100,000 (26.55%)      0               0               a[i].y = b[i].y + c[i].y;
-        .          .          .                .               .               .                .               .               .             }
-        3 ( 0.00%) 0          0                2 ( 0.00%)      0               0                0               0               0           }
-
---------------------------------------------------------------------------------
-Ir                 I1mr       ILmr       Dr                 D1mr            DLmr            Dw               D1mw            DLmw            
---------------------------------------------------------------------------------
-4,100,011 (65.70%) 3 ( 0.23%) 3 ( 0.23%) 1,200,003 (70.54%) 50,000 (74.80%) 50,000 (86.03%) 200,003 (53.11%) 25,000 (90.46%) 25,000 (94.34%)  events annotated
+  /mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/aos.cpp
 

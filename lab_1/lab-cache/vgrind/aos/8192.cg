@@ -1,7 +1,7 @@
 desc: I1 cache:         32768 B, 64 B, 8-way associative
 desc: D1 cache:         8192 B, 64 B, 8-way associative
 desc: LL cache:         262144 B, 64 B, 8-way associative
-cmd: /mnt/shared/gonzalo/Facultad/uc3m/arq_comp/lab/1/lab-cache/build/aos
+cmd: /mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/lab_1/lab-cache/build/aos
 events: Ir I1mr ILmr Dr D1mr DLmr Dw D1mw DLmw 
 fl=/home/abuild/rpmbuild/BUILD/glibc-2.34/csu/../sysdeps/x86_64/start.S
 fn=_start
