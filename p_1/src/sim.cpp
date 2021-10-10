@@ -14,7 +14,7 @@
 
 #include <iostream>
 
-inline void calc_fgv(struct obj *o_i, struct obj *o_j)
+inline void calc_fgv(struct obj *o_ip, struct obj *o_jp)
 {
 	/* 1/(||pj - pi||^3) == 1/(sqrt(pj-pi)^3)
 	 * == 1/((pj-pi)^(3/2)) == (pj-pi)**(-3/2)
@@ -26,62 +26,62 @@ inline void calc_fgv(struct obj *o_i, struct obj *o_j)
 	double fy;
 	double fz;
 
-	denom = pow(sqrt(pow(o_i->pos->x - o_j->pos->x, 2)
-		+ pow(o_i->pos->y - o_j->pos->y, 2)
-		+ pow(o_i->pos->z - o_j->pos->z, 2)), 3);
-	fgv_no_recalc = 6.674e-11 * o_i->m * o_j->m / denom;
+	denom = pow(sqrt(pow(o_ip->pos->x - o_jp->pos->x, 2)
+		+ pow(o_ip->pos->y - o_jp->pos->y, 2)
+		+ pow(o_ip->pos->z - o_jp->pos->z, 2)), 3);
+	fgv_no_recalc = 6.674e-11 * o_ip->m * o_jp->m / denom;
 
-	fx = fgv_no_recalc * (o_i->pos->x - o_j->pos->x);
-	o_i->fgv->x += fx;
-	o_j->fgv->x -= fx;
+	fx = fgv_no_recalc * (o_ip->pos->x - o_jp->pos->x);
+	o_ip->fgv->x += fx;
+	o_jp->fgv->x -= fx;
 
-	fy = fgv_no_recalc * (o_i->pos->y - o_j->pos->y);
-	o_i->fgv->y += fy;
-	o_j->fgv->y -= fy;
+	fy = fgv_no_recalc * (o_ip->pos->y - o_jp->pos->y);
+	o_ip->fgv->y += fy;
+	o_jp->fgv->y -= fy;
 
-	fz = fgv_no_recalc * (o_i->pos->z - o_j->pos->z);
-	o_i->fgv->z += fz;
-	o_j->fgv->z -= fz;
+	fz = fgv_no_recalc * (o_ip->pos->z - o_jp->pos->z);
+	o_ip->fgv->z += fz;
+	o_jp->fgv->z -= fz;
 }
 
-inline void calc_vel(struct obj *o, double time_step)
+inline void calc_vel(struct obj *op, double time_step)
 {
 	double accel_no_recalc;
 
-	accel_no_recalc = time_step/o->m;
+	accel_no_recalc = time_step/op->m;
 	/* v = vi + a * time_step = vi + F/m * time_step */
-	o->vel->x += accel_no_recalc * o->fgv->x;
-	o->vel->y += accel_no_recalc * o->fgv->y;
-	o->vel->z += accel_no_recalc * o->fgv->z;
+	op->vel->x += accel_no_recalc * op->fgv->x;
+	op->vel->y += accel_no_recalc * op->fgv->y;
+	op->vel->z += accel_no_recalc * op->fgv->z;
 }
 
-inline void calc_pos(struct obj *o, double size_enclosure, double time_step)
+inline void calc_pos(struct obj *op, double size_enclosure, double time_step)
 {
 	/* p = pi + v * time_step */
-	o->pos->x += o->vel->x * time_step;
-	if (o->pos->x >= size_enclosure)
-		o->pos->x = size_enclosure;
-	if (o->pos->x <= 0)
-		o->pos->x = 0;
+	op->pos->x += op->vel->x * time_step;
+	if (op->pos->x >= size_enclosure)
+		op->pos->x = size_enclosure;
+	if (op->pos->x <= 0)
+		op->pos->x = 0;
 
-	o->pos->y += o->vel->y * time_step;
-	if (o->pos->y >= size_enclosure)
-		o->pos->y = size_enclosure;
-	if (o->pos->y <= 0)
-		o->pos->y = 0;
+	op->pos->y += op->vel->y * time_step;
+	if (op->pos->y >= size_enclosure)
+		op->pos->y = size_enclosure;
+	if (op->pos->y <= 0)
+		op->pos->y = 0;
 
-	o->pos->z += o->vel->z * time_step;
-	if (o->pos->z >= size_enclosure)
-		o->pos->z = size_enclosure;
-	if (o->pos->z <= 0)
-		o->pos->z = 0;
+	op->pos->z += op->vel->z * time_step;
+	if (op->pos->z >= size_enclosure)
+		op->pos->z = size_enclosure;
+	if (op->pos->z <= 0)
+		op->pos->z = 0;
 }
 
 void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
-	struct obj *o_i;
-	struct obj *o_j;
+	struct obj *o_ip;
+	struct obj *o_jp;
 	struct obj *last_addr;
 	/*
 	 * TODO:
@@ -90,31 +90,31 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 	 */
 
 	last_addr = o_listp->list + o_listp->size;
-	for (o_i = o_listp->list; o_i != last_addr; ++o_i) {
+	for (o_ip = o_listp->list; o_ip != last_addr; ++o_ip) {
 		/*
 		std::cout << "=======================\n"
-		<< "pasando " << o_i << "\n";
+		<< "pasando " << o_ip << "\n";
 		*/
-		for (o_j = o_i + 1; o_j != last_addr; ++o_j) {
+		for (o_jp = o_ip + 1; o_jp != last_addr; ++o_jp) {
 			/*
-			std::cout << "\tcon " << o_j << "\n";
+			std::cout << "\tcon " << o_jp << "\n";
 			*/
-			calc_fgv(o_i, o_j);
+			calc_fgv(o_ip, o_jp);
 		}
 
-		calc_vel(o_i, time_step);
-		calc_pos(o_i, size_enclosure, time_step);
+		calc_vel(o_ip, time_step);
+		calc_pos(o_ip, size_enclosure, time_step);
 		/*
-		std::cout << "o:\t" << o_i << "\n\tpos_x: " << o_i->pos->x
-		<< "\n\tpos_y: " << o_i->pos->y
-		<< "\n\tpos_z: " << o_i->pos->z
-		<< "\n\tm: " << o_i->m
-		<< "\n\tvel_x: " << o_i->vel->x
-		<< "\n\tvel_y: " << o_i->vel->y
-		<< "\n\tvel_z: " << o_i->vel->z
-		<< "\n\tfgv_x: " << o_i->fgv->x
-		<< "\n\tfgv_y: " << o_i->fgv->y
-		<< "\n\tfgv_z: " << o_i->fgv->z << "\n";
+		std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos->x
+		<< "\n\tpos_y: " << o_ip->pos->y
+		<< "\n\tpos_z: " << o_ip->pos->z
+		<< "\n\tm: " << o_ip->m
+		<< "\n\tvel_x: " << o_ip->vel->x
+		<< "\n\tvel_y: " << o_ip->vel->y
+		<< "\n\tvel_z: " << o_ip->vel->z
+		<< "\n\tfgv_x: " << o_ip->fgv->x
+		<< "\n\tfgv_y: " << o_ip->fgv->y
+		<< "\n\tfgv_z: " << o_ip->fgv->z << "\n";
 		*/
 	}
 }

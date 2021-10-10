@@ -4,41 +4,41 @@
 
 #include <iostream>
 
-int init_obj(struct obj *o)
+int init_obj(struct obj *op)
 {
 	/* 0-initialize */
-	o->pos = (struct vec *)calloc(sizeof(vec), 1);
-	if (o->pos == NULL)
+	op->pos = (struct vec *)calloc(sizeof(vec), 1);
+	if (op->pos == NULL)
 		goto error_pos;
 
-	o->vel = (struct vec *)calloc(sizeof(vec), 1);
-	if (o->vel == NULL)
+	op->vel = (struct vec *)calloc(sizeof(vec), 1);
+	if (op->vel == NULL)
 		goto error_vel;
 
-	o->fgv = (struct vec *)calloc(sizeof(vec), 1);
-	if (o->fgv == NULL)
+	op->fgv = (struct vec *)calloc(sizeof(vec), 1);
+	if (op->fgv == NULL)
 		goto error_fgv;
 
 	return 0;
 error_fgv:
-	free(o->vel);
+	free(op->vel);
 error_vel:
-	free(o->pos);
+	free(op->pos);
 error_pos:
 	return 1;
 }
 
-void destroy_obj(struct obj *o)
+void destroy_obj(struct obj *op)
 {
-	free(o->pos);
-	free(o->vel);
-	free(o->fgv);
+	free(op->pos);
+	free(op->vel);
+	free(op->fgv);
 }
 
 int init_obj_list(struct obj_list *o_listp, unsigned int size,
 		unsigned int random_seed, double upperbound)
 {
-	struct obj *o;
+	struct obj *op;
 	std::mt19937_64 gen(random_seed);
 	std::uniform_real_distribution<> uniform(0, upperbound);
 	std::normal_distribution<> normal(10e+21, 10e+15);
@@ -48,18 +48,18 @@ int init_obj_list(struct obj_list *o_listp, unsigned int size,
 	if (o_listp->list == NULL)
 		goto list_error;
 
-	for (o = o_listp->list; o != o_listp->list + size; ++o) {
-		if (init_obj(o))
+	for (op = o_listp->list; op != o_listp->list + size; ++op) {
+		if (init_obj(op))
 			goto loop_error;
-		o->pos->x = uniform(gen);
-		o->pos->y = uniform(gen);
-		o->pos->z = uniform(gen);
-		o->m = normal(gen);
+		op->pos->x = uniform(gen);
+		op->pos->y = uniform(gen);
+		op->pos->z = uniform(gen);
+		op->m = normal(gen);
 		/*
-		std::cout << "o:\t" << o << "\n\tx: " << o->pos->x
-			<< "\n\ty: " << o->pos->y
-			<< "\n\tz: " << o->pos->z
-			<< "\n\tm: " << o->m << "\n";
+		std::cout << "op:\t" << op << "\n\tx: " << op->pos->x
+			<< "\n\ty: " << op->pos->y
+			<< "\n\tz: " << op->pos->z
+			<< "\n\tm: " << op->m << "\n";
 		*/
 	}
 
@@ -68,9 +68,9 @@ loop_error:
 	/* on loop_error, destroy correctly allocated objects
 	 * in the above lines. careful with free after free
 	 */
-	for (--o; o != o_listp->list; --o)
-		destroy_obj(o);
-	destroy_obj(o);
+	for (--op; op != o_listp->list; --op)
+		destroy_obj(op);
+	destroy_obj(op);
 	free(o_listp->list);
 list_error:
 	return 1;
@@ -78,11 +78,11 @@ list_error:
 
 void destroy_obj_list(struct obj_list *o_listp)
 {
-	struct obj *o;
+	struct obj *op;
 
-	for (o = o_listp->list; o != o_listp->list + o_listp->size; ++o)
-		if (o != NULL)
-			destroy_obj(o);
+	for (op = o_listp->list; op != o_listp->list + o_listp->size; ++op)
+		if (op != NULL)
+			destroy_obj(op);
 
 	free(o_listp->list);
 }
