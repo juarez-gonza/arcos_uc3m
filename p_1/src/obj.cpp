@@ -22,17 +22,30 @@ int init_obj(struct obj *op)
 	return 0;
 error_fgv:
 	free(op->vel);
+	op->vel = NULL;
 error_vel:
 	free(op->pos);
+	op->pos = NULL;
 error_pos:
 	return 1;
 }
 
 void destroy_obj(struct obj *op)
 {
-	free(op->pos);
-	free(op->vel);
-	free(op->fgv);
+	if (op->pos != NULL) {
+		free(op->pos);
+		op->pos = NULL;
+	}
+
+	if (op->vel != NULL) {
+		free(op->vel);
+		op->vel = NULL;
+	}
+
+	if (op->fgv != NULL) {
+		free(op->fgv);
+		op->fgv = NULL;
+	}
 }
 
 int init_obj_list(struct obj_list *o_listp, unsigned int size,
@@ -66,12 +79,15 @@ int init_obj_list(struct obj_list *o_listp, unsigned int size,
 	return 0;
 loop_error:
 	/* on loop_error, destroy correctly allocated objects
-	 * in the above lines. careful with free after free
+	 * in the above lines. careful with free after free.
+	 * if o_listp->list has the loop_error, if statements testing for NULL
+	 * in object field will avoid freeing uninitialized data.
 	 */
-	for (--op; op != o_listp->list; --op)
+	for (; op >= o_listp->list; --op) {
 		destroy_obj(op);
-	destroy_obj(op);
+	}
 	free(o_listp->list);
+	o_listp->list = NULL;
 list_error:
 	return 1;
 }
@@ -80,9 +96,13 @@ void destroy_obj_list(struct obj_list *o_listp)
 {
 	struct obj *op;
 
+	if (o_listp == NULL || o_listp->list == NULL)
+		return;
+
 	for (op = o_listp->list; op != o_listp->list + o_listp->size; ++op)
 		if (op != NULL)
 			destroy_obj(op);
 
 	free(o_listp->list);
+	o_listp->list = NULL;
 }
