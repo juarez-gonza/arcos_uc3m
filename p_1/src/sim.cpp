@@ -16,9 +16,9 @@
 
 inline double calc_norm(struct obj *o_ip, struct obj *o_jp)
 {
-	return sqrt(pow(o_ip->pos->x - o_jp->pos->x, 2)
-		+ pow(o_ip->pos->y - o_jp->pos->y, 2)
-		+ pow(o_ip->pos->z - o_jp->pos->z, 2));
+	return sqrt(pow(o_ip->pos.x - o_jp->pos.x, 2)
+		+ pow(o_ip->pos.y - o_jp->pos.y, 2)
+		+ pow(o_ip->pos.z - o_jp->pos.z, 2));
 }
 
 inline void calc_fgv(struct obj *o_ip, struct obj *o_jp)
@@ -36,17 +36,17 @@ inline void calc_fgv(struct obj *o_ip, struct obj *o_jp)
 	denom = pow(calc_norm(o_ip, o_jp), 3);
 	fgv_no_recalc = 6.674e-11 * o_ip->m * o_jp->m / denom;
 
-	fx = fgv_no_recalc * (o_ip->pos->x - o_jp->pos->x);
-	o_ip->fgv->x += fx;
-	o_jp->fgv->x -= fx;
+	fx = fgv_no_recalc * (o_ip->pos.x - o_jp->pos.x);
+	o_ip->fgv.x += fx;
+	o_jp->fgv.x -= fx;
 
-	fy = fgv_no_recalc * (o_ip->pos->y - o_jp->pos->y);
-	o_ip->fgv->y += fy;
-	o_jp->fgv->y -= fy;
+	fy = fgv_no_recalc * (o_ip->pos.y - o_jp->pos.y);
+	o_ip->fgv.y += fy;
+	o_jp->fgv.y -= fy;
 
-	fz = fgv_no_recalc * (o_ip->pos->z - o_jp->pos->z);
-	o_ip->fgv->z += fz;
-	o_jp->fgv->z -= fz;
+	fz = fgv_no_recalc * (o_ip->pos.z - o_jp->pos.z);
+	o_ip->fgv.z += fz;
+	o_jp->fgv.z -= fz;
 }
 
 inline void calc_vel(struct obj *op, double time_step)
@@ -55,31 +55,31 @@ inline void calc_vel(struct obj *op, double time_step)
 
 	accel_no_recalc = time_step/op->m;
 	/* v = vi + a * time_step = vi + F/m * time_step */
-	op->vel->x += accel_no_recalc * op->fgv->x;
-	op->vel->y += accel_no_recalc * op->fgv->y;
-	op->vel->z += accel_no_recalc * op->fgv->z;
+	op->vel.x += accel_no_recalc * op->fgv.x;
+	op->vel.y += accel_no_recalc * op->fgv.y;
+	op->vel.z += accel_no_recalc * op->fgv.z;
 }
 
 void calc_pos(struct obj *op, double size_enclosure, double time_step)
 {
 	/* p = pi + v * time_step */
-	op->pos->x += op->vel->x * time_step;
-	if (op->pos->x >= size_enclosure)
-		op->pos->x = size_enclosure;
-	if (op->pos->x <= 0)
-		op->pos->x = 0;
+	op->pos.x += op->vel.x * time_step;
+	if (op->pos.x >= size_enclosure)
+		op->pos.x = size_enclosure;
+	if (op->pos.x <= 0)
+		op->pos.x = 0;
 
-	op->pos->y += op->vel->y * time_step;
-	if (op->pos->y >= size_enclosure)
-		op->pos->y = size_enclosure;
-	if (op->pos->y <= 0)
-		op->pos->y = 0;
+	op->pos.y += op->vel.y * time_step;
+	if (op->pos.y >= size_enclosure)
+		op->pos.y = size_enclosure;
+	if (op->pos.y <= 0)
+		op->pos.y = 0;
 
-	op->pos->z += op->vel->z * time_step;
-	if (op->pos->z >= size_enclosure)
-		op->pos->z = size_enclosure;
-	if (op->pos->z <= 0)
-		op->pos->z = 0;
+	op->pos.z += op->vel.z * time_step;
+	if (op->pos.z >= size_enclosure)
+		op->pos.z = size_enclosure;
+	if (op->pos.z <= 0)
+		op->pos.z = 0;
 }
 
 void collision_check(struct obj_list *o_listp, struct obj *last_addr)
@@ -106,7 +106,7 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 	struct obj *last_addr;
 	/*
 	 * TODO:
-	 * - Implement collisions
+	 * - Implement num_iterations
 	 */
 	last_addr = o_listp->list + o_listp->size;
 
@@ -128,16 +128,16 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 		calc_vel(o_ip, time_step);
 		calc_pos(o_ip, size_enclosure, time_step);
 		/*
-		std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos->x
-		<< "\n\tpos_y: " << o_ip->pos->y
-		<< "\n\tpos_z: " << o_ip->pos->z
+		std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos.x
+		<< "\n\tpos_y: " << o_ip->pos.y
+		<< "\n\tpos_z: " << o_ip->pos.z
 		<< "\n\tm: " << o_ip->m
-		<< "\n\tvel_x: " << o_ip->vel->x
-		<< "\n\tvel_y: " << o_ip->vel->y
-		<< "\n\tvel_z: " << o_ip->vel->z
-		<< "\n\tfgv_x: " << o_ip->fgv->x
-		<< "\n\tfgv_y: " << o_ip->fgv->y
-		<< "\n\tfgv_z: " << o_ip->fgv->z << "\n";
+		<< "\n\tvel_x: " << o_ip->vel.x
+		<< "\n\tvel_y: " << o_ip->vel.y
+		<< "\n\tvel_z: " << o_ip->vel.z
+		<< "\n\tfgv_x: " << o_ip->fgv.x
+		<< "\n\tfgv_y: " << o_ip->fgv.y
+		<< "\n\tfgv_z: " << o_ip->fgv.z << "\n";
 		*/
 	}
 	collision_check(o_listp, last_addr);

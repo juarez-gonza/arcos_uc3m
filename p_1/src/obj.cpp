@@ -8,54 +8,31 @@ int init_obj(struct obj *op)
 {
 	op->estado = true;
 	/* 0-initialize */
-	op->pos = (struct vec *)calloc(sizeof(vec), 1);
-	if (op->pos == NULL)
-		goto error_pos;
+	op->vel.x = 0;
+	op->vel.y = 0;
+	op->vel.z = 0;
 
-	op->vel = (struct vec *)calloc(sizeof(vec), 1);
-	if (op->vel == NULL)
-		goto error_vel;
-
-	op->fgv = (struct vec *)calloc(sizeof(vec), 1);
-	if (op->fgv == NULL)
-		goto error_fgv;
+	op->fgv.x = 0;
+	op->fgv.y = 0;
+	op->fgv.z = 0;
 
 	return 0;
-error_fgv:
-	free(op->vel);
-	op->vel = NULL;
-error_vel:
-	free(op->pos);
-	op->pos = NULL;
-error_pos:
-	return 1;
 }
 
 void destroy_obj(struct obj *op)
 {
-	if (op->pos != NULL) {
-		free(op->pos);
-		op->pos = NULL;
-	}
-
-	if (op->vel != NULL) {
-		free(op->vel);
-		op->vel = NULL;
-	}
-
-	if (op->fgv != NULL) {
-		free(op->fgv);
-		op->fgv = NULL;
-	}
 }
 
 void merge_obj(struct obj *o_ip, struct obj *o_jp)
 {
 	o_ip->m += o_jp->m;
-	o_ip->vel->x += o_jp->vel->x;
-	o_ip->vel->y += o_jp->vel->y;
-	o_ip->vel->z += o_jp->vel->z;
-	o_jp->estado = false; /* 0 estado - o_jp ya no existe */
+	o_ip->vel.x += o_jp->vel.x;
+	o_ip->vel.y += o_jp->vel.y;
+	o_ip->vel.z += o_jp->vel.z;
+	o_jp->estado = false;
+	/* no llama al destructor de o_jp, de eso se encarga la funcion
+	 * donde se defina o_jp o el contenedor que lo contenga.
+	 */
 	std::cout << "merge " << o_jp << " into " << o_ip << '\n';
 }
 
@@ -75,13 +52,13 @@ int init_obj_list(struct obj_list *o_listp, unsigned int size,
 	for (op = o_listp->list; op != o_listp->list + size; ++op) {
 		if (init_obj(op))
 			goto loop_error;
-		op->pos->x = uniform(gen);
-		op->pos->y = uniform(gen);
-		op->pos->z = uniform(gen);
+		op->pos.x = uniform(gen);
+		op->pos.y = uniform(gen);
+		op->pos.z = uniform(gen);
 		op->m = normal(gen);
-		std::cout << "creando op:\t" << op << "\n\tx: " << op->pos->x
-			<< "\n\ty: " << op->pos->y
-			<< "\n\tz: " << op->pos->z
+		std::cout << "creando op:\t" << op << "\n\tx: " << op->pos.x
+			<< "\n\ty: " << op->pos.y
+			<< "\n\tz: " << op->pos.z
 			<< "\n\tm: " << op->m << "\n";
 	}
 

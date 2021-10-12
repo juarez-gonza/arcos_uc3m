@@ -7,12 +7,12 @@ struct vec {
 };
 
 struct obj {
-	struct vec *pos;
-	struct vec *vel;
-	struct vec *fgv;
+	struct vec pos;
+	struct vec vel;
+	struct vec fgv;
 	double m;
 	/* true cuando el objeto exsite, false cuando no existe */
-	int estado;
+	bool estado;
 };
 
 #define obj_exists(o_ptr) (o_ptr)->estado
