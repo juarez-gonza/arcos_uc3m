@@ -101,6 +101,7 @@ void collision_check(struct obj_list *o_listp, struct obj *last_addr)
 void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
+	int i;
 	struct obj *o_ip;
 	struct obj *o_jp;
 	struct obj *last_addr;
@@ -110,37 +111,42 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 	 */
 	last_addr = o_listp->list + o_listp->size;
 
-	collision_check(o_listp, last_addr);
-	for (o_ip = o_listp->list; o_ip != last_addr; ++o_ip) {
-		/*
-		std::cout << "=======================\n"
-		<< "pasando " << o_ip << "\n";
-		*/
-		for (o_jp = o_ip + 1; o_jp != last_addr; ++o_jp) {
-			if (obj_exists(o_jp) == 0)
+	collision_check(o_listp, last_addr); /* chequeo pre-primera iteracion */
+	for (i = 0; i < num_iterations; ++i) {
+		for (o_ip = o_listp->list; o_ip != last_addr; ++o_ip) {
+			if (!obj_exists(o_ip))
 				continue;
 			/*
-			std::cout << "\tcon " << o_jp << "\n";
+			std::cout << "=======================\n"
+			<< "pasando " << o_ip << "\n";
 			*/
-			calc_fgv(o_ip, o_jp);
-		}
+			for (o_jp = o_ip + 1; o_jp != last_addr; ++o_jp) {
+				if (!obj_exists(o_jp))
+					continue;
+				/*
+				std::cout << "\tcon " << o_jp << "\n";
+				*/
+				calc_fgv(o_ip, o_jp);
+			}
 
-		calc_vel(o_ip, time_step);
-		calc_pos(o_ip, size_enclosure, time_step);
-		/*
-		std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos.x
-		<< "\n\tpos_y: " << o_ip->pos.y
-		<< "\n\tpos_z: " << o_ip->pos.z
-		<< "\n\tm: " << o_ip->m
-		<< "\n\tvel_x: " << o_ip->vel.x
-		<< "\n\tvel_y: " << o_ip->vel.y
-		<< "\n\tvel_z: " << o_ip->vel.z
-		<< "\n\tfgv_x: " << o_ip->fgv.x
-		<< "\n\tfgv_y: " << o_ip->fgv.y
-		<< "\n\tfgv_z: " << o_ip->fgv.z << "\n";
-		*/
+			calc_vel(o_ip, time_step);
+			calc_pos(o_ip, size_enclosure, time_step);
+			/*
+			std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos.x
+			<< "\n\texists?: " << o_ip->estado
+			<< "\n\tpos_y: " << o_ip->pos.y
+			<< "\n\tpos_z: " << o_ip->pos.z
+			<< "\n\tm: " << o_ip->m
+			<< "\n\tvel_x: " << o_ip->vel.x
+			<< "\n\tvel_y: " << o_ip->vel.y
+			<< "\n\tvel_z: " << o_ip->vel.z
+			<< "\n\tfgv_x: " << o_ip->fgv.x
+			<< "\n\tfgv_y: " << o_ip->fgv.y
+			<< "\n\tfgv_z: " << o_ip->fgv.z << "\n";
+			*/
+		}
+		collision_check(o_listp, last_addr); /* chequeo de final de c/iteracion */
 	}
-	collision_check(o_listp, last_addr);
 }
 
 int main()
@@ -155,7 +161,6 @@ int main()
 	 * TODO:
 	 * - Write input validation
 	 */
-
 	struct obj_list o_list;
 	if (init_obj_list(&o_list, num_objects,
 			random_seed, size_enclosure))

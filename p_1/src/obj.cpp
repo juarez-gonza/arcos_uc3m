@@ -19,9 +19,11 @@ int init_obj(struct obj *op)
 	return 0;
 }
 
+#ifndef NO_PTR_OBJ
 void destroy_obj(struct obj *op)
 {
 }
+#endif
 
 void merge_obj(struct obj *o_ip, struct obj *o_jp)
 {
@@ -33,7 +35,10 @@ void merge_obj(struct obj *o_ip, struct obj *o_jp)
 	/* no llama al destructor de o_jp, de eso se encarga la funcion
 	 * donde se defina o_jp o el contenedor que lo contenga.
 	 */
+
+	/*
 	std::cout << "merge " << o_jp << " into " << o_ip << '\n';
+	*/
 }
 
 int init_obj_list(struct obj_list *o_listp, unsigned int size,
@@ -50,19 +55,26 @@ int init_obj_list(struct obj_list *o_listp, unsigned int size,
 		goto list_error;
 
 	for (op = o_listp->list; op != o_listp->list + size; ++op) {
+#ifndef NO_PTR_OBJ
 		if (init_obj(op))
 			goto loop_error;
+#else
+		init_obj(op);
+#endif
 		op->pos.x = uniform(gen);
 		op->pos.y = uniform(gen);
 		op->pos.z = uniform(gen);
 		op->m = normal(gen);
+		/*
 		std::cout << "creando op:\t" << op << "\n\tx: " << op->pos.x
 			<< "\n\ty: " << op->pos.y
 			<< "\n\tz: " << op->pos.z
 			<< "\n\tm: " << op->m << "\n";
+		*/
 	}
 
 	return 0;
+#ifndef NO_PTR_OBJ
 loop_error:
 	/* on loop_error, destroy correctly allocated objects
 	 * in the above lines. careful with free after free.
@@ -74,6 +86,7 @@ loop_error:
 	}
 	free(o_listp->list);
 	o_listp->list = NULL;
+#endif
 list_error:
 	return 1;
 }
@@ -85,10 +98,15 @@ void destroy_obj_list(struct obj_list *o_listp)
 	if (o_listp == NULL || o_listp->list == NULL)
 		return;
 
+	/* solo aquí se pueden liberar recursos de objetos pertenecientes
+	 * al container, por lo que el container usado correctamente
+	 * no necesitaria llamar a obj_exists(op)
+	 */
+#ifndef NO_PTR_OBJ
 	for (op = o_listp->list; op != o_listp->list + o_listp->size; ++op)
 		if (op != NULL)
 			destroy_obj(op);
-
+#endif
 	free(o_listp->list);
 	o_listp->list = NULL;
 }

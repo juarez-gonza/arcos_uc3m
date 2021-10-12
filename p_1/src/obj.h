@@ -1,19 +1,23 @@
 #pragma once
 
+#define NO_PTR_OBJ
+
 struct vec {
 	double x;
 	double y;
 	double z;
-};
+}__attribute__((aligned(8)));
 
 struct obj {
 	struct vec pos;
 	struct vec vel;
 	struct vec fgv;
 	double m;
-	/* true cuando el objeto exsite, false cuando no existe */
 	bool estado;
-};
+	/* true cuando el objeto existe, false cuando no existe */
+	/* facilita el merge de objetos sin necesitar copiar el array
+	 * para quitar un objeto ni recurrir a una linked list */
+}__attribute__((aligned(8)));
 
 #define obj_exists(o_ptr) (o_ptr)->estado
 
