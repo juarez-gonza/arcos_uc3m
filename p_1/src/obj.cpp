@@ -22,6 +22,29 @@ int init_obj(struct obj *op)
 #ifndef NO_PTR_OBJ
 void destroy_obj(struct obj *op)
 {
+	op->estado = true;
+	/* 0-initialize */
+	op->pos = (struct vec *)calloc(sizeof(vec), 1);
+	if (op->pos == NULL)
+		goto error_pos;
+
+	op->vel = (struct vec *)calloc(sizeof(vec), 1);
+	if (op->vel == NULL)
+		goto error_vel;
+
+	op->fgv = (struct vec *)calloc(sizeof(vec), 1);
+	if (op->fgv == NULL)
+		goto error_fgv;
+
+	return 0;
+error_fgv:
+	free(op->vel);
+	op->vel = NULL;
+error_vel:
+	free(op->pos);
+	op->pos = NULL;
+error_pos:
+	return 1;
 }
 #endif
 
