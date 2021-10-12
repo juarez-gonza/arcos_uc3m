@@ -6,6 +6,7 @@
 
 int init_obj(struct obj *op)
 {
+	op->estado = true;
 	/* 0-initialize */
 	op->pos = (struct vec *)calloc(sizeof(vec), 1);
 	if (op->pos == NULL)
@@ -48,6 +49,16 @@ void destroy_obj(struct obj *op)
 	}
 }
 
+void merge_obj(struct obj *o_ip, struct obj *o_jp)
+{
+	o_ip->m += o_jp->m;
+	o_ip->vel->x += o_jp->vel->x;
+	o_ip->vel->y += o_jp->vel->y;
+	o_ip->vel->z += o_jp->vel->z;
+	o_jp->estado = false; /* 0 estado - o_jp ya no existe */
+	std::cout << "merge " << o_jp << " into " << o_ip << '\n';
+}
+
 int init_obj_list(struct obj_list *o_listp, unsigned int size,
 		unsigned int random_seed, double upperbound)
 {
@@ -68,12 +79,10 @@ int init_obj_list(struct obj_list *o_listp, unsigned int size,
 		op->pos->y = uniform(gen);
 		op->pos->z = uniform(gen);
 		op->m = normal(gen);
-		/*
-		std::cout << "op:\t" << op << "\n\tx: " << op->pos->x
+		std::cout << "creando op:\t" << op << "\n\tx: " << op->pos->x
 			<< "\n\ty: " << op->pos->y
 			<< "\n\tz: " << op->pos->z
 			<< "\n\tm: " << op->m << "\n";
-		*/
 	}
 
 	return 0;

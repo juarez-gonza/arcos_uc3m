@@ -11,10 +11,15 @@ struct obj {
 	struct vec *vel;
 	struct vec *fgv;
 	double m;
+	/* true cuando el objeto exsite, false cuando no existe */
+	int estado;
 };
+
+#define obj_exists(o_ptr) (o_ptr)->estado
 
 int init_obj(struct obj *o);
 void destroy_obj(struct obj *o);
+void merge_obj(struct obj *o_ip, struct obj *o_jp);
 
 struct obj_list {
 	struct obj *list;
