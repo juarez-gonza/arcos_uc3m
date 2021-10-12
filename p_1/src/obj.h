@@ -13,16 +13,18 @@ struct obj {
 	struct vec vel;
 	struct vec fgv;
 	double m;
-	bool estado;
+	bool exists;
 	/* true cuando el objeto existe, false cuando no existe */
 	/* facilita el merge de objetos sin necesitar copiar el array
 	 * para quitar un objeto ni recurrir a una linked list */
 }__attribute__((aligned(8)));
 
-#define obj_exists(o_ptr) (o_ptr)->estado
+#define obj_exists(o_ptr) (o_ptr)->exists
 
 int init_obj(struct obj *o);
+#ifndef NO_PTR_OBJ
 void destroy_obj(struct obj *o);
+#endif
 void merge_obj(struct obj *o_ip, struct obj *o_jp);
 
 struct obj_list {

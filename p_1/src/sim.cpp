@@ -27,7 +27,7 @@ inline void calc_fgv(struct obj *o_ip, struct obj *o_jp)
 	 * == 1/((pj-pi)^(3/2)) == (pj-pi)**(-3/2)
 	 */
 	double denom;
-	/* fgv_no_recalc = G * mi * mj * denom */
+	/* fgv_no_recalc = G * mi * mj / denom */
 	double fgv_no_recalc;
 	double fx;
 	double fy;
@@ -129,11 +129,11 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 				calc_fgv(o_ip, o_jp);
 			}
 
+			/*
 			calc_vel(o_ip, time_step);
 			calc_pos(o_ip, size_enclosure, time_step);
-			/*
 			std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos.x
-			<< "\n\texists?: " << o_ip->estado
+			<< "\n\texists?: " << o_ip->exists
 			<< "\n\tpos_y: " << o_ip->pos.y
 			<< "\n\tpos_z: " << o_ip->pos.z
 			<< "\n\tm: " << o_ip->m
@@ -151,15 +151,15 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 
 int main()
 {
-	unsigned int num_objects = 2;
+	unsigned int num_objects = 1000;
 	unsigned int num_iterations = 1;
 	unsigned int random_seed = 666;
-	double size_enclosure = 0.1;
-	double time_step = 1;
+	double size_enclosure = 1000000.0;
+	double time_step = 0.1;
 
 	/*
 	 * TODO:
-	 * - Write input validation
+	 * - Escribir validacion de input
 	 */
 	struct obj_list o_list;
 	if (init_obj_list(&o_list, num_objects,
@@ -167,9 +167,14 @@ int main()
 		goto error;
 	/*
 	 * TODO:
-	 * - Write init_conf.txt file
+	 * - Escribir a init_fini.txt
 	 */
 	simulate(&o_list, num_iterations, size_enclosure, time_step);
+
+	/*
+	 * TODO:
+	 * - Escribir a final_conf.txt
+	 */
 
 	destroy_obj_list(&o_list);
 	return 0;

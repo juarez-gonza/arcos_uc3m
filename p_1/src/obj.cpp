@@ -6,7 +6,7 @@
 
 int init_obj(struct obj *op)
 {
-	op->estado = true;
+	op->exists = true;
 	/* 0-initialize */
 	op->vel.x = 0;
 	op->vel.y = 0;
@@ -22,29 +22,21 @@ int init_obj(struct obj *op)
 #ifndef NO_PTR_OBJ
 void destroy_obj(struct obj *op)
 {
-	op->estado = true;
-	/* 0-initialize */
-	op->pos = (struct vec *)calloc(sizeof(vec), 1);
-	if (op->pos == NULL)
-		goto error_pos;
+	if (op->pos == NULL) {
+		free(op->pos);
+		op->pos = NULL;
+	}
 
-	op->vel = (struct vec *)calloc(sizeof(vec), 1);
-	if (op->vel == NULL)
-		goto error_vel;
+	if (op->vel == NULL) {
+		free(op->vel);
+		op->vel = NULL;
+	}
 
-	op->fgv = (struct vec *)calloc(sizeof(vec), 1);
-	if (op->fgv == NULL)
-		goto error_fgv;
+	if (op->fgv == NULL) {
+		free(op->fgv);
+		op->fgv = NULL;
+	}
 
-	return 0;
-error_fgv:
-	free(op->vel);
-	op->vel = NULL;
-error_vel:
-	free(op->pos);
-	op->pos = NULL;
-error_pos:
-	return 1;
 }
 #endif
 
@@ -54,7 +46,7 @@ void merge_obj(struct obj *o_ip, struct obj *o_jp)
 	o_ip->vel.x += o_jp->vel.x;
 	o_ip->vel.y += o_jp->vel.y;
 	o_ip->vel.z += o_jp->vel.z;
-	o_jp->estado = false;
+	o_jp->exists = false;
 	/* no llama al destructor de o_jp, de eso se encarga la funcion
 	 * donde se defina o_jp o el contenedor que lo contenga.
 	 */
@@ -99,10 +91,10 @@ int init_obj_list(struct obj_list *o_listp, unsigned int size,
 	return 0;
 #ifndef NO_PTR_OBJ
 loop_error:
-	/* on loop_error, destroy correctly allocated objects
-	 * in the above lines. careful with free after free.
-	 * if o_listp->list has the loop_error, if statements testing for NULL
-	 * in object field will avoid freeing uninitialized data.
+	/* en loop_error, liberar recursos de obj.
+	 * cuidado con free after free.
+	 * destroy_obj() prueba NULL en los recursos
+	 * de todas maneras.
 	 */
 	for (; op >= o_listp->list; --op) {
 		destroy_obj(op);
@@ -126,6 +118,7 @@ void destroy_obj_list(struct obj_list *o_listp)
 	 * no necesitaria llamar a obj_exists(op)
 	 */
 #ifndef NO_PTR_OBJ
+	/* solo si en init_obj se llama a malloc hace falta llamara destroy_obj */
 	for (op = o_listp->list; op != o_listp->list + o_listp->size; ++op)
 		if (op != NULL)
 			destroy_obj(op);
