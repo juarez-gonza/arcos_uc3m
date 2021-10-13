@@ -89,6 +89,8 @@ void collision_check(struct obj_list *o_listp, struct obj *last_addr)
 
 	last_addr = o_listp->list + o_listp->size;
 	for (o_ip = o_listp->list; o_ip != last_addr; ++o_ip) {
+		if (!obj_exists(o_ip))
+			continue;
 		for (o_jp = o_ip + 1; o_jp != last_addr; ++o_jp) {
 			if (!obj_exists(o_jp))
 				continue;
@@ -129,9 +131,9 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 				calc_fgv(o_ip, o_jp);
 			}
 
-			/*
 			calc_vel(o_ip, time_step);
 			calc_pos(o_ip, size_enclosure, time_step);
+			/*
 			std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos.x
 			<< "\n\texists?: " << o_ip->exists
 			<< "\n\tpos_y: " << o_ip->pos.y
@@ -152,7 +154,7 @@ void simulate(struct obj_list *o_listp, unsigned int num_iterations,
 int main()
 {
 	unsigned int num_objects = 1000;
-	unsigned int num_iterations = 1;
+	unsigned int num_iterations = 20;
 	unsigned int random_seed = 666;
 	double size_enclosure = 1000000.0;
 	double time_step = 0.1;
