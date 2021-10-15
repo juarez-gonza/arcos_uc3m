@@ -12,142 +12,141 @@
 
 #include "obj.h"
 
+#include <vector>
+
 #include <iostream>
 
-inline double calc_norm(struct obj *o_ip, struct obj *o_jp)
+inline double calc_norm(struct obj &o_i, struct obj &o_j)
 {
-	return sqrt(pow(o_ip->pos.x - o_jp->pos.x, 2)
-		+ pow(o_ip->pos.y - o_jp->pos.y, 2)
-		+ pow(o_ip->pos.z - o_jp->pos.z, 2));
+	double d_x;
+	double d_y;
+	double d_z;
+
+	d_x = o_i.x - o_j.x;
+	d_y = o_i.y - o_j.y;
+	d_z = o_i.z - o_j.z;
+
+	return sqrt(d_x * d_x + d_y * d_y + d_z * d_z);
 }
 
-inline void calc_fgv(struct obj *o_ip, struct obj *o_jp)
+inline void calc_fgv(struct obj &o_i, struct obj &o_j)
 {
-	/* 1/(||pj - pi||^3) == 1/(sqrt(pj-pi)^3)
-	 * == 1/((pj-pi)^(3/2)) == (pj-pi)**(-3/2)
-	 */
-	double denom;
 	/* fgv_no_recalc = G * mi * mj / denom */
+	double denom;
 	double fgv_no_recalc;
+
 	double fx;
 	double fy;
 	double fz;
 
-	denom = pow(calc_norm(o_ip, o_jp), 3);
-	fgv_no_recalc = 6.674e-11 * o_ip->m * o_jp->m / denom;
+	denom = calc_norm(o_i, o_j);
+	denom = denom * denom * denom;
+	fgv_no_recalc = 6.674e-11 * o_i.m * o_j.m / denom;
 
-	fx = fgv_no_recalc * (o_ip->pos.x - o_jp->pos.x);
-	o_ip->fgv.x += fx;
-	o_jp->fgv.x -= fx;
+	fx = fgv_no_recalc * (o_i.x - o_j.x);
+	o_i.fx += fx;
+	o_j.fx -= fx;
 
-	fy = fgv_no_recalc * (o_ip->pos.y - o_jp->pos.y);
-	o_ip->fgv.y += fy;
-	o_jp->fgv.y -= fy;
+	fy = fgv_no_recalc * (o_i.y - o_j.y);
+	o_i.fy += fy;
+	o_j.fy -= fy;
 
-	fz = fgv_no_recalc * (o_ip->pos.z - o_jp->pos.z);
-	o_ip->fgv.z += fz;
-	o_jp->fgv.z -= fz;
+	fz = fgv_no_recalc * (o_i.z - o_j.z);
+	o_i.fz += fz;
+	o_j.fz -= fz;
 }
 
-inline void calc_vel(struct obj *op, double time_step)
+inline void calc_vel(struct obj &o, double time_step)
 {
 	double accel_no_recalc;
 
-	accel_no_recalc = time_step/op->m;
+	accel_no_recalc = time_step/o.m;
 	/* v = vi + a * time_step = vi + F/m * time_step */
-	op->vel.x += accel_no_recalc * op->fgv.x;
-	op->vel.y += accel_no_recalc * op->fgv.y;
-	op->vel.z += accel_no_recalc * op->fgv.z;
+	o.x += accel_no_recalc * o.fx;
+	o.y += accel_no_recalc * o.fy;
+	o.z += accel_no_recalc * o.fz;
 }
 
-void calc_pos(struct obj *op, double size_enclosure, double time_step)
+void calc_pos(struct obj &o, double size_enclosure, double time_step)
 {
 	/* p = pi + v * time_step */
-	op->pos.x += op->vel.x * time_step;
-	if (op->pos.x >= size_enclosure)
-		op->pos.x = size_enclosure;
-	if (op->pos.x <= 0)
-		op->pos.x = 0;
+	o.x += o.vx * time_step;
+	if (o.x >= size_enclosure)
+		o.x = size_enclosure;
+	if (o.x <= 0)
+		o.x = 0;
 
-	op->pos.y += op->vel.y * time_step;
-	if (op->pos.y >= size_enclosure)
-		op->pos.y = size_enclosure;
-	if (op->pos.y <= 0)
-		op->pos.y = 0;
+	o.y += o.vy * time_step;
+	if (o.y >= size_enclosure)
+		o.y = size_enclosure;
+	if (o.y <= 0)
+		o.y = 0;
 
-	op->pos.z += op->vel.z * time_step;
-	if (op->pos.z >= size_enclosure)
-		op->pos.z = size_enclosure;
-	if (op->pos.z <= 0)
-		op->pos.z = 0;
+	o.z += o.vz * time_step;
+	if (o.z >= size_enclosure)
+		o.z = size_enclosure;
+	if (o.z <= 0)
+		o.z = 0;
 }
 
-void collision_check(struct obj_list *o_listp, struct obj *last_addr)
+void collision_check(std::vector<struct obj> &o_list)
 {
-	struct obj *o_jp;
-	struct obj *o_ip;
-
-	last_addr = o_listp->list + o_listp->size;
-	for (o_ip = o_listp->list; o_ip != last_addr; ++o_ip) {
-		if (!obj_exists(o_ip))
+	for (int i = 0; i < o_list.size(); ++i) {
+		if (!obj_exists(o_list[i]))
 			continue;
-		for (o_jp = o_ip + 1; o_jp != last_addr; ++o_jp) {
-			if (!obj_exists(o_jp))
+		for (int j = i + 1; j < o_list.size(); ++j) {
+			if (!obj_exists(o_list[j]))
 				continue;
-			if (calc_norm(o_jp, o_ip) < 1.0)
-				merge_obj(o_ip, o_jp);
+			if (calc_norm(o_list[i], o_list[j]) < 1.0)
+				merge_obj(o_list[i], o_list[j]);
 		}
 	}
 }
 
-void simulate(struct obj_list *o_listp, unsigned int num_iterations,
+void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
-	int i;
-	struct obj *o_ip;
-	struct obj *o_jp;
-	struct obj *last_addr;
 	/*
 	 * TODO:
 	 * - Implement num_iterations
 	 */
-	last_addr = o_listp->list + o_listp->size;
 
-	collision_check(o_listp, last_addr); /* chequeo pre-primera iteracion */
-	for (i = 0; i < num_iterations; ++i) {
-		for (o_ip = o_listp->list; o_ip != last_addr; ++o_ip) {
-			if (!obj_exists(o_ip))
+	collision_check(o_list); /* chequeo pre-primera iteracion */
+	for (int k = 0; k < num_iterations; ++k) {
+		for (int i = 0; i < o_list.size(); ++i) {
+			if (!obj_exists(o_list[i]))
 				continue;
 			/*
 			std::cout << "=======================\n"
-			<< "pasando " << o_ip << "\n";
+			<< "pasando " << o_list[i] << "\n";
 			*/
-			for (o_jp = o_ip + 1; o_jp != last_addr; ++o_jp) {
-				if (!obj_exists(o_jp))
+			for (int j = i + 1; j < o_list.size(); ++j) {
+				if (!obj_exists(o_list[j]))
 					continue;
 				/*
-				std::cout << "\tcon " << o_jp << "\n";
+				std::cout << "\tcon " << o_list[j] << "\n";
 				*/
-				calc_fgv(o_ip, o_jp);
+				calc_fgv(o_list[i], o_list[j]);
 			}
 
-			calc_vel(o_ip, time_step);
-			calc_pos(o_ip, size_enclosure, time_step);
+			calc_vel(o_list[i], time_step);
+			calc_pos(o_list[i], size_enclosure, time_step);
+
 			/*
-			std::cout << "o:\t" << o_ip << "\n\tpos_x: " << o_ip->pos.x
-			<< "\n\texists?: " << o_ip->exists
-			<< "\n\tpos_y: " << o_ip->pos.y
-			<< "\n\tpos_z: " << o_ip->pos.z
-			<< "\n\tm: " << o_ip->m
-			<< "\n\tvel_x: " << o_ip->vel.x
-			<< "\n\tvel_y: " << o_ip->vel.y
-			<< "\n\tvel_z: " << o_ip->vel.z
-			<< "\n\tfgv_x: " << o_ip->fgv.x
-			<< "\n\tfgv_y: " << o_ip->fgv.y
-			<< "\n\tfgv_z: " << o_ip->fgv.z << "\n";
+			std::cout << "o:\t" << o_list[i] << "\n\tpos_x: " << o_i.x
+			<< "\n\texists?: " << o_list[i].exists
+			<< "\n\tpos_y: " << o_i.y
+			<< "\n\tpos_z: " << o_i.z
+			<< "\n\tm: " << o_i.m
+			<< "\n\tvel_x: " << o_list[i].vel.x
+			<< "\n\tvel_y: " << o_list[i].vel.y
+			<< "\n\tvel_z: " << o_list[i].vel.z
+			<< "\n\tfgv_x: " << o_i.fx
+			<< "\n\tfgv_y: " << o_i.fy
+			<< "\n\tfgv_z: " << o_i.fz << "\n";
 			*/
 		}
-		collision_check(o_listp, last_addr); /* chequeo de final de c/iteracion */
+		collision_check(o_list); /* chequeo de final de c/iteracion */
 	}
 }
 
@@ -163,22 +162,19 @@ int main()
 	 * TODO:
 	 * - Escribir validacion de input
 	 */
-	struct obj_list o_list;
-	if (init_obj_list(&o_list, num_objects,
-			random_seed, size_enclosure))
-		goto error;
+	std::vector<struct obj> o_list(num_objects);
+	init_obj_list(o_list, random_seed, size_enclosure);
 	/*
 	 * TODO:
 	 * - Escribir a init_fini.txt
 	 */
-	simulate(&o_list, num_iterations, size_enclosure, time_step);
+	simulate(o_list, num_iterations, size_enclosure, time_step);
 
 	/*
 	 * TODO:
 	 * - Escribir a final_conf.txt
 	 */
 
-	destroy_obj_list(&o_list);
 	return 0;
 error:
 	return 1;

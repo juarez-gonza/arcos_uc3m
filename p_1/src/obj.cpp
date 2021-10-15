@@ -4,125 +4,49 @@
 
 #include <iostream>
 
-int init_obj(struct obj *op)
+void merge_obj(struct obj &o_i, struct obj &o_j)
 {
-	op->exists = true;
-	/* 0-initialize */
-	op->vel.x = 0;
-	op->vel.y = 0;
-	op->vel.z = 0;
-
-	op->fgv.x = 0;
-	op->fgv.y = 0;
-	op->fgv.z = 0;
-
-	return 0;
-}
-
-#ifndef NO_PTR_OBJ
-void destroy_obj(struct obj *op)
-{
-	if (op->pos == NULL) {
-		free(op->pos);
-		op->pos = NULL;
-	}
-
-	if (op->vel == NULL) {
-		free(op->vel);
-		op->vel = NULL;
-	}
-
-	if (op->fgv == NULL) {
-		free(op->fgv);
-		op->fgv = NULL;
-	}
-
-}
-#endif
-
-void merge_obj(struct obj *o_ip, struct obj *o_jp)
-{
-	o_ip->m += o_jp->m;
-	o_ip->vel.x += o_jp->vel.x;
-	o_ip->vel.y += o_jp->vel.y;
-	o_ip->vel.z += o_jp->vel.z;
-	o_jp->exists = false;
-	/* no llama al destructor de o_jp, de eso se encarga la funcion
-	 * donde se defina o_jp o el contenedor que lo contenga.
-	 */
+	o_j.exists = 0;
+	o_i.m += o_j.m;
+	o_i.vx += o_j.vx;
+	o_i.vy += o_j.vy;
+	o_i.vz += o_j.vz;
 
 	/*
 	std::cout << "merge " << o_jp << " into " << o_ip << '\n';
 	*/
 }
 
-int init_obj_list(struct obj_list *o_listp, unsigned int size,
-		unsigned int random_seed, double upperbound)
+int init_obj_list(std::vector<struct obj> &o_list,
+	unsigned int random_seed, double upperbound)
 {
-	struct obj *op;
 	std::mt19937_64 gen(random_seed);
 	std::uniform_real_distribution<> uniform(0, upperbound);
 	std::normal_distribution<> normal(10e+21, 10e+15);
 
-	o_listp->size = size;
-	o_listp->list = (struct obj *)malloc(sizeof(struct obj) * size);
-	if (o_listp->list == NULL)
-		goto list_error;
+	for (int i = 0; i < o_list.size(); ++i) {
+		o_list[i].exists = 1;
 
-	for (op = o_listp->list; op != o_listp->list + size; ++op) {
-#ifndef NO_PTR_OBJ
-		if (init_obj(op))
-			goto loop_error;
-#else
-		init_obj(op);
-#endif
-		op->pos.x = uniform(gen);
-		op->pos.y = uniform(gen);
-		op->pos.z = uniform(gen);
-		op->m = normal(gen);
+		o_list[i].x = uniform(gen);
+		o_list[i].y = uniform(gen);
+		o_list[i].z = uniform(gen);
+		o_list[i].m = normal(gen);
+
+		/* 0-initialize */
+		o_list[i].fx = 0;
+		o_list[i].fy = 0;
+		o_list[i].fz = 0;
+
+		o_list[i].vx = 0;
+		o_list[i].vy = 0;
+		o_list[i].vz = 0;
 		/*
-		std::cout << "creando op:\t" << op << "\n\tx: " << op->pos.x
-			<< "\n\ty: " << op->pos.y
-			<< "\n\tz: " << op->pos.z
-			<< "\n\tm: " << op->m << "\n";
+		std::cout << "creando op:\t" << o_list[i] << "\n\tx: " << o_list[i].x
+			<< "\n\ty: " << o_list[i].y
+			<< "\n\tz: " << o_list[i].z
+			<< "\n\tm: " << o_list[i].m << "\n";
 		*/
 	}
 
 	return 0;
-#ifndef NO_PTR_OBJ
-loop_error:
-	/* en loop_error, liberar recursos de obj.
-	 * cuidado con free after free.
-	 * destroy_obj() prueba NULL en los recursos
-	 * de todas maneras.
-	 */
-	for (; op >= o_listp->list; --op) {
-		destroy_obj(op);
-	}
-	free(o_listp->list);
-	o_listp->list = NULL;
-#endif
-list_error:
-	return 1;
-}
-
-void destroy_obj_list(struct obj_list *o_listp)
-{
-	struct obj *op;
-
-	if (o_listp == NULL || o_listp->list == NULL)
-		return;
-
-	/* solo aquí se pueden liberar recursos de objetos pertenecientes
-	 * al container, por lo que el container usado correctamente
-	 * no necesitaria llamar a obj_exists(op)
-	 */
-#ifndef NO_PTR_OBJ
-	/* solo si en init_obj se llama a malloc hace falta llamara destroy_obj */
-	for (op = o_listp->list; op != o_listp->list + o_listp->size; ++op)
-		if (op != NULL)
-			destroy_obj(op);
-#endif
-	free(o_listp->list);
-	o_listp->list = NULL;
 }

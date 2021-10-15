@@ -1,37 +1,22 @@
 #pragma once
 
-#define NO_PTR_OBJ
-
-struct vec {
-	double x;
-	double y;
-	double z;
-}__attribute__((aligned(8)));
+#include <vector>
 
 struct obj {
-	struct vec pos;
-	struct vec vel;
-	struct vec fgv;
+	double x, y, z;
 	double m;
-	bool exists;
-	/* true cuando el objeto existe, false cuando no existe */
+	double fx, fy, fz;
+	/* 1 cuando el objeto existe, 0 cuando no existe */
 	/* facilita el merge de objetos sin necesitar copiar el array
 	 * para quitar un objeto ni recurrir a una linked list */
+	unsigned long exists;
+	/* fin de linea de caché */
+	double vx, vy, vz;
 }__attribute__((aligned(8)));
 
-#define obj_exists(o_ptr) (o_ptr)->exists
+#define obj_exists(_o) (_o).exists
 
-int init_obj(struct obj *o);
-#ifndef NO_PTR_OBJ
-void destroy_obj(struct obj *o);
-#endif
-void merge_obj(struct obj *o_ip, struct obj *o_jp);
+void merge_obj(struct obj &o_i, struct obj &o_j);
 
-struct obj_list {
-	struct obj *list;
-	unsigned int size;
-};
-
-int init_obj_list(struct obj_list *o_list, unsigned int size,
-		unsigned int random_seed, double upperbound);
-void destroy_obj_list(struct obj_list *o_list);
+int init_obj_list(std::vector<struct obj> &o_list,
+	unsigned int random_seed, double upperbound);
