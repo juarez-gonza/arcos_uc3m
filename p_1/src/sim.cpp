@@ -16,7 +16,7 @@
 
 #include <iostream>
 
-inline double calc_norm(struct obj &o_i, struct obj &o_j)
+static inline double calc_norm(struct obj &o_i, struct obj &o_j)
 {
 	double d_x;
 	double d_y;
@@ -29,7 +29,7 @@ inline double calc_norm(struct obj &o_i, struct obj &o_j)
 	return sqrt(d_x * d_x + d_y * d_y + d_z * d_z);
 }
 
-inline void calc_fgv(struct obj &o_i, struct obj &o_j)
+static inline void calc_fgv(struct obj &o_i, struct obj &o_j)
 {
 	/* fgv_no_recalc = G * mi * mj / denom */
 	double denom;
@@ -56,7 +56,7 @@ inline void calc_fgv(struct obj &o_i, struct obj &o_j)
 	o_j.fz -= fz;
 }
 
-inline void calc_vel(struct obj &o, double time_step)
+static inline void calc_vel(struct obj &o, double time_step)
 {
 	double accel_no_recalc;
 
@@ -67,7 +67,7 @@ inline void calc_vel(struct obj &o, double time_step)
 	o.z += accel_no_recalc * o.fz;
 }
 
-void calc_pos(struct obj &o, double size_enclosure, double time_step)
+static inline void calc_pos(struct obj &o, double size_enclosure, double time_step)
 {
 	/* p = pi + v * time_step */
 	o.x += o.vx * time_step;
@@ -133,17 +133,19 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 			calc_pos(o_list[i], size_enclosure, time_step);
 
 			/*
-			std::cout << "o:\t" << o_list[i] << "\n\tpos_x: " << o_i.x
-			<< "\n\texists?: " << o_list[i].exists
-			<< "\n\tpos_y: " << o_i.y
-			<< "\n\tpos_z: " << o_i.z
-			<< "\n\tm: " << o_i.m
-			<< "\n\tvel_x: " << o_list[i].vel.x
-			<< "\n\tvel_y: " << o_list[i].vel.y
-			<< "\n\tvel_z: " << o_list[i].vel.z
-			<< "\n\tfgv_x: " << o_i.fx
-			<< "\n\tfgv_y: " << o_i.fy
-			<< "\n\tfgv_z: " << o_i.fz << "\n";
+			if (k == o_list.size() - 1) {
+				std::cout << "o:\t" << &o_list[i] << "\n\tpos_x: " << o_list[i].x
+				<< "\n\texists?: " << o_list[i].exists
+				<< "\n\tpos_y: " << o_list[i].y
+				<< "\n\tpos_z: " << o_list[i].z
+				<< "\n\tm: " << o_list[i].m
+				<< "\n\tfgv_x: " << o_list[i].fx
+				<< "\n\tfgv_y: " << o_list[i].fy
+				<< "\n\tfgv_z: " << o_list[i].fz
+				<< "\n\tvel_x: " << o_list[i].vx
+				<< "\n\tvel_y: " << o_list[i].vy
+				<< "\n\tvel_z: " << o_list[i].vz << "\n";
+			}
 			*/
 		}
 		collision_check(o_list); /* chequeo de final de c/iteracion */
