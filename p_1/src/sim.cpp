@@ -10,7 +10,7 @@
 
 #include <cmath>
 
-#include "obj.h"
+#include "obj.hpp"
 
 #include <vector>
 
@@ -43,53 +43,61 @@ static inline void calc_fgv(struct obj &o_i, struct obj &o_j)
 	denom = denom * denom * denom;
 	fgv_no_recalc = 6.674e-11 * o_i.m * o_j.m / denom;
 
-	fx = fgv_no_recalc * (o_i.x - o_j.x);
-	o_i.fx += fx;
-	o_j.fx -= fx;
+	fx = fgv_no_recalc * (o_j.x - o_i.x);
+	o_i.fx = o_i.fx + fx;
+	o_j.fx = o_j.fx - fx;
 
-	fy = fgv_no_recalc * (o_i.y - o_j.y);
-	o_i.fy += fy;
-	o_j.fy -= fy;
+	fy = fgv_no_recalc * (o_j.y - o_i.y);
+	o_i.fy = o_i.fy + fy;
+	o_j.fy = o_j.fy - fy;
 
-	fz = fgv_no_recalc * (o_i.z - o_j.z);
-	o_i.fz += fz;
-	o_j.fz -= fz;
+	fz = fgv_no_recalc * (o_j.z - o_i.z);
+	o_i.fz = o_i.fz + fz;
+	o_j.fz = o_j.fz - fz;
 }
 
 static inline void calc_vel(struct obj &o, double time_step)
 {
 	double accel_no_recalc;
-
 	accel_no_recalc = time_step/o.m;
 	/* v = vi + a * time_step = vi + F/m * time_step */
-	o.x += accel_no_recalc * o.fx;
-	o.y += accel_no_recalc * o.fy;
-	o.z += accel_no_recalc * o.fz;
+	o.vx = o.vx + accel_no_recalc * o.fx;
+	o.vy = o.vy + accel_no_recalc * o.fy;
+	o.vz = o.vz + accel_no_recalc * o.fz;
 }
 
 static inline void calc_pos(struct obj &o, double size_enclosure, double time_step)
 {
 	/* p = pi + v * time_step */
-	o.x += o.vx * time_step;
-	if (o.x >= size_enclosure)
+	o.x = o.x + o.vx * time_step;
+	if (o.x >= size_enclosure) {
 		o.x = size_enclosure;
-	if (o.x <= 0)
+		o.vx = -o.vx;
+	} else if (o.x <= 0) {
 		o.x = 0;
+		o.vx = -o.vx;
+	}
 
-	o.y += o.vy * time_step;
-	if (o.y >= size_enclosure)
+	o.y = o.y + o.vy * time_step;
+	if (o.y >= size_enclosure) {
 		o.y = size_enclosure;
-	if (o.y <= 0)
+		o.vy = -o.vy;
+	} else if (o.y <= 0) {
 		o.y = 0;
+		o.vy = -o.vy;
+	}
 
-	o.z += o.vz * time_step;
-	if (o.z >= size_enclosure)
+	o.z = o.z + o.vz * time_step;
+	if (o.z >= size_enclosure) {
 		o.z = size_enclosure;
-	if (o.z <= 0)
+		o.vz = -o.vz;
+	} else if (o.z <= 0) {
 		o.z = 0;
+		o.vz = -o.vz;
+	}
 }
 
-void collision_check(std::vector<struct obj> &o_list)
+static void collision_check(std::vector<struct obj> &o_list)
 {
 	for (int i = 0; i < o_list.size(); ++i) {
 		if (!obj_exists(o_list[i]))
@@ -106,20 +114,13 @@ void collision_check(std::vector<struct obj> &o_list)
 void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
-	/*
-	 * TODO:
-	 * - Implement num_iterations
-	 */
 
 	collision_check(o_list); /* chequeo pre-primera iteracion */
 	for (int k = 0; k < num_iterations; ++k) {
 		for (int i = 0; i < o_list.size(); ++i) {
 			if (!obj_exists(o_list[i]))
 				continue;
-			/*
-			std::cout << "=======================\n"
-			<< "pasando " << o_list[i] << "\n";
-			*/
+
 			for (int j = i + 1; j < o_list.size(); ++j) {
 				if (!obj_exists(o_list[j]))
 					continue;
@@ -129,24 +130,16 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 				calc_fgv(o_list[i], o_list[j]);
 			}
 
+			/* necesita fuerza */
 			calc_vel(o_list[i], time_step);
+
+			/* ya no se necesita fuerza */
+			o_list[i].fx = 0;
+			o_list[i].fy = 0;
+			o_list[i].fz = 0;
+
 			calc_pos(o_list[i], size_enclosure, time_step);
 
-			/*
-			if (k == o_list.size() - 1) {
-				std::cout << "o:\t" << &o_list[i] << "\n\tpos_x: " << o_list[i].x
-				<< "\n\texists?: " << o_list[i].exists
-				<< "\n\tpos_y: " << o_list[i].y
-				<< "\n\tpos_z: " << o_list[i].z
-				<< "\n\tm: " << o_list[i].m
-				<< "\n\tfgv_x: " << o_list[i].fx
-				<< "\n\tfgv_y: " << o_list[i].fy
-				<< "\n\tfgv_z: " << o_list[i].fz
-				<< "\n\tvel_x: " << o_list[i].vx
-				<< "\n\tvel_y: " << o_list[i].vy
-				<< "\n\tvel_z: " << o_list[i].vz << "\n";
-			}
-			*/
 		}
 		collision_check(o_list); /* chequeo de final de c/iteracion */
 	}
@@ -155,7 +148,7 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 int main()
 {
 	unsigned int num_objects = 1000;
-	unsigned int num_iterations = 20;
+	unsigned int num_iterations = 50;
 	unsigned int random_seed = 666;
 	double size_enclosure = 1000000.0;
 	double time_step = 0.1;
@@ -178,6 +171,4 @@ int main()
 	 */
 
 	return 0;
-error:
-	return 1;
 }
