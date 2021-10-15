@@ -16,6 +16,9 @@
 
 #include <iostream>
 
+#define likely(exp) __builtin_expect((exp), 1)
+#define unlikely(exp) __builtin_expect((exp), 0)
+
 static inline double calc_norm(struct obj &o_i, struct obj &o_j)
 {
 	double d_x;
@@ -122,9 +125,8 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 				continue;
 
 			for (int j = i + 1; j < o_list.size(); ++j) {
-				if (!obj_exists(o_list[j]))
-					continue;
-				calc_fgv(o_list[i], o_list[j]);
+				if (obj_exists(o_list[j]))
+					calc_fgv(o_list[i], o_list[j]);
 			}
 
 			/* necesita fuerza para calcular aceleracion */
@@ -140,14 +142,26 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 		}
 		collision_check(o_list); /* chequeo de final de c/iteracion */
 	}
+	/*
+	for (int i = 0; i < o_list.size(); i++)
+		if (obj_exists(o_list[i]))
+			std::cout << "o:\t" << &o_list[i]
+			<< "\n\tpos_x: " << std::fixed << o_list[i].x
+			<< "\n\tpos_y: " << std::fixed << o_list[i].y
+			<< "\n\tpos_z: " << std::fixed << o_list[i].z
+			<< "\n\tvel_x: " << std::fixed << o_list[i].vx
+			<< "\n\tvel_y: " << std::fixed << o_list[i].vy
+			<< "\n\tvel_z: " << std::fixed << o_list[i].vz
+			<< "\n\tm: " << o_list[i].m << "\n";
+	*/
 }
 
 int main()
 {
-	unsigned int num_objects = 1000;
+	unsigned int num_objects = 2;
 	unsigned int num_iterations = 50;
 	unsigned int random_seed = 666;
-	double size_enclosure = 1000000.0;
+	double size_enclosure = 0.1;
 	double time_step = 0.1;
 
 	/*
