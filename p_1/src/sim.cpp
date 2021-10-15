@@ -127,13 +127,14 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 				calc_fgv(o_list[i], o_list[j]);
 			}
 
+			/* necesita fuerza para calcular aceleracion */
+			calc_vel(o_list[i], time_step);
+
 			/* ya no se necesita fuerza, limpiar para prox iteracion */
 			o_list[i].fx = 0;
 			o_list[i].fy = 0;
 			o_list[i].fz = 0;
 
-			/* necesita fuerza para calcular aceleracion */
-			calc_vel(o_list[i], time_step);
 			calc_pos(o_list[i], size_enclosure, time_step);
 
 		}
