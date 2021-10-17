@@ -10,7 +10,7 @@ struct obj {
 	double vx, vy, vz;
 }__attribute__((aligned(8)));
 
-int init_obj_list(std::vector<struct obj> &o_list,
+void init_obj_list(std::vector<struct obj> &o_list,
 	unsigned int random_seed, double upperbound);
 
 void merge_obj(std::vector<struct obj> &o_list,

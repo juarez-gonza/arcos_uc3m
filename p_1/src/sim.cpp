@@ -9,15 +9,10 @@
  */
 
 #include <cmath>
+#include <stdlib.h>
 
+#include "util.hpp"
 #include "obj.hpp"
-
-#include <vector>
-
-#include <iostream>
-
-#define likely(exp) __builtin_expect((exp), 1)
-#define unlikely(exp) __builtin_expect((exp), 0)
 
 static inline double calc_norm(struct obj &o_i, struct obj &o_j)
 {
@@ -110,9 +105,9 @@ static void collision_check(std::vector<struct obj> &o_list)
 		for (int j = i - 1; j >= 0; --j)
 			if (calc_norm(o_list[i], o_list[j]) < 1.0) {
 				/* primer argumento de merge_obj() es j
-				 * porque por consigna el primer objeto
-				 * se combina con el segundo. al ser un loop
-				 * en reverso, el primer objeto es j
+				 * porque por consigna el primer objeto en la
+				 * lista se combina con el segundo. al ser
+				 * un loop en reverso, el primer objeto es j
 				 */
 				merge_obj(o_list, j, i);
 				/* objeto en i ya no existe */
@@ -127,8 +122,9 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 	collision_check(o_list);
 	for (int k = 0; k < num_iterations; ++k) {
 		/* itera en orden porque collision_check() itera
-		 * en reverso. se mejora un poco la localidad temporal
-		 * porque los primeros elementos de c/iteracion estan en cache
+		 * en reverso. mejora un poco la localidad temporal
+		 * porque los primeros elementos de c/iteracion han sido accedidos
+		 * recientemente
 		 */
 		for (int i = 0; i < o_list.size(); ++i) {
 			for (int j = i + 1; j < o_list.size(); ++j)
@@ -147,44 +143,63 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 
 		collision_check(o_list); /* chequeo de final de c/iteracion */
 	}
-
-	/*
-	for (int i = 0; i < o_list.size(); i++)
-		std::cout << "o:\t" << &o_list[i]
-		<< "\n\tpos_x: " << std::fixed << o_list[i].x
-		<< "\n\tpos_y: " << std::fixed << o_list[i].y
-		<< "\n\tpos_z: " << std::fixed << o_list[i].z
-		<< "\n\tvel_x: " << std::fixed << o_list[i].vx
-		<< "\n\tvel_y: " << std::fixed << o_list[i].vy
-		<< "\n\tvel_z: " << std::fixed << o_list[i].vz
-		<< "\n\tm: " << o_list[i].m << "\n";
-	*/
 }
 
-int main()
+int main(int argc, char *argv[])
 {
-	unsigned int num_objects = 1000;
-	unsigned int num_iterations = 50;
-	unsigned int random_seed = 666;
-	double size_enclosure = 1000000.0;
-	double time_step = 0.1;
+	struct args arg_list = {
+		.num_objects = -1,
+		.num_iterations = -1,
+		.random_seed = -1,
+		.size_enclosure = -1,
+		.time_step = -1,
+	};
+	int ret;
+	int tmp_int;
+	double tmp_double;
+	/*
+	 * TODO:
+	 * - Escribir output formateado en caso de exito y en caso de error.
+	 */
+	if (unlikely(argc != 6)) {
+		log_error("Wrong number of parameters", -1);
+	}
 
-	/*
-	 * TODO:
-	 * - Escribir validacion de input
-	 */
-	std::vector<struct obj> o_list(num_objects);
-	init_obj_list(o_list, random_seed, size_enclosure);
-	/*
-	 * TODO:
-	 * - Escribir a init_fini.txt
-	 */
-	simulate(o_list, num_iterations, size_enclosure, time_step);
+	if (likely(is_int(argv[1]) && (tmp_int = atoi(argv[1])) > 0))
+		arg_list.num_objects = tmp_int;
+	else
+		log_error("Error: invalid number of objects", -1);
 
-	/*
-	 * TODO:
-	 * - Escribir a final_conf.txt
-	 */
+	if (likely(is_int(argv[2]) && (tmp_int = atoi(argv[2])) > 0))
+		arg_list.num_iterations = tmp_int;
+	else
+		log_error("Error: invalid number of iterations", -1);
+
+	if (likely(is_int(argv[3]) && (tmp_int = atoi(argv[3])) > 0))
+		arg_list.random_seed = tmp_int;
+	else
+		log_error("Error: invalid number for random seed", -1);
+
+	if (likely(is_double(argv[4]) && (tmp_double = strtod(argv[4], NULL)) > 0))
+		arg_list.size_enclosure = tmp_double;
+	else
+		log_error("Error: invalid box size", -1);
+
+	if (likely(is_double(argv[5]) && (tmp_double = strtod(argv[5], NULL)) > 0))
+		arg_list.time_step = tmp_double;
+	else
+		log_error("Error: invalid time step", -1);
+
+	std::vector<struct obj> o_list(arg_list.num_objects);
+	init_obj_list(o_list, arg_list.random_seed, arg_list.size_enclosure);
+
+	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, o_list))
+		log_error("Error while trying to write to init_config.txt\n", -3);
+
+	simulate(o_list, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
+
+	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, o_list))
+		log_error("Error while trying to write to final_config.txt\n", -3);
 
 	return 0;
 }
