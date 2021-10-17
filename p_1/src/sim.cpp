@@ -103,6 +103,9 @@ static inline void calc_pos(struct obj &o, double size_enclosure, double time_st
 /* efectos colaterales: cambia tamaño del vector o_list */
 static void collision_check(std::vector<struct obj> &o_list)
 {
+	/* itera en reverso porque facilita el loop sobre un vector
+	 * que cambia la cantidad de elementos.
+	 */
 	for (int i = o_list.size() - 1; i >= 0; --i)
 		for (int j = i - 1; j >= 0; --j)
 			if (calc_norm(o_list[i], o_list[j]) < 1.0) {
@@ -123,10 +126,13 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 	/* chequeo pre-primera iteracion */
 	collision_check(o_list);
 	for (int k = 0; k < num_iterations; ++k) {
+		/* itera en orden porque collision_check() itera
+		 * en reverso. se mejora un poco la localidad temporal
+		 * porque los primeros elementos de c/iteracion estan en cache
+		 */
 		for (int i = 0; i < o_list.size(); ++i) {
-			for (int j = i + 1; j < o_list.size(); ++j) {
+			for (int j = i + 1; j < o_list.size(); ++j)
 				calc_fgv(o_list[i], o_list[j]);
-			}
 
 			/* necesita fuerza para calcular aceleracion */
 			calc_vel(o_list[i], time_step);
