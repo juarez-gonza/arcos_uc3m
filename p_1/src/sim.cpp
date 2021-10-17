@@ -100,33 +100,32 @@ static inline void calc_pos(struct obj &o, double size_enclosure, double time_st
 	}
 }
 
+/* efectos colaterales: cambia tamaño del vector o_list */
 static void collision_check(std::vector<struct obj> &o_list)
 {
-	for (int i = 0; i < o_list.size(); ++i) {
-		if (!obj_exists(o_list[i]))
-			continue;
-		for (int j = i + 1; j < o_list.size(); ++j) {
-			if (!obj_exists(o_list[j]))
-				continue;
-			if (calc_norm(o_list[i], o_list[j]) < 1.0)
-				merge_obj(o_list[i], o_list[j]);
-		}
-	}
+	for (int i = o_list.size() - 1; i >= 0; --i)
+		for (int j = i - 1; j >= 0; --j)
+			if (calc_norm(o_list[i], o_list[j]) < 1.0) {
+				/* primer argumento de merge_obj() es j
+				 * porque por consigna el primer objeto
+				 * se combina con el segundo. al ser un loop
+				 * en reverso, el primer objeto es j
+				 */
+				merge_obj(o_list, j, i);
+				/* objeto en i ya no existe */
+				i--;
+			}
 }
 
 void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
-
-	collision_check(o_list); /* chequeo pre-primera iteracion */
+	/* chequeo pre-primera iteracion */
+	collision_check(o_list);
 	for (int k = 0; k < num_iterations; ++k) {
 		for (int i = 0; i < o_list.size(); ++i) {
-			if (!obj_exists(o_list[i]))
-				continue;
-
 			for (int j = i + 1; j < o_list.size(); ++j) {
-				if (obj_exists(o_list[j]))
-					calc_fgv(o_list[i], o_list[j]);
+				calc_fgv(o_list[i], o_list[j]);
 			}
 
 			/* necesita fuerza para calcular aceleracion */
@@ -138,30 +137,30 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 			o_list[i].fz = 0;
 
 			calc_pos(o_list[i], size_enclosure, time_step);
-
 		}
+
 		collision_check(o_list); /* chequeo de final de c/iteracion */
 	}
+
 	/*
 	for (int i = 0; i < o_list.size(); i++)
-		if (obj_exists(o_list[i]))
-			std::cout << "o:\t" << &o_list[i]
-			<< "\n\tpos_x: " << std::fixed << o_list[i].x
-			<< "\n\tpos_y: " << std::fixed << o_list[i].y
-			<< "\n\tpos_z: " << std::fixed << o_list[i].z
-			<< "\n\tvel_x: " << std::fixed << o_list[i].vx
-			<< "\n\tvel_y: " << std::fixed << o_list[i].vy
-			<< "\n\tvel_z: " << std::fixed << o_list[i].vz
-			<< "\n\tm: " << o_list[i].m << "\n";
+		std::cout << "o:\t" << &o_list[i]
+		<< "\n\tpos_x: " << std::fixed << o_list[i].x
+		<< "\n\tpos_y: " << std::fixed << o_list[i].y
+		<< "\n\tpos_z: " << std::fixed << o_list[i].z
+		<< "\n\tvel_x: " << std::fixed << o_list[i].vx
+		<< "\n\tvel_y: " << std::fixed << o_list[i].vy
+		<< "\n\tvel_z: " << std::fixed << o_list[i].vz
+		<< "\n\tm: " << o_list[i].m << "\n";
 	*/
 }
 
 int main()
 {
-	unsigned int num_objects = 2;
+	unsigned int num_objects = 1000;
 	unsigned int num_iterations = 50;
 	unsigned int random_seed = 666;
-	double size_enclosure = 0.1;
+	double size_enclosure = 1000000.0;
 	double time_step = 0.1;
 
 	/*

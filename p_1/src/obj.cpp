@@ -1,15 +1,5 @@
 #include "obj.hpp"
-#include <stdlib.h>
 #include <random>
-
-void merge_obj(struct obj &o_i, struct obj &o_j)
-{
-	o_j.exists = 0;
-	o_i.m += o_j.m;
-	o_i.vx += o_j.vx;
-	o_i.vy += o_j.vy;
-	o_i.vz += o_j.vz;
-}
 
 int init_obj_list(std::vector<struct obj> &o_list,
 	unsigned int random_seed, double upperbound)
@@ -19,7 +9,6 @@ int init_obj_list(std::vector<struct obj> &o_list,
 	std::normal_distribution<> normal(1e+21, 1e+15);
 
 	for (int i = 0; i < o_list.size(); ++i) {
-		o_list[i].exists = 1;
 
 		o_list[i].x = uniform(gen);
 		o_list[i].y = uniform(gen);
@@ -36,4 +25,32 @@ int init_obj_list(std::vector<struct obj> &o_list,
 	}
 
 	return 0;
+}
+
+static inline void _merge_obj(struct obj &o_i, struct obj &o_j)
+{
+	o_i.m += o_j.m;
+	o_i.vx += o_j.vx;
+	o_i.vy += o_j.vy;
+	o_i.vz += o_j.vz;
+}
+
+#include <iostream>
+void merge_obj(std::vector<struct obj> &o_list,
+		unsigned int i, unsigned int j)
+{
+	std::cout << "merge " << &o_list[j] << " into " << &o_list[i] << "\n";
+	std::cout << "i pre-merge " << o_list[i].m << " " << o_list[i].vx << " "
+		<< o_list[i].vy << " " << o_list[i].vz << "\n";
+	std::cout << "j pre-merge " << o_list[j].m << " " << o_list[j].vx << " "
+		<< o_list[j].vy << " " << o_list[j].vz << "\n";
+
+	_merge_obj(o_list[i], o_list[j]);
+	o_list[j] = std::move(o_list.back());
+	o_list.pop_back();
+
+	std::cout << "i post-merge " << o_list[i].m << " " << o_list[i].vx << " "
+		<< o_list[i].vy << " " << o_list[i].vz << "\n";
+	std::cout << "j post-merge " << o_list[j].m << " " << o_list[j].vx << " "
+		<< o_list[j].vy << " " << o_list[j].vz << "\n";
 }
