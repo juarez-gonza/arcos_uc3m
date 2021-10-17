@@ -21,9 +21,10 @@ struct args {
 };
 
 int write_config(std::string filename, double size_enclosure,
-		double time_step, std::vector<struct obj> &o_list);
+		double time_step, struct obj_aos &o_aos);
 
 void log_error(std::string error_msg, int exitcode);
+
 
 inline bool is_double(char *str)
 {
