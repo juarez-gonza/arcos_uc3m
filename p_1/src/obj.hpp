@@ -11,16 +11,16 @@ struct obj_aos {
 
 	obj_aos(unsigned int size, int random_seed, double upperbound) :
 		x(size), y(size), z(size),
-		vx(size, 0), vy(size, 0), vz(size, 0),
+		m(size),
 		fx(size, 0), fy(size, 0), fz(size, 0),
-		m(size)
+		vx(size, 0), vy(size, 0), vz(size, 0)
 	{
 
 		std::mt19937_64 gen(random_seed);
 		std::uniform_real_distribution<> uniform(0, upperbound);
 		std::normal_distribution<> normal(1e+21, 1e+15);
 
-		for (int i = 0; i < size; ++i) {
+		for (unsigned int i = 0; i < size; ++i) {
 			x[i] = uniform(gen);
 			y[i] = uniform(gen);
 			z[i] = uniform(gen);
