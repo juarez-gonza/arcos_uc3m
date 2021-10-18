@@ -24,7 +24,7 @@ static inline double calc_norm(struct obj_aos &o_aos, unsigned int i, unsigned i
 	d_y = o_aos.y[i] - o_aos.y[j];
 	d_z = o_aos.z[i] - o_aos.z[j];
 
-	return sqrt(d_x * d_x + d_y * d_y + d_z * d_z);
+	return std::sqrt(d_x * d_x + d_y * d_y + d_z * d_z);
 }
 
 static inline void calc_fgv(struct obj_aos &o_aos, unsigned int i, unsigned int j)
