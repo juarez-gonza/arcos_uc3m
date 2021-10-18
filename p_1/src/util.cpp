@@ -66,7 +66,6 @@ void parse_args(struct args &arg_list,
 	case PARSE_OK:
 		ss << "Creating simulation:\n";
 		break;
-	case ARGC_ERR: // sigue de largo adrede en este caso
 	case NUM_OBJ_ERR:
 		ss << "Error: Invalid number of objects\n";
 		break;
@@ -82,15 +81,17 @@ void parse_args(struct args &arg_list,
 	case TIME_STEP_ERR:
 		ss << "Error: Invalid delta time\n";
 		break;
+	case ARGC_ERR: // sigue de largo adrede en este caso
+		break;
 	}
 
 	argc--;
 	ss << argv[0] << " invoked with " << argc << " parameters.\nArguments:\n  num_objects: "
-		<< (argc > 0 ? argv[1] : "?\n") << "\n  num_iterations: "
-		<< (argc > 1 ? argv[2] : "?\n") << "\n  random_seed: "
-		<< (argc > 2 ? argv[3] : "?\n") << "\n  size_enclosure: "
-		<< (argc > 3 ? argv[4] : "?\n") << "\n  time_step: "
-		<< (argc > 4 ? argv[5] : "?\n") << "\n";
+		<< (argc > 0 ? argv[1] : "?") << "\n  num_iterations: "
+		<< (argc > 1 ? argv[2] : "?") << "\n  random_seed: "
+		<< (argc > 2 ? argv[3] : "?") << "\n  size_enclosure: "
+		<< (argc > 3 ? argv[4] : "?") << "\n  time_step: "
+		<< (argc > 4 ? argv[5] : "?") << "\n";
 	std::cout << ss.str();
 
 	if (pa_ret == ARGC_ERR)
