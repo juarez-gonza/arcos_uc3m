@@ -143,38 +143,38 @@ void simulate(struct obj_aos &o_aos, unsigned int num_iterations,
 
 int main(int argc, char *argv[])
 {
-	struct args arg_list;
+	Args arg_list;
 	unsigned int tmp_int;
 	double tmp_double;
 	/*
 	 * TODO:
 	 * - Escribir output formateado en caso de exito y en caso de error.
 	 */
-	if (unlikely(argc != 6)) {
+	if (argc != 6) {
 		log_error("Wrong number of parameters", -1);
 	}
 
-	if (likely(is_int(argv[1]) && (tmp_int = atoi(argv[1])) > 0))
+	if (is_int(argv[1]) && (tmp_int = atoi(argv[1])) > 0)
 		arg_list.num_objects = tmp_int;
 	else
 		log_error("Error: invalid number of objects", -1);
 
-	if (likely(is_int(argv[2]) && (tmp_int = atoi(argv[2])) > 0))
+	if (is_int(argv[2]) && (tmp_int = atoi(argv[2])) > 0)
 		arg_list.num_iterations = tmp_int;
 	else
 		log_error("Error: invalid number of iterations", -1);
 
-	if (likely(is_int(argv[3]) && (tmp_int = atoi(argv[3])) > 0))
+	if (is_int(argv[3]) && (tmp_int = atoi(argv[3])) > 0)
 		arg_list.random_seed = tmp_int;
 	else
 		log_error("Error: invalid number for random seed", -1);
 
-	if (likely(is_double(argv[4]) && (tmp_double = strtod(argv[4], NULL)) > 0))
+	if (is_double(argv[4]) && (tmp_double = strtod(argv[4], NULL)) > 0)
 		arg_list.size_enclosure = tmp_double;
 	else
 		log_error("Error: invalid box size", -1);
 
-	if (likely(is_double(argv[5]) && (tmp_double = strtod(argv[5], NULL)) > 0))
+	if (is_double(argv[5]) && (tmp_double = strtod(argv[5], NULL)) > 0)
 		arg_list.time_step = tmp_double;
 	else
 		log_error("Error: invalid time step", -1);

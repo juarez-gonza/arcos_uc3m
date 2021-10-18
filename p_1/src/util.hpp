@@ -12,12 +12,16 @@
 
 #define likely(exp) __builtin_expect((exp), 1)
 #define unlikely(exp) __builtin_expect((exp), 0)
-struct args {
+class Args {
+public:
 	int num_objects;
 	int num_iterations;
 	int random_seed;
 	double size_enclosure;
 	double time_step;
+
+	std::string to_str();
+
 };
 
 int write_config(std::string filename, double size_enclosure,
