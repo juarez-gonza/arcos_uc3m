@@ -9,7 +9,7 @@ void init_obj_list(std::vector<struct obj> &o_list,
 	std::uniform_real_distribution<> uniform(0, upperbound);
 	std::normal_distribution<> normal(1e+21, 1e+15);
 
-	for (int i = 0; i < o_list.size(); ++i) {
+	for (unsigned long i = 0; i < o_list.size(); ++i) {
 
 		o_list[i].x = uniform(gen);
 		o_list[i].y = uniform(gen);

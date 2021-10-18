@@ -9,7 +9,7 @@ int write_config(std::string filename, double size_enclosure,
 
 	ofs << std::fixed << std::setprecision(3) << size_enclosure << ' '
 		<< time_step << ' ' << o_list.size() << '\n';
-	for (int i = 0; i < o_list.size(); ++i)
+	for (unsigned long i = 0; i < o_list.size(); ++i)
 		ofs << std::fixed << std::setprecision(3) << o_list[i].x << ' '
 			<< o_list[i].y << ' '  << o_list[i].z << ' '
 			<< o_list[i].vx << ' ' << o_list[i].vy << ' '
