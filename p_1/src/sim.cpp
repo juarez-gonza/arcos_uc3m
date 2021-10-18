@@ -120,14 +120,14 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 {
 	/* chequeo pre-primera iteracion */
 	collision_check(o_list);
-	for (int k = 0; k < num_iterations; ++k) {
+	for (long unsigned int k = 0; k < num_iterations; ++k) {
 		/* itera en orden porque collision_check() itera
 		 * en reverso. mejora un poco la localidad temporal
 		 * porque los primeros elementos de c/iteracion han sido accedidos
 		 * recientemente
 		 */
-		for (int i = 0; i < o_list.size(); ++i) {
-			for (int j = i + 1; j < o_list.size(); ++j)
+		for (long unsigned int i = 0; i < o_list.size(); ++i) {
+			for (long unsigned int j = i + 1; j < o_list.size(); ++j)
 				calc_fgv(o_list[i], o_list[j]);
 
 			/* necesita fuerza para calcular aceleracion */
@@ -147,14 +147,7 @@ void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 
 int main(int argc, char *argv[])
 {
-	struct args arg_list = {
-		.num_objects = -1,
-		.num_iterations = -1,
-		.random_seed = -1,
-		.size_enclosure = -1,
-		.time_step = -1,
-	};
-	int ret;
+	struct args arg_list;
 	int tmp_int;
 	double tmp_double;
 	/*
