@@ -121,9 +121,9 @@ void simulate(struct obj_aos &o_aos, unsigned int num_iterations,
 {
 	/* chequeo pre-primera iteracion */
 	collision_check(o_aos);
-	for (int k = 0; k < num_iterations; ++k) {
-		for (int i = 0; i < o_aos.x.size(); ++i) {
-			for (int j = i + 1; j < o_aos.x.size(); ++j)
+	for (unsigned long k = 0; k < num_iterations; ++k) {
+		for (unsigned long i = 0; i < o_aos.x.size(); ++i) {
+			for (unsigned long j = i + 1; j < o_aos.x.size(); ++j)
 				calc_fgv(o_aos, i, j);
 
 			/* necesita fuerza para calcular aceleracion */
@@ -143,14 +143,7 @@ void simulate(struct obj_aos &o_aos, unsigned int num_iterations,
 
 int main(int argc, char *argv[])
 {
-	struct args arg_list = {
-		.num_objects = -1,
-		.num_iterations = -1,
-		.random_seed = -1,
-		.size_enclosure = -1,
-		.time_step = -1,
-	};
-	int ret;
+	struct args arg_list;
 	unsigned int tmp_int;
 	double tmp_double;
 	/*
