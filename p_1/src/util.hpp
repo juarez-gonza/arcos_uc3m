@@ -8,7 +8,7 @@
 #include "obj.hpp"
 
 struct args {
-	int num_objects;
+	long num_objects;
 	int num_iterations;
 	int random_seed;
 	double size_enclosure;

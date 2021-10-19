@@ -55,9 +55,9 @@ static inline void calc_fgv(struct obj &o_i, struct obj &o_j)
 
 static inline void calc_vel(struct obj &o, double time_step)
 {
+	/* v = vi + a * time_step = vi + F/m * time_step */
 	double accel_no_recalc;
 	accel_no_recalc = time_step/o.m;
-	/* v = vi + a * time_step = vi + F/m * time_step */
 	o.vx = o.vx + accel_no_recalc * o.fx;
 	o.vy = o.vy + accel_no_recalc * o.fy;
 	o.vz = o.vz + accel_no_recalc * o.fz;
@@ -96,29 +96,31 @@ static inline void calc_pos(struct obj &o, double size_enclosure, double time_st
 
 static unsigned int collision_check(std::vector<struct obj> &o_list)
 {
-	unsigned int merge_count;
-	merge_count = 0;
-	for (size_t i = 0; i < o_list.size(); ++i) {
+	unsigned int merge_count{0};
+
+	for (size_t i = o_list.size() - 1; i >= 0; --i) {
 		if (!obj_exists(o_list[i]))
 			continue;
-		for (size_t j = i + 1; j < o_list.size(); ++j) {
+		for (size_t j = i - 1; j >= 0; --j) {
 			if (!obj_exists(o_list[j]))
 				continue;
 			if (calc_norm(o_list[i], o_list[j]) < 1.0) {
-				merge_obj(o_list, i, j);
+				merge_obj(o_list[j], o_list[i]);
 				merge_count++;
+				break; /* o_list[i] ya no existe */
 			}
 		}
 	}
+
 	return merge_count;
 }
 
 static size_t simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
-	size_t exist_ctr;
+	size_t exist_ctr{o_list.size()};
 	/* chequeo pre-primera iteracion */
-	exist_ctr = o_list.size() - collision_check(o_list);
+	exist_ctr -= collision_check(o_list);
 	for (unsigned int k = 0; k < num_iterations; ++k) {
 		for (size_t i = 0; i < o_list.size(); ++i) {
 

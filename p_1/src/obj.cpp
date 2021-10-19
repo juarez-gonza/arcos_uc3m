@@ -34,9 +34,8 @@ static inline void _merge_obj(struct obj &o_i, struct obj &o_j)
 	o_i.vz += o_j.vz;
 }
 
-void merge_obj(std::vector<struct obj> &o_list,
-		unsigned int i, unsigned int j)
+void merge_obj(struct obj &o_i, struct obj &o_j)
 {
-	_merge_obj(o_list[i], o_list[j]);
-	o_list[j].m = 0;
+	_merge_obj(o_i, o_j);
+	obj_delete(o_j);
 }

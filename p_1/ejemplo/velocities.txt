@@ -1,0 +1,178 @@
+Iteration: 0
+Velocity(0): 5.94228e+10 -2.7714e+10 1.09452e+10
+Velocity(1): -8.3192e+11 3.87997e+11 -1.53234e+11
+Velocity(2): -nan -nan -nan
+Velocity(3): -nan -nan -nan
+Velocity(4): -nan -nan -nan
+Velocity(5): -nan -nan -nan
+Velocity(6): -nan -nan -nan
+Velocity(7): -nan -nan -nan
+Velocity(8): -nan -nan -nan
+Velocity(9): -nan -nan -nan
+Velocity(10): -nan -nan -nan
+Velocity(11): -nan -nan -nan
+Velocity(12): -nan -nan -nan
+Velocity(13): -nan -nan -nan
+Velocity(14): -nan -nan -nan
+Velocity(15): -nan -nan -nan
+Velocity(16): -nan -nan -nan
+Velocity(17): -nan -nan -nan
+Velocity(18): -nan -nan -nan
+Velocity(19): -nan -nan -nan
+Velocity(20): -nan -nan -nan
+Velocity(21): -nan -nan -nan
+Velocity(22): -nan -nan -nan
+Velocity(23): -nan -nan -nan
+Velocity(24): -nan -nan -nan
+Velocity(25): -nan -nan -nan
+Velocity(26): -nan -nan -nan
+Velocity(27): -nan -nan -nan
+Velocity(28): -nan -nan -nan
+Velocity(29): -nan -nan -nan
+Iteration: 1
+Velocity(0): -6.19916e+10 3.02828e+10 -1.35141e+10
+Velocity(1): 8.67883e+11 -4.2396e+11 1.89197e+11
+Iteration: 2
+Velocity(0): 6.45604e+10 -3.28517e+10 1.60829e+10
+Velocity(1): -9.03847e+11 4.59924e+11 -2.25161e+11
+Iteration: 3
+Velocity(0): -6.71292e+10 3.54205e+10 -1.86517e+10
+Velocity(1): 9.3981e+11 -4.95887e+11 2.61124e+11
+Iteration: 4
+Velocity(0): 6.9698e+10 -3.79893e+10 2.12205e+10
+Velocity(1): -9.75774e+11 5.31851e+11 -2.97088e+11
+Iteration: 5
+Velocity(0): -7.22669e+10 4.05581e+10 -2.37893e+10
+Velocity(1): 1.01174e+12 -5.67814e+11 3.33051e+11
+Iteration: 6
+Velocity(0): 7.48357e+10 -4.31269e+10 2.63582e+10
+Velocity(1): -1.0477e+12 6.03778e+11 -3.69015e+11
+Iteration: 7
+Velocity(0): -7.74045e+10 4.56958e+10 -2.8927e+10
+Velocity(1): 1.08366e+12 -6.39742e+11 4.04978e+11
+Iteration: 8
+Velocity(0): 7.99733e+10 -4.82646e+10 3.14958e+10
+Velocity(1): -1.11963e+12 6.75705e+11 -4.40942e+11
+Iteration: 9
+Velocity(0): -8.25421e+10 5.08334e+10 -3.40646e+10
+Velocity(1): 1.15559e+12 -7.11669e+11 4.76905e+11
+Iteration: 10
+Velocity(0): 8.5111e+10 -5.34022e+10 3.66334e+10
+Velocity(1): -1.19156e+12 7.47632e+11 -5.12869e+11
+Iteration: 11
+Velocity(0): -8.76798e+10 5.5971e+10 -3.92023e+10
+Velocity(1): 1.22752e+12 -7.83596e+11 5.48832e+11
+Iteration: 12
+Velocity(0): 9.02486e+10 -5.85399e+10 4.17711e+10
+Velocity(1): -1.26348e+12 8.19559e+11 -5.84796e+11
+Iteration: 13
+Velocity(0): -9.28174e+10 6.11087e+10 -4.43399e+10
+Velocity(1): 1.29945e+12 -8.55523e+11 6.2076e+11
+Iteration: 14
+Velocity(0): 9.53862e+10 -6.36775e+10 4.69087e+10
+Velocity(1): -1.33541e+12 8.91486e+11 -6.56723e+11
+Iteration: 15
+Velocity(0): -9.79551e+10 6.62463e+10 -4.94775e+10
+Velocity(1): 1.37137e+12 -9.2745e+11 6.92687e+11
+Iteration: 16
+Velocity(0): 1.00524e+11 -6.88151e+10 5.20464e+10
+Velocity(1): -1.40734e+12 9.63413e+11 -7.2865e+11
+Iteration: 17
+Velocity(0): -1.03093e+11 7.1384e+10 -5.46152e+10
+Velocity(1): 1.4433e+12 -9.99377e+11 7.64614e+11
+Iteration: 18
+Velocity(0): 1.05662e+11 -7.39528e+10 5.7184e+10
+Velocity(1): -1.47926e+12 1.03534e+12 -8.00577e+11
+Iteration: 19
+Velocity(0): -1.0823e+11 7.65216e+10 -5.97528e+10
+Velocity(1): 1.51523e+12 -1.0713e+12 8.36541e+11
+Iteration: 20
+Velocity(0): 1.10799e+11 -7.90904e+10 6.23216e+10
+Velocity(1): -1.55119e+12 1.10727e+12 -8.72504e+11
+Iteration: 21
+Velocity(0): -1.13368e+11 8.16592e+10 -6.48905e+10
+Velocity(1): 1.58715e+12 -1.14323e+12 9.08468e+11
+Iteration: 22
+Velocity(0): 1.15937e+11 -8.42281e+10 6.74593e+10
+Velocity(1): -1.62312e+12 1.17919e+12 -9.44431e+11
+Iteration: 23
+Velocity(0): -1.18506e+11 8.67969e+10 -7.00281e+10
+Velocity(1): 1.65908e+12 -1.21516e+12 9.80395e+11
+Iteration: 24
+Velocity(0): 1.21074e+11 -8.93657e+10 7.25969e+10
+Velocity(1): -1.69504e+12 1.25112e+12 -1.01636e+12
+Iteration: 25
+Velocity(0): -1.23643e+11 9.19345e+10 -7.51657e+10
+Velocity(1): 1.73101e+12 -1.28709e+12 1.05232e+12
+Iteration: 26
+Velocity(0): 1.26212e+11 -9.45033e+10 7.77346e+10
+Velocity(1): -1.76697e+12 1.32305e+12 -1.08829e+12
+Iteration: 27
+Velocity(0): -1.28781e+11 9.70722e+10 -8.03034e+10
+Velocity(1): 1.80294e+12 -1.35901e+12 1.12425e+12
+Iteration: 28
+Velocity(0): 1.3135e+11 -9.9641e+10 8.28722e+10
+Velocity(1): -1.8389e+12 1.39498e+12 -1.16021e+12
+Iteration: 29
+Velocity(0): -1.33919e+11 1.0221e+11 -8.5441e+10
+Velocity(1): 1.87486e+12 -1.43094e+12 1.19618e+12
+Iteration: 30
+Velocity(0): 1.36487e+11 -1.04779e+11 8.80098e+10
+Velocity(1): -1.91083e+12 1.4669e+12 -1.23214e+12
+Iteration: 31
+Velocity(0): -1.39056e+11 1.07347e+11 -9.05787e+10
+Velocity(1): 1.94679e+12 -1.50287e+12 1.2681e+12
+Iteration: 32
+Velocity(0): 1.41625e+11 -1.09916e+11 9.31475e+10
+Velocity(1): -1.98275e+12 1.53883e+12 -1.30407e+12
+Iteration: 33
+Velocity(0): -1.44194e+11 1.12485e+11 -9.57163e+10
+Velocity(1): 2.01872e+12 -1.57479e+12 1.34003e+12
+Iteration: 34
+Velocity(0): 1.46763e+11 -1.15054e+11 9.82851e+10
+Velocity(1): -2.05468e+12 1.61076e+12 -1.37599e+12
+Iteration: 35
+Velocity(0): -1.49331e+11 1.17623e+11 -1.00854e+11
+Velocity(1): 2.09064e+12 -1.64672e+12 1.41196e+12
+Iteration: 36
+Velocity(0): 1.519e+11 -1.20192e+11 1.03423e+11
+Velocity(1): -2.12661e+12 1.68268e+12 -1.44792e+12
+Iteration: 37
+Velocity(0): -1.54469e+11 1.2276e+11 -1.05992e+11
+Velocity(1): 2.16257e+12 -1.71865e+12 1.48388e+12
+Iteration: 38
+Velocity(0): 1.57038e+11 -1.25329e+11 1.0856e+11
+Velocity(1): -2.19853e+12 1.75461e+12 -1.51985e+12
+Iteration: 39
+Velocity(0): -1.59607e+11 1.27898e+11 -1.11129e+11
+Velocity(1): 2.2345e+12 -1.79057e+12 1.55581e+12
+Iteration: 40
+Velocity(0): 1.62176e+11 -1.30467e+11 1.13698e+11
+Velocity(1): -2.27046e+12 1.82654e+12 -1.59177e+12
+Iteration: 41
+Velocity(0): -1.64744e+11 1.33036e+11 -1.16267e+11
+Velocity(1): 2.30642e+12 -1.8625e+12 1.62774e+12
+Iteration: 42
+Velocity(0): 1.67313e+11 -1.35604e+11 1.18836e+11
+Velocity(1): -2.34239e+12 1.89847e+12 -1.6637e+12
+Iteration: 43
+Velocity(0): -1.69882e+11 1.38173e+11 -1.21405e+11
+Velocity(1): 2.37835e+12 -1.93443e+12 1.69967e+12
+Iteration: 44
+Velocity(0): 1.72451e+11 -1.40742e+11 1.23973e+11
+Velocity(1): -2.41432e+12 1.97039e+12 -1.73563e+12
+Iteration: 45
+Velocity(0): -1.7502e+11 1.43311e+11 -1.26542e+11
+Velocity(1): 2.45028e+12 -2.00636e+12 1.77159e+12
+Iteration: 46
+Velocity(0): 1.77588e+11 -1.4588e+11 1.29111e+11
+Velocity(1): -2.48624e+12 2.04232e+12 -1.80756e+12
+Iteration: 47
+Velocity(0): -1.80157e+11 1.48449e+11 -1.3168e+11
+Velocity(1): 2.52221e+12 -2.07828e+12 1.84352e+12
+Iteration: 48
+Velocity(0): 1.82726e+11 -1.51017e+11 1.34249e+11
+Velocity(1): -2.55817e+12 2.11425e+12 -1.87948e+12
+Iteration: 49
+Velocity(0): -1.85295e+11 1.53586e+11 -1.36817e+11
+Velocity(1): 2.59413e+12 -2.15021e+12 1.91545e+12

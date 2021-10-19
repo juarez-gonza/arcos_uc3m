@@ -1,0 +1,3034 @@
+Iteration: 0
+Collapsing objects 0 and 1
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1e+21
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99999e+20
+Body 1 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2e+21
+
+Collapsing objects 0 and 2
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2e+21
+Body 2: 0.818072 0.883664 0.474568 0 0 0 1e+21
+Body 2 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 3e+21
+
+Collapsing objects 0 and 3
+Body 0: 0.149864 0.454037 0.275594 0 0 0 3e+21
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 9.99999e+20
+Body 3 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 4e+21
+
+Collapsing objects 0 and 4
+Body 0: 0.149864 0.454037 0.275594 0 0 0 4e+21
+Body 4: 0.510884 0.651005 0.668859 0 0 0 1e+21
+Body 4 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 5e+21
+
+Collapsing objects 0 and 5
+Body 0: 0.149864 0.454037 0.275594 0 0 0 5e+21
+Body 5: 0.867498 0.984127 0.441415 0 0 0 9.99999e+20
+Body 5 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 6e+21
+
+Collapsing objects 0 and 6
+Body 0: 0.149864 0.454037 0.275594 0 0 0 6e+21
+Body 6: 0.181713 0.79305 0.570944 0 0 0 1e+21
+Body 6 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 7e+21
+
+Collapsing objects 0 and 7
+Body 0: 0.149864 0.454037 0.275594 0 0 0 7e+21
+Body 7: 0.395861 0.986932 0.180984 0 0 0 9.99999e+20
+Body 7 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 8e+21
+
+Collapsing objects 0 and 8
+Body 0: 0.149864 0.454037 0.275594 0 0 0 8e+21
+Body 8: 0.22769 0.744834 0.599702 0 0 0 1e+21
+Body 8 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 9e+21
+
+Collapsing objects 0 and 9
+Body 0: 0.149864 0.454037 0.275594 0 0 0 9e+21
+Body 9: 0.665353 0.633849 0.229118 0 0 0 1e+21
+Body 9 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1e+22
+
+Collapsing objects 0 and 10
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1e+22
+Body 10: 0.639384 0.886029 0.495547 0 0 0 1e+21
+Body 10 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.1e+22
+
+Collapsing objects 0 and 11
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.1e+22
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 1e+21
+Body 11 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.2e+22
+
+Collapsing objects 0 and 12
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.2e+22
+Body 12: 0.768135 0.973216 0.189678 0 0 0 1e+21
+Body 12 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.3e+22
+
+Collapsing objects 0 and 13
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.3e+22
+Body 13: 0.41013 0.500851 0.384805 0 0 0 1e+21
+Body 13 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.4e+22
+
+Collapsing objects 0 and 14
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.4e+22
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 9.99999e+20
+Body 14 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.5e+22
+
+Collapsing objects 0 and 15
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.5e+22
+Body 15: 0.889752 0.334279 0.574532 0 0 0 1e+21
+Body 15 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.6e+22
+
+Collapsing objects 0 and 16
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.6e+22
+Body 16: 0.295931 0.447011 0.240728 0 0 0 9.99999e+20
+Body 16 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.7e+22
+
+Collapsing objects 0 and 17
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.7e+22
+Body 17: 0.751687 0.144243 0.102675 0 0 0 9.99998e+20
+Body 17 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.8e+22
+
+Collapsing objects 0 and 18
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.8e+22
+Body 18: 0.460685 0.283831 0.61129 0 0 0 9.99998e+20
+Body 18 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.9e+22
+
+Collapsing objects 0 and 19
+Body 0: 0.149864 0.454037 0.275594 0 0 0 1.9e+22
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 1e+21
+Body 19 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2e+22
+
+Collapsing objects 0 and 20
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2e+22
+Body 20: 0.5472 0.653588 0.271281 0 0 0 1e+21
+Body 20 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.1e+22
+
+Collapsing objects 0 and 21
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.1e+22
+Body 21: 0.409034 0.447358 0.52849 0 0 0 1e+21
+Body 21 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.2e+22
+
+Collapsing objects 0 and 22
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.2e+22
+Body 22: 0.383516 0.870942 0.107097 0 0 0 9.99999e+20
+Body 22 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.3e+22
+
+Collapsing objects 0 and 23
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.3e+22
+Body 23: 0.288912 0.409043 0.101335 0 0 0 1e+21
+Body 23 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.4e+22
+
+Collapsing objects 0 and 24
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.4e+22
+Body 24: 0.258282 0.424556 0.325819 0 0 0 9.99999e+20
+Body 24 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.5e+22
+
+Collapsing objects 0 and 26
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.5e+22
+Body 26: 0.626161 0.558852 0.388451 0 0 0 1e+21
+Body 26 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.6e+22
+
+Collapsing objects 0 and 27
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.6e+22
+Body 27: 0.733889 0.911095 0.213206 0 0 0 9.99999e+20
+Body 27 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.7e+22
+
+Collapsing objects 0 and 28
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.7e+22
+Body 28: 0.322279 0.280989 0.463861 0 0 0 9.99999e+20
+Body 28 removed
+Body 0 after collapse
+Body 0: 0.149864 0.454037 0.275594 0 0 0 2.8e+22
+
+Collapsing objects 1 and 2
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 2 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 3
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 3 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 4
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 4 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 5
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 5 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 6
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 6 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 7
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 7 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 8
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 8 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 9
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 9 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 10
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 11
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 12
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 13
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 14
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 15
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 16
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 17
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 18
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 19
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 20
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 21
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 22
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 23
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 24
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+
+Collapsing objects 1 and 25
+Body 1: 0.550428 0.267218 0.349375 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 9.99998e+20
+Body 25 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+
+Collapsing objects 1 and 26
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+
+Collapsing objects 1 and 27
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+
+Collapsing objects 1 and 28
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+
+Collapsing objects 1 and 29
+Body 1: 0.550428 0.267218 0.349375 0 0 0 9.99998e+20
+Body 29: 0.991473 0.304498 0.831452 0 0 0 9.99999e+20
+Body 29 removed
+Body 1 after collapse
+Body 1: 0.550428 0.267218 0.349375 0 0 0 2e+21
+
+Collapsing objects 2 and 4
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 4 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 5
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 5 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 6
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 6 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 7
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 7 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 8
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 8 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 9
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 9 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 10
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 12
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 13
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 14
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 15
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 16
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 17
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 18
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 19
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 20
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 21
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 22
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 23
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 24
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 25
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 26
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 27
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 28
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 2 and 29
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 2 after collapse
+Body 2: 0.818072 0.883664 0.474568 0 0 0 0
+
+Collapsing objects 3 and 4
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 4 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 6
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 6 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 8
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 8 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 11
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 13
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 14
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 15
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 16
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 17
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 18
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 20
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 21
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 23
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 24
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 26
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 28
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 3 and 29
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 3 after collapse
+Body 3: 0.0835627 0.0451471 0.803801 0 0 0 0
+
+Collapsing objects 4 and 5
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 5 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 6
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 6 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 7
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 7 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 8
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 8 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 9
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 9 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 10
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 11
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 12
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 13
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 14
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 15
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 16
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 17
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 18
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 19
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 20
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 21
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 22
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 23
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 24
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 25
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 26
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 27
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 28
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 4 and 29
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 4 after collapse
+Body 4: 0.510884 0.651005 0.668859 0 0 0 0
+
+Collapsing objects 5 and 6
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 6 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 7
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 7 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 8
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 8 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 9
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 9 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 10
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 12
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 13
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 15
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 16
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 17
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 18
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 19
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 20
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 21
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 22
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 23
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 24
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 25
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 26
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 27
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 28
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 5 and 29
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 5 after collapse
+Body 5: 0.867498 0.984127 0.441415 0 0 0 0
+
+Collapsing objects 6 and 7
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 7 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 8
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 8 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 9
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 9 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 10
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 11
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 12
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 13
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 14
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 15
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 16
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 17
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 18
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 20
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 21
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 22
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 23
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 24
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 25
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 26
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 27
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 28
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 6 and 29
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 6 after collapse
+Body 6: 0.181713 0.79305 0.570944 0 0 0 0
+
+Collapsing objects 7 and 8
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 8 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 9
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 9 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 10
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 11
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 12
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 13
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 14
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 15
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 16
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 17
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 18
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 19
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 20
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 21
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 22
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 23
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 24
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 25
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 26
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 27
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 7 and 28
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 7 after collapse
+Body 7: 0.395861 0.986932 0.180984 0 0 0 0
+
+Collapsing objects 8 and 9
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 9 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 10
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 11
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 12
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 13
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 14
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 15
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 16
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 17
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 18
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 20
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 21
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 22
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 23
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 24
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 25
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 26
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 27
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 28
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 8 and 29
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 8 after collapse
+Body 8: 0.22769 0.744834 0.599702 0 0 0 0
+
+Collapsing objects 9 and 10
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 10 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 11
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 12
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 13
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 14
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 15
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 16
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 17
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 18
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 19
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 20
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 21
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 22
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 23
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 24
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 25
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 26
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 27
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 28
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 9 and 29
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 9 after collapse
+Body 9: 0.665353 0.633849 0.229118 0 0 0 0
+
+Collapsing objects 10 and 11
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 11 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 12
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 12 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 13
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 14
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 15
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 16
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 17
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 18
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 19
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 20
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 21
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 22
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 23
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 24
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 25
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 26
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 27
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 28
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 10 and 29
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 10 after collapse
+Body 10: 0.639384 0.886029 0.495547 0 0 0 0
+
+Collapsing objects 11 and 13
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 14
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 15
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 16
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 17
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 18
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 20
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 21
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 22
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 23
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 24
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 26
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 28
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 11 and 29
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 11 after collapse
+Body 11: 0.0447314 0.209808 0.611023 0 0 0 0
+
+Collapsing objects 12 and 13
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 13 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 14
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 15
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 16
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 17
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 18
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 19
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 20
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 21
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 22
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 23
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 24
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 25
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 26
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 27
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 28
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 12 and 29
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 12 after collapse
+Body 12: 0.768135 0.973216 0.189678 0 0 0 0
+
+Collapsing objects 13 and 14
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 14 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 15
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 16
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 17
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 18
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 19
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 20
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 21
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 22
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 23
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 24
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 25
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 26
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 27
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 28
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 13 and 29
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 13 after collapse
+Body 13: 0.41013 0.500851 0.384805 0 0 0 0
+
+Collapsing objects 14 and 15
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 15 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 16
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 17
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 18
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 19
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 20
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 21
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 22
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 23
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 24
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 26
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 27
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 28
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 14 and 29
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 14 after collapse
+Body 14: 0.527753 0.0375854 0.115613 0 0 0 0
+
+Collapsing objects 15 and 16
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 16 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 17
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 18
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 19
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 20
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 21
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 22
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 23
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 24
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 25
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 26
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 27
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 28
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 15 and 29
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 15 after collapse
+Body 15: 0.889752 0.334279 0.574532 0 0 0 0
+
+Collapsing objects 16 and 17
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 17 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 18
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 19
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 20
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 21
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 22
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 23
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 24
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 25
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 26
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 27
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 28
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 16 and 29
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 16 after collapse
+Body 16: 0.295931 0.447011 0.240728 0 0 0 0
+
+Collapsing objects 17 and 18
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 18 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 19
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 20
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 21
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 22
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 23
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 24
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 26
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 27
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 28
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 17 and 29
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 17 after collapse
+Body 17: 0.751687 0.144243 0.102675 0 0 0 0
+
+Collapsing objects 18 and 19
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 19 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 20
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 21
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 22
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 23
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 24
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 25
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 26
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 27
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 28
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 18 and 29
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 18 after collapse
+Body 18: 0.460685 0.283831 0.61129 0 0 0 0
+
+Collapsing objects 19 and 20
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 20 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 21
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 22
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 23
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 24
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 25
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 26
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 27
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 28
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 19 and 29
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 19 after collapse
+Body 19: 0.998353 0.460629 0.00612578 0 0 0 0
+
+Collapsing objects 20 and 21
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 21 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 22
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 23
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 24
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 25
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 26
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 27
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 28
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 20 and 29
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 20 after collapse
+Body 20: 0.5472 0.653588 0.271281 0 0 0 0
+
+Collapsing objects 21 and 22
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 22 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 21 and 23
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 21 and 24
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 21 and 25
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 21 and 26
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 21 and 27
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 21 and 28
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 21 and 29
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 21 after collapse
+Body 21: 0.409034 0.447358 0.52849 0 0 0 0
+
+Collapsing objects 22 and 23
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 23 removed
+Body 22 after collapse
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+
+Collapsing objects 22 and 24
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 22 after collapse
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+
+Collapsing objects 22 and 25
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 22 after collapse
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+
+Collapsing objects 22 and 26
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 22 after collapse
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+
+Collapsing objects 22 and 27
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 22 after collapse
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+
+Collapsing objects 22 and 28
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 22 after collapse
+Body 22: 0.383516 0.870942 0.107097 0 0 0 0
+
+Collapsing objects 23 and 24
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 24 removed
+Body 23 after collapse
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+
+Collapsing objects 23 and 26
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 23 after collapse
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+
+Collapsing objects 23 and 27
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 23 after collapse
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+
+Collapsing objects 23 and 28
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 23 after collapse
+Body 23: 0.288912 0.409043 0.101335 0 0 0 0
+
+Collapsing objects 24 and 25
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 25 removed
+Body 24 after collapse
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+
+Collapsing objects 24 and 26
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 24 after collapse
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+
+Collapsing objects 24 and 27
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 24 after collapse
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+
+Collapsing objects 24 and 28
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 24 after collapse
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+
+Collapsing objects 24 and 29
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 24 after collapse
+Body 24: 0.258282 0.424556 0.325819 0 0 0 0
+
+Collapsing objects 25 and 26
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 26 removed
+Body 25 after collapse
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+
+Collapsing objects 25 and 27
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 25 after collapse
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+
+Collapsing objects 25 and 28
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 25 after collapse
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+
+Collapsing objects 25 and 29
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 25 after collapse
+Body 25: 0.991882 0.915191 0.750406 0 0 0 0
+
+Collapsing objects 26 and 27
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 27 removed
+Body 26 after collapse
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+
+Collapsing objects 26 and 28
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 26 after collapse
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+
+Collapsing objects 26 and 29
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 26 after collapse
+Body 26: 0.626161 0.558852 0.388451 0 0 0 0
+
+Collapsing objects 27 and 28
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 28 removed
+Body 27 after collapse
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+
+Collapsing objects 27 and 29
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 27 after collapse
+Body 27: 0.733889 0.911095 0.213206 0 0 0 0
+
+Collapsing objects 28 and 29
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+Body 29: 0.991473 0.304498 0.831452 0 0 0 0
+Body 29 removed
+Body 28 after collapse
+Body 28: 0.322279 0.280989 0.463861 0 0 0 0
+
+Position(0): 1 0 1
+Position(1): 0 1 0
+Position(2): -nan -nan -nan
+Position(3): -nan -nan -nan
+Position(4): -nan -nan -nan
+Position(5): -nan -nan -nan
+Position(6): -nan -nan -nan
+Position(7): -nan -nan -nan
+Position(8): -nan -nan -nan
+Position(9): -nan -nan -nan
+Position(10): -nan -nan -nan
+Position(11): -nan -nan -nan
+Position(12): -nan -nan -nan
+Position(13): -nan -nan -nan
+Position(14): -nan -nan -nan
+Position(15): -nan -nan -nan
+Position(16): -nan -nan -nan
+Position(17): -nan -nan -nan
+Position(18): -nan -nan -nan
+Position(19): -nan -nan -nan
+Position(20): -nan -nan -nan
+Position(21): -nan -nan -nan
+Position(22): -nan -nan -nan
+Position(23): -nan -nan -nan
+Position(24): -nan -nan -nan
+Position(25): -nan -nan -nan
+Position(26): -nan -nan -nan
+Position(27): -nan -nan -nan
+Position(28): -nan -nan -nan
+Position(29): -nan -nan -nan
+Iteration: 1
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 2
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 3
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 4
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 5
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 6
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 7
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 8
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 9
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 10
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 11
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 12
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 13
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 14
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 15
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 16
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 17
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 18
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 19
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 20
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 21
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 22
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 23
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 24
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 25
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 26
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 27
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 28
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 29
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 30
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 31
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 32
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 33
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 34
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 35
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 36
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 37
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 38
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 39
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 40
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 41
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 42
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 43
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 44
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 45
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 46
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 47
+Position(0): 0 1 0
+Position(1): 1 0 1
+Iteration: 48
+Position(0): 1 0 1
+Position(1): 0 1 0
+Iteration: 49
+Position(0): 0 1 0
+Position(1): 1 0 1

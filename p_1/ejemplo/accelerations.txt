@@ -1,0 +1,178 @@
+Iteration: 0
+Acceleration(0): 5.94228e+11 -2.7714e+11 1.09452e+11
+Acceleration(1): -8.3192e+12 3.87997e+12 -1.53234e+12
+Acceleration(2): -nan -nan -nan
+Acceleration(3): -nan -nan -nan
+Acceleration(4): -nan -nan -nan
+Acceleration(5): -nan -nan -nan
+Acceleration(6): -nan -nan -nan
+Acceleration(7): -nan -nan -nan
+Acceleration(8): -nan -nan -nan
+Acceleration(9): -nan -nan -nan
+Acceleration(10): -nan -nan -nan
+Acceleration(11): -nan -nan -nan
+Acceleration(12): -nan -nan -nan
+Acceleration(13): -nan -nan -nan
+Acceleration(14): -nan -nan -nan
+Acceleration(15): -nan -nan -nan
+Acceleration(16): -nan -nan -nan
+Acceleration(17): -nan -nan -nan
+Acceleration(18): -nan -nan -nan
+Acceleration(19): -nan -nan -nan
+Acceleration(20): -nan -nan -nan
+Acceleration(21): -nan -nan -nan
+Acceleration(22): -nan -nan -nan
+Acceleration(23): -nan -nan -nan
+Acceleration(24): -nan -nan -nan
+Acceleration(25): -nan -nan -nan
+Acceleration(26): -nan -nan -nan
+Acceleration(27): -nan -nan -nan
+Acceleration(28): -nan -nan -nan
+Acceleration(29): -nan -nan -nan
+Iteration: 1
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 2
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 3
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 4
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 5
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 6
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 7
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 8
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 9
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 10
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 11
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 12
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 13
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 14
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 15
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 16
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 17
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 18
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 19
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 20
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 21
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 22
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 23
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 24
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 25
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 26
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 27
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 28
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 29
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 30
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 31
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 32
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 33
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 34
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 35
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 36
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 37
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 38
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 39
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 40
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 41
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 42
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 43
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 44
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 45
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 46
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 47
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
+Iteration: 48
+Acceleration(0): 2.56882e+10 -2.56882e+10 2.56882e+10
+Acceleration(1): -3.59635e+11 3.59635e+11 -3.59635e+11
+Iteration: 49
+Acceleration(0): -2.56882e+10 2.56882e+10 -2.56882e+10
+Acceleration(1): 3.59635e+11 -3.59635e+11 3.59635e+11
