@@ -1,3 +1,0 @@
-/mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/p_1/src/build/CMakeFiles/rebuild_cache.dir
-/mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/p_1/src/build/CMakeFiles/edit_cache.dir
-/mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/p_1/src/build/CMakeFiles/sim-aos.dir

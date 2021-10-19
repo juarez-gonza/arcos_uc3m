@@ -101,19 +101,23 @@ void parse_args(struct args &arg_list,
 }
 
 int write_config(std::string filename, double size_enclosure,
-		double time_step, std::vector<struct obj> &o_list)
+		double time_step, size_t exist_num,
+		std::vector<struct obj> &o_list)
 {
 	std::ofstream ofs(filename);
 	if (!ofs)
 		return 1;
 
 	ofs << std::fixed << std::setprecision(3) << size_enclosure << ' '
-		<< time_step << ' ' << o_list.size() << '\n';
-	for (unsigned long i = 0; i < o_list.size(); ++i)
+		<< time_step << ' ' << exist_num << '\n';
+	for (unsigned long i = 0; i < o_list.size(); ++i) {
+		if (!obj_exists(o_list[i]))
+				continue;
 		ofs << std::fixed << std::setprecision(3) << o_list[i].x << ' '
 			<< o_list[i].y << ' '  << o_list[i].z << ' '
 			<< o_list[i].vx << ' ' << o_list[i].vy << ' '
 			<< o_list[i].vz << ' ' << o_list[i].m << '\n';
+	}
 
 	return 0;
 }

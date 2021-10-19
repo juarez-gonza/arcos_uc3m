@@ -23,7 +23,6 @@ static inline double calc_norm(struct obj &o_i, struct obj &o_j)
 	d_x = o_i.x - o_j.x;
 	d_y = o_i.y - o_j.y;
 	d_z = o_i.z - o_j.z;
-
 	return std::sqrt(d_x * d_x + d_y * d_y + d_z * d_z);
 }
 
@@ -95,59 +94,65 @@ static inline void calc_pos(struct obj &o, double size_enclosure, double time_st
 	}
 }
 
-/* efectos colaterales: cambia tamaño del vector o_list */
-static void collision_check(std::vector<struct obj> &o_list)
+static unsigned int collision_check(std::vector<struct obj> &o_list)
 {
-	/* itera en reverso porque facilita el loop sobre un vector
-	 * que cambia la cantidad de elementos.
-	 */
-	for (int i = o_list.size() - 1; i >= 0; --i)
-		for (int j = i - 1; j >= 0; --j)
+	unsigned int merge_count;
+	merge_count = 0;
+	for (size_t i = 0; i < o_list.size(); ++i) {
+		if (!obj_exists(o_list[i]))
+			continue;
+		for (size_t j = i + 1; j < o_list.size(); ++j) {
+			if (!obj_exists(o_list[j]))
+				continue;
 			if (calc_norm(o_list[i], o_list[j]) < 1.0) {
-				/* primer argumento de merge_obj() es j
-				 * porque por consigna el primer objeto en la
-				 * lista se combina con el segundo. al ser
-				 * un loop en reverso, el primer objeto es j
-				 */
-				merge_obj(o_list, j, i);
-				/* objeto en i ya no existe */
-				i--;
+				merge_obj(o_list, i, j);
+				merge_count++;
 			}
+		}
+	}
+	return merge_count;
 }
 
-void simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
+static size_t simulate(std::vector<struct obj> &o_list, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
+	size_t exist_ctr;
 	/* chequeo pre-primera iteracion */
-	collision_check(o_list);
-	for (long unsigned int k = 0; k < num_iterations; ++k) {
-		/* itera en orden porque collision_check() itera
-		 * en reverso. mejora un poco la localidad temporal
-		 * porque los primeros elementos de c/iteracion han sido accedidos
-		 * recientemente
-		 */
-		for (long unsigned int i = 0; i < o_list.size(); ++i) {
-			for (long unsigned int j = i + 1; j < o_list.size(); ++j)
+	exist_ctr = o_list.size() - collision_check(o_list);
+	for (unsigned int k = 0; k < num_iterations; ++k) {
+		for (size_t i = 0; i < o_list.size(); ++i) {
+
+			if (!obj_exists(o_list[i]))
+				continue;
+
+			for (size_t j = i + 1; j < o_list.size(); ++j) {
+				if (!obj_exists(o_list[j]))
+					continue;
 				calc_fgv(o_list[i], o_list[j]);
+			}
 
 			/* necesita fuerza para calcular aceleracion */
 			calc_vel(o_list[i], time_step);
 
 			/* ya no se necesita fuerza, limpiar para prox iteracion */
-			o_list[i].fx = 0;
-			o_list[i].fy = 0;
-			o_list[i].fz = 0;
+			o_list[i].fx = 0.0;
+			o_list[i].fy = 0.0;
+			o_list[i].fz = 0.0;
 
 			calc_pos(o_list[i], size_enclosure, time_step);
 		}
 
-		collision_check(o_list); /* chequeo de final de c/iteracion */
+		/* chequeo de final de c/iteracion */
+		exist_ctr -= collision_check(o_list);
 	}
+
+	return exist_ctr;
 }
 
 int main(int argc, char *argv[])
 {
 	struct args arg_list{};
+	size_t exist_num{};
 
 	parse_args(arg_list, argc, argv);
 
@@ -155,12 +160,12 @@ int main(int argc, char *argv[])
 
 	init_obj_list(o_list, arg_list.random_seed, arg_list.size_enclosure);
 
-	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, o_list))
+	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, exist_num, o_list))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
-	simulate(o_list, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
+	exist_num = simulate(o_list, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
 
-	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, o_list))
+	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, exist_num, o_list))
 		log_n_exit("Error while trying to write to final_config.txt\n", 1);
 
 	return 0;

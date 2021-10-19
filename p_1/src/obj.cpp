@@ -38,6 +38,5 @@ void merge_obj(std::vector<struct obj> &o_list,
 		unsigned int i, unsigned int j)
 {
 	_merge_obj(o_list[i], o_list[j]);
-	o_list[j] = std::move(o_list.back());
-	o_list.pop_back();
+	o_list[j].m = 0;
 }

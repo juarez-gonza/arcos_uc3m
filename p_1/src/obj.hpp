@@ -10,6 +10,11 @@ struct obj {
 	double vx, vy, vz;
 }__attribute__((aligned(8)));
 
+/*
+ * @__o: struct obj (NO puntero a struct obj)
+ */
+#define obj_exists(__o) ((__o).m > 0)
+
 void init_obj_list(std::vector<struct obj> &o_list,
 	unsigned int random_seed, double upperbound);
 
