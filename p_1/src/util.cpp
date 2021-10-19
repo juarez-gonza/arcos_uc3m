@@ -102,7 +102,7 @@ void parse_args(struct args &arg_list,
 
 int write_config(std::string filename, double size_enclosure,
 		double time_step, size_t num_objects,
-	       	struct obj_aos &o_aos)
+	       	struct obj_soa &o_soa)
 {
 	std::ofstream ofs(filename);
 	if (!ofs)
@@ -110,13 +110,13 @@ int write_config(std::string filename, double size_enclosure,
 
 	ofs << std::fixed << std::setprecision(3) << size_enclosure << ' '
 		<< time_step << ' ' << num_objects << '\n';
-	for (unsigned long i = 0; i < o_aos.x.size(); ++i) {
-		if (!obj_exists(o_aos, i))
+	for (unsigned long i = 0; i < o_soa.x.size(); ++i) {
+		if (!obj_exists(o_soa, i))
 			continue;
-		ofs << std::fixed << std::setprecision(3) << o_aos.x[i] << ' '
-			<< o_aos.y[i] << ' '  << o_aos.z[i] << ' '
-			<< o_aos.vx[i] << ' ' << o_aos.vy[i] << ' '
-			<< o_aos.vz[i] << ' ' << o_aos.m[i] << '\n';
+		ofs << std::fixed << std::setprecision(3) << o_soa.x[i] << ' '
+			<< o_soa.y[i] << ' '  << o_soa.z[i] << ' '
+			<< o_soa.vx[i] << ' ' << o_soa.vy[i] << ' '
+			<< o_soa.vz[i] << ' ' << o_soa.m[i] << '\n';
 	}
 
 	return 0;
