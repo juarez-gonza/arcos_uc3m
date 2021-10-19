@@ -96,35 +96,43 @@ static inline void calc_pos(struct obj_aos &o_aos, unsigned int i,
 	}
 }
 
-/* efectos colaterales: cambia tamaño de los vectores en o_aos */
-static void collision_check(struct obj_aos &o_aos)
+static unsigned int collision_check(struct obj_aos &o_aos)
 {
-	/* itera en reverso porque facilita el loop sobre un vector
-	 * que cambia la cantidad de elementos.
-	 */
-	for (int i = o_aos.x.size() - 1; i >= 0; --i)
-		for (int j = i - 1; j >= 0; --j)
+	unsigned int merge_count{0};
+
+	for (size_t i = 0; i < o_aos.x.size(); ++i) {
+		if (!obj_exists(o_aos, i))
+			continue;
+		for (size_t j = i + 1; j < o_aos.x.size(); ++j) {
+			if (!obj_exists(o_aos, j))
+				continue;
 			if (calc_norm(o_aos, i, j) < 1.0) {
-				/* primer argumento de merge_obj() es j
-				 * porque por consigna el primer objeto en la
-				 * lista se combina con el segundo. al ser
-				 * un loop en reverso, el primer objeto es j
-				 */
-				merge_obj(o_aos, j, i);
-				/* objeto en i ya no existe */
-				i--;
+				merge_obj(o_aos, i, j);
+				merge_count++;
 			}
+		}
+	}
+
+	return merge_count;
 }
 
-void simulate(struct obj_aos &o_aos, unsigned int num_iterations,
+size_t simulate(struct obj_aos &o_aos, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
+	size_t exist_ctr{o_aos.x.size()};
 	/* chequeo pre-primera iteracion */
-	collision_check(o_aos);
-	for (unsigned long k = 0; k < num_iterations; ++k) {
-		for (unsigned long i = 0; i < o_aos.x.size(); ++i) {
-			for (unsigned long j = i + 1; j < o_aos.x.size(); ++j)
+	exist_ctr -= collision_check(o_aos);
+	for (unsigned int k = 0; k < num_iterations; ++k) {
+		for (size_t i = 0; i < o_aos.x.size(); ++i) {
+
+			if (!obj_exists(o_aos, i))
+				continue;
+
+			for (size_t j = i + 1; j < o_aos.x.size(); ++j) {
+				if (!obj_exists(o_aos, j))
+					continue;
 				calc_fgv(o_aos, i, j);
+			}
 
 			/* necesita fuerza para calcular aceleracion */
 			calc_vel(o_aos, i, time_step);
@@ -137,25 +145,31 @@ void simulate(struct obj_aos &o_aos, unsigned int num_iterations,
 			calc_pos(o_aos, i, size_enclosure, time_step);
 		}
 
-		collision_check(o_aos); /* chequeo de final de c/iteracion */
+		/* chequeo de final de c/iteracion */
+		exist_ctr -= collision_check(o_aos);
 	}
+
+	return exist_ctr;
 }
 
 int main(int argc, char *argv[])
 {
 	struct args arg_list{};
+	size_t exist_num{};
 
 	parse_args(arg_list, argc, argv);
 
 	struct obj_aos o_aos(arg_list.num_objects,
 		arg_list.random_seed, arg_list.size_enclosure);
 
-	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, o_aos))
+	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step,
+				arg_list.num_objects, o_aos))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
-	simulate(o_aos, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
+	exist_num = simulate(o_aos, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
 
-	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, o_aos))
+	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step,
+				exist_num, o_aos))
 		log_n_exit("Error while trying to write to final_config.txt\n", 1);
 
 	return 0;

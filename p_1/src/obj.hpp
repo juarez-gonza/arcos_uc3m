@@ -3,6 +3,13 @@
 #include <vector>
 #include <random>
 
+/*
+ * @__o_soa: instancia de obj_soa
+ * @__idx: indice a chequear existencia
+ */
+#define obj_exists(__o_soa, __idx) (((__o_soa).m[__idx]) > 0)
+#define obj_delete(__o_soa, __idx) (((__o_soa).m[__idx]) = 0)
+
 struct obj_aos {
 	std::vector<double> x, y, z;
 	std::vector<double> m;

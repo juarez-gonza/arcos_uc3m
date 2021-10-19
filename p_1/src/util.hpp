@@ -24,6 +24,7 @@ struct args {
 void parse_args(struct args &arg_list, int argc, char *argv[]);
 
 int write_config(std::string filename, double size_enclosure,
-		double time_step, struct obj_aos &o_aos);
+		double time_step, size_t num_objects,
+	       	struct obj_aos &o_aos);
 
 void log_n_exit(std::string error_msg, int exitcode);
