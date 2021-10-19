@@ -98,16 +98,15 @@ static unsigned int collision_check(std::vector<struct obj> &o_list)
 {
 	unsigned int merge_count{0};
 
-	for (size_t i = o_list.size() - 1; i >= 0; --i) {
+	for (size_t i = 0; i < o_list.size(); ++i) {
 		if (!obj_exists(o_list[i]))
 			continue;
-		for (size_t j = i - 1; j >= 0; --j) {
+		for (size_t j = i + 1; j < o_list.size(); ++j) {
 			if (!obj_exists(o_list[j]))
 				continue;
 			if (calc_norm(o_list[i], o_list[j]) < 1.0) {
-				merge_obj(o_list[j], o_list[i]);
+				merge_obj(o_list[i], o_list[j]);
 				merge_count++;
-				break; /* o_list[i] ya no existe */
 			}
 		}
 	}
