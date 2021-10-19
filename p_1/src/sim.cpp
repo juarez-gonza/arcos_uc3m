@@ -161,12 +161,14 @@ int main(int argc, char *argv[])
 
 	init_obj_list(o_list, arg_list.random_seed, arg_list.size_enclosure);
 
-	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, exist_num, o_list))
+	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step,
+				arg_list.num_objects, o_list))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
 	exist_num = simulate(o_list, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
 
-	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, exist_num, o_list))
+	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step,
+				exist_num, o_list))
 		log_n_exit("Error while trying to write to final_config.txt\n", 1);
 
 	return 0;

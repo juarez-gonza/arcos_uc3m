@@ -101,7 +101,7 @@ void parse_args(struct args &arg_list,
 }
 
 int write_config(std::string filename, double size_enclosure,
-		double time_step, size_t exist_num,
+		double time_step, size_t num_objects,
 		std::vector<struct obj> &o_list)
 {
 	std::ofstream ofs(filename);
@@ -109,7 +109,7 @@ int write_config(std::string filename, double size_enclosure,
 		return 1;
 
 	ofs << std::fixed << std::setprecision(3) << size_enclosure << ' '
-		<< time_step << ' ' << exist_num << '\n';
+		<< time_step << ' ' << num_objects << '\n';
 	for (unsigned long i = 0; i < o_list.size(); ++i) {
 		if (!obj_exists(o_list[i]))
 				continue;
