@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/sim-aos.dir/sim.cpp.o CMakeFiles/sim-aos.dir/obj.cpp.o CMakeFiles/sim-aos.dir/util.cpp.o -o sim-aos 
