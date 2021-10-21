@@ -9,7 +9,6 @@
  */
 
 #include <cmath>
-#include <stdlib.h>
 
 #include "util.hpp"
 #include "obj.hpp"
