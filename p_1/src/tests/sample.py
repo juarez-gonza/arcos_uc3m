@@ -9,7 +9,7 @@ time_step = 0.1
 # 30 muestras por caso para poder usar
 # distribucion normal para armar intervalo de confianza
 # en estimacion de medias.
-sample_size = 30
+sample_size = 80
 
 def cleanup_dir():
     pwd = os.getcwd()
