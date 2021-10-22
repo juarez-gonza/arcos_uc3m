@@ -22,31 +22,31 @@ enum pargs_retcode _parse_args(struct args &arg_list,
 		ss << argv[i] << " ";
 
 	ss >> arg_list.num_objects;
-	if ((ss.fail() || arg_list.num_objects < 0)) {
+	if ((ss.fail() || arg_list.num_objects <= 0)) {
 		arg_list.num_objects = 0;
 		return NUM_OBJ_ERR;
 	}
 
 	ss >> arg_list.num_iterations;
-	if ((ss.fail() || arg_list.num_iterations < 0)) {
+	if ((ss.fail() || arg_list.num_iterations <= 0)) {
 		arg_list.num_iterations = 0;
 		return NUM_ITER_ERR;
 	}
 
 	ss >> arg_list.random_seed;
-	if ((ss.fail() || arg_list.random_seed < 0)) {
+	if ((ss.fail() || arg_list.random_seed <= 0)) {
 		arg_list.random_seed = 0;
 		return RND_SEED_ERR;
 	}
 
 	ss >> arg_list.size_enclosure;
-	if ((ss.fail() || arg_list.size_enclosure < 0)) {
+	if ((ss.fail() || arg_list.size_enclosure <= 0)) {
 		arg_list.size_enclosure = 0;
 		return SIZE_ENCLOSURE_ERR;
 	}
 
 	ss >> arg_list.time_step;
-	if ((ss.fail() || arg_list.time_step < 0)) {
+	if ((ss.fail() || arg_list.time_step <= 0)) {
 		arg_list.time_step = 0;
 		return TIME_STEP_ERR;
 	}
