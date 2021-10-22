@@ -50,6 +50,12 @@ if __name__ == "__main__":
         axes[i, j].set_title(k + " (num_obj, num_iter)")
         axes[i, j].axvline(conf_interval[k][0])
         axes[i, j].axvline(conf_interval[k][1])
+        textstr = "mean: %f\nstdev: %f\ninterval: [%f, %f]"\
+                % (np.mean(data[k]), np.std(data[k]), conf_interval[k][0], conf_interval[k][1])
+        props = dict(boxstyle="round", facecolor="wheat", alpha=0.5)
+        # los valorse para las coordenadas x e y del texto son obtenidos con prueba y error
+        axes[i, j].text(0.63+(j*1.065) , 2.1 - 0.7*i, s=textstr, transform=ax.transAxes, fontsize=12,
+                        verticalalignment='top', bbox=props)
         j = (j + 1) % 3
         if j == 0:
             i = (i + 1) % 3
