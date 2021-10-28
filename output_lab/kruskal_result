@@ -1,0 +1,27 @@
+para num_objects-num_iterations = 1000-50:
+	p_valor: 0.000000, si hay diferencia y aos es significativamente más rápido
+		media aos: 0.007442, media soa: 0.007598
+para num_objects-num_iterations = 1000-100:
+	p_valor: 0.000000, si hay diferencia y soa es significativamente más rápido
+		media aos: 0.008130, media soa: 0.008124
+para num_objects-num_iterations = 1000-200:
+	p_valor: 0.000000, si hay diferencia y soa es significativamente más rápido
+		media aos: 0.009799, media soa: 0.009108
+para num_objects-num_iterations = 2000-50:
+	p_valor: 0.000000, si hay diferencia y aos es significativamente más rápido
+		media aos: 0.019157, media soa: 0.020094
+para num_objects-num_iterations = 2000-100:
+	p_valor: 0.000010, si hay diferencia y aos es significativamente más rápido
+		media aos: 0.020801, media soa: 0.020840
+para num_objects-num_iterations = 2000-200:
+	p_valor: 0.000001, si hay diferencia y soa es significativamente más rápido
+		media aos: 0.023299, media soa: 0.022936
+para num_objects-num_iterations = 4000-50:
+	p_valor: 0.000000, si hay diferencia y aos es significativamente más rápido
+		media aos: 0.057235, media soa: 0.062530
+para num_objects-num_iterations = 4000-100:
+	p_valor: 0.000000, si hay diferencia y aos es significativamente más rápido
+		media aos: 0.060119, media soa: 0.064546
+para num_objects-num_iterations = 4000-200:
+	p_valor: 0.000000, si hay diferencia y aos es significativamente más rápido
+		media aos: 0.066366, media soa: 0.068876
