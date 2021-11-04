@@ -96,6 +96,9 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 {
 	const size_t stride = 16ul; /* 16 tiene mejores resultados (por heuristica) */
 
+	/* considerar sacar de este loop y colocar este loop header por encima
+	 * del loop header del contador i (loop tiling). puede mejorar localidad
+	 * y separacion de caché para prevenir false sharing */
 	for (size_t jj = i + 1; jj < o_soa.len; jj += std::min(o_soa.len-jj, stride)) {
 
 		/* asignar memoria dinamica en el stack: moralmente sucio */
@@ -184,6 +187,12 @@ int main()
 	double tic = omp_get_wtime();
 
 	for (unsigned int k = 0; k < num_iterations; ++k) {
+		/*
+		 * considerar mine striping al loop header de i. probable mejora
+		 * de paralelismo del algoritmo (quizas para prevenir false sharing).
+		 * si loop header de jj se trae aqui, considerar loop collapse
+		 * (y comparar performance jugando con el orden de loop headers ii y jj)
+		 */
 		for (size_t i = 0; i < o_soa.len; ++i) {
 
 			calc_fgv(i, o_soa);
