@@ -103,15 +103,11 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 		double fy[stride] __attribute__((aligned(64)));
 		double fz[stride] __attribute__((aligned(64)));
 
-		double norm;
-		double denom;
-		double fgv_no_recalc;
-
 		/* loop vectorizable */
 		for (size_t j = jj; j < jj + std::min(o_soa.len-jj, stride); ++j) {
-			norm = calc_norm(i, j, o_soa);
-			denom = norm * norm * norm;
-			fgv_no_recalc = 6.674e-11 * o_soa.m[i] * o_soa.m[j] / denom;
+			double norm = calc_norm(i, j, o_soa);
+			double denom = norm * norm * norm;
+			double fgv_no_recalc = 6.674e-11 * o_soa.m[i] * o_soa.m[j] / denom;
 
 			fx[j-jj] = fgv_no_recalc * (o_soa.x[j] - o_soa.x[i]);
 			fy[j-jj] = fgv_no_recalc * (o_soa.y[j] - o_soa.y[i]);
@@ -177,8 +173,8 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 
 int main()
 {
-	unsigned int num_objects = 100;
-	unsigned int num_iterations = 2;
+	unsigned int num_objects = 2000;
+	unsigned int num_iterations = 100;
 	unsigned int random_seed = 666;
 	double size_enclosure = 2000;
 	double time_step = 0.1;
