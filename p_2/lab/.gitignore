@@ -1,0 +1,4 @@
+*.out
+cachegrind*
+asd.cpp
+aligned_allocator.cpp
