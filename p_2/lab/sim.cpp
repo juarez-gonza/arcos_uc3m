@@ -96,9 +96,6 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 {
 	const size_t stride = 16ul; /* 16 tiene mejores resultados (por heuristica) */
 
-	/* considerar sacar de este loop y colocar este loop header por encima
-	 * del loop header del contador i (loop tiling). puede mejorar localidad
-	 * y separacion de caché para prevenir false sharing */
 	for (size_t jj = i + 1; jj < o_soa.len; jj += std::min(o_soa.len-jj, stride)) {
 
 		/* asignar memoria dinamica en el stack: moralmente sucio */
@@ -174,6 +171,73 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 	//		i, o_soa.x[i], i, o_soa.y[i], i, o_soa.z[i]);
 }
 
+static inline void merge_obj(size_t i, size_t j, struct soa &o_soa)
+{
+	o_soa.m[i] += o_soa.m[j];
+	o_soa.vx[i] += o_soa.vx[j];
+	o_soa.vy[i] += o_soa.vy[j];
+	o_soa.vz[i] += o_soa.vz[j];
+}
+
+static inline void obj_copy_into(size_t into_idx, size_t from_idx, struct soa &o_soa)
+{
+	o_soa.m[into_idx] = o_soa.m[from_idx];
+	o_soa.x[into_idx] = o_soa.x[from_idx];
+	o_soa.y[into_idx] = o_soa.y[from_idx];
+	o_soa.z[into_idx] = o_soa.z[from_idx];
+	o_soa.fx[into_idx] = o_soa.fx[from_idx];
+	o_soa.fy[into_idx] = o_soa.fy[from_idx];
+	o_soa.fz[into_idx] = o_soa.fz[from_idx];
+	o_soa.vx[into_idx] = o_soa.vx[from_idx];
+	o_soa.vy[into_idx] = o_soa.vy[from_idx];
+	o_soa.vz[into_idx] = o_soa.vz[from_idx];
+}
+
+static inline void mark(size_t idx, struct soa &o_soa)
+{
+	o_soa.m[idx] = 0;
+}
+
+static inline bool obj_marked(size_t idx, struct soa &o_soa)
+{
+	return o_soa.m[idx] <= 0;
+}
+
+void mark_collisions(struct soa &o_soa)
+{
+	for (size_t i = 0; i < o_soa.len; ++i) {
+		if (obj_marked(i, o_soa))
+			continue;
+		for (size_t j = i + 1; j < o_soa.len; ++j) {
+			if (obj_marked(j, o_soa))
+				continue;
+			if (calc_norm(i, j, o_soa) < 1.0) {
+				merge_obj(i, j, o_soa);
+				mark(j, o_soa);
+			}
+		}
+	}
+}
+
+void delete_marked(struct soa &o_soa)
+{
+	size_t last = 0;
+	for (size_t i = 0; i < o_soa.len; ++i, ++last) {
+		while (obj_marked(i, o_soa) && i < o_soa.len)
+			i++;
+		if (i >= o_soa.len)
+			break;
+		obj_copy_into(last, i, o_soa);
+	}
+	o_soa.len = last;
+}
+
+static void inline collision_check(struct soa &o_soa)
+{
+	mark_collisions(o_soa);
+	delete_marked(o_soa);
+}
+
 int main()
 {
 	unsigned int num_objects = 2000;
@@ -186,13 +250,8 @@ int main()
 
 	double tic = omp_get_wtime();
 
+	collision_check(o_soa);
 	for (unsigned int k = 0; k < num_iterations; ++k) {
-		/*
-		 * considerar mine striping al loop header de i. probable mejora
-		 * de paralelismo del algoritmo (quizas para prevenir false sharing).
-		 * si loop header de jj se trae aqui, considerar loop collapse
-		 * (y comparar performance jugando con el orden de loop headers ii y jj)
-		 */
 		for (size_t i = 0; i < o_soa.len; ++i) {
 
 			calc_fgv(i, o_soa);
@@ -206,6 +265,7 @@ int main()
 			calc_pos(i, time_step, size_enclosure, o_soa);
 
 		}
+		collision_check(o_soa);
 	}
 
 	double toc = omp_get_wtime();
