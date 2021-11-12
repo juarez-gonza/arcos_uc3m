@@ -229,8 +229,8 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 	adjust_limits(i, size_enclosure, o_soa.z, o_soa.vz);
 	//printf("o_soa.x[%d]: %f\to_soa.y[%d]: %f\to_soa.z[%d]: %f\n",
 	//		i, o_soa.x[i], i, o_soa.y[i], i, o_soa.z[i]);
-	printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
-			o_soa.x[i], o_soa.y[i], o_soa.z[i]);
+	//printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
+	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
 static inline void merge_obj(size_t i, size_t j, struct soa &o_soa)
@@ -269,17 +269,24 @@ static inline bool obj_marked(size_t idx, struct soa &o_soa)
 
 void mark_collisions(struct soa &o_soa)
 {
-	for (size_t i = 0; i < o_soa.len; ++i) {
-		if (obj_marked(i, o_soa))
-			continue;
-		for (size_t j = i + 1; j < o_soa.len; ++j) {
-			if (obj_marked(j, o_soa))
+	const size_t b = 16ul; /* 16 tiene mejores resultados (por heuristica) */
+	const size_t N = o_soa.len - 1;
+
+	for (size_t ii = 0; ii <= N; ii += b) {
+	for (size_t jj = ii+1; jj <= N; jj += b) {
+		for (size_t i = ii; i <= std::min(ii+b-1, N); i++) {
+			if (obj_marked(i, o_soa))
 				continue;
-			if (calc_norm(i, j, o_soa) < 1.0) {
-				merge_obj(i, j, o_soa);
-				mark(j, o_soa);
+			for (size_t j = std::max(jj, i+1); j <= std::min(jj+b-1, N); j++) {
+				if (obj_marked(j, o_soa))
+					continue;
+				if (calc_norm(i, j, o_soa) < 1.0) {
+					merge_obj(i, j, o_soa);
+					mark(j, o_soa);
+				}
 			}
 		}
+	}
 	}
 }
 
@@ -304,8 +311,8 @@ static void inline collision_check(struct soa &o_soa)
 
 int main()
 {
-	unsigned int num_objects = 10;
-	unsigned int num_iterations = 1;
+	unsigned int num_objects = 10000;
+	unsigned int num_iterations = 100;
 	unsigned int random_seed = 666;
 	double size_enclosure = 2000;
 	double time_step = 0.1;
@@ -314,9 +321,7 @@ int main()
 
 	double tic = omp_get_wtime();
 
-	/*
 	collision_check(o_soa);
-	*/
 	for (unsigned int k = 0; k < num_iterations; ++k) {
 
 		calc_fgv(o_soa);
@@ -332,9 +337,7 @@ int main()
 			calc_pos(i, time_step, size_enclosure, o_soa);
 
 		}
-		/*
 		collision_check(o_soa);
-		*/
 	}
 
 	double toc = omp_get_wtime();
