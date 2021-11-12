@@ -136,7 +136,7 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 /* el compilador parece hacer inline de esto. no es necesario pero esta cool */
 static void calc_fgv(struct soa &o_soa)
 {
-	const size_t b = 16ul; /* 16 tiene mejores resultados (por heuristica) */
+	const size_t b = 512ul; /* 512 tiene mejores resultados (por heuristica) */
 	const size_t N = o_soa.len - 1;
 
 	for (size_t ii = 0; ii <= N; ii += b) {
@@ -269,7 +269,7 @@ static inline bool obj_marked(size_t idx, struct soa &o_soa)
 
 void mark_collisions(struct soa &o_soa)
 {
-	const size_t b = 16ul; /* 16 tiene mejores resultados (por heuristica) */
+	const size_t b = 512ul; /* 512 tiene mejores resultados (por heuristica) */
 	const size_t N = o_soa.len - 1;
 
 	for (size_t ii = 0; ii <= N; ii += b) {
