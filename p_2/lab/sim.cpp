@@ -4,7 +4,6 @@
 #include <cstring>
 #include <cmath>
 #include <limits>
-
 #include <random>
 
 #include <omp.h>
@@ -176,7 +175,7 @@ static void calc_fgv(struct soa &o_soa)
 			/* loop vectorizable:
 			 * Dependencia de output (WAW) en variables fxi, fyi, fzi,
 			 * el compilador parece poder vectorizar el loop de todas maneras.
-			 * No vectoriza cuando se reemplazan las variables fx* por o_soa.f*[i].
+			 * No vectoriza cuando se reemplazan las variables f* por o_soa.f*[i].
 			 *
 			 * condiciones de carrera:
 			 * Marcar el loop entero como zona critica va mucho mejor que adquirir lock
@@ -214,6 +213,7 @@ static inline void calc_vel(size_t i, double time_step, struct soa &o_soa)
 	o_soa.vz[i] = o_soa.vz[i] + accel_no_recalc * o_soa.fz[i];
 }
 
+/* chequear inline. no es critico pero estaria cool */
 static inline void adjust_limits(size_t i, double size_enclosure,
 		double pos[], double vel[])
 {
@@ -242,6 +242,7 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
+/* chequear inline */
 static inline void merge_obj(size_t i, size_t j, struct soa &o_soa)
 {
 	o_soa.m[i] += o_soa.m[j];
@@ -250,7 +251,8 @@ static inline void merge_obj(size_t i, size_t j, struct soa &o_soa)
 	o_soa.vz[i] += o_soa.vz[j];
 }
 
-static inline void obj_copy_into(size_t into_idx, size_t from_idx, struct soa &o_soa)
+/* el compilador parece hacer inline de esto. no es necesario pero esta cool */
+static void obj_copy_into(size_t into_idx, size_t from_idx, struct soa &o_soa)
 {
 	o_soa.m[into_idx] = o_soa.m[from_idx];
 	o_soa.x[into_idx] = o_soa.x[from_idx];
@@ -267,12 +269,14 @@ static inline void obj_copy_into(size_t into_idx, size_t from_idx, struct soa &o
 }
 
 double double_max = std::numeric_limits<double>::max();
+/* chequear inline */
 static inline void mark_atomic(size_t idx, struct soa &o_soa)
 {
 #pragma omp atomic
 	o_soa.m[idx] = o_soa.m[idx]-double_max;
 }
 
+/* chequear inline */
 static inline bool obj_marked(size_t idx, struct soa &o_soa)
 {
 	return o_soa.m[idx] <= 0;
@@ -315,7 +319,7 @@ void delete_marked(struct soa &o_soa)
 	o_soa.len = last;
 }
 
-static void inline collision_check(struct soa &o_soa)
+static void collision_check(struct soa &o_soa)
 {
 	mark_collisions(o_soa);
 	delete_marked(o_soa);
