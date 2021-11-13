@@ -3,14 +3,15 @@
 #include <stdlib.h>
 #include <cstring>
 #include <cmath>
+#include <limits>
 
 #include <random>
 
 #include <omp.h>
 
-#define LINESIZE 64
-#define ALIGNMENT 31
-#define _align(_num) ((_num) + ALIGNMENT) & ~ALIGNMENT
+#define SIMD_ALIGNMENT 64 /* sirve para SSE, AVX, y AVX512 */
+#define ALIGNMENT SIMD_ALIGNMENT
+#define _align(_num) ((_num) + (ALIGNMENT-1)) & ~(ALIGNMENT-1)
 
 struct soa {
 
@@ -116,9 +117,10 @@ fail_x:
 };
 
 /*
- * chequear que de hecho el compilador haga el inline.
- * vectorizacion en calc_fgv() cuenta con esto
+ * chequear que de hecho el compilador haga inline de calc_norm().
+ * vectorizacion en calc_fgv() cuenta con inline.
  */
+#pragma omp declare simd
 static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 {
 	double dx = o_soa.x[i] - o_soa.x[j];
@@ -126,8 +128,8 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 	double dz = o_soa.z[i] - o_soa.z[j];
 
 	/*
-	 * std::sqrt() no vectorizable a no ser que se use -fno-math-errno
-	 * (ver -ffast-math y -Ofast). guarda: tratan FP como asociativo.
+	 * std::sqrt() parece ser no vectorizable a no ser que se use -fno-math-errno
+	 * (ver -ffast-math y -Ofast). guarda: tratan FP como asociativo y aproximar.
 	 * si pc target no tiene simd necesarias, considerar dividir el loop aqui.
 	 */
 	return std::sqrt(dx * dx + dy * dy + dz * dz);
@@ -136,48 +138,56 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 /* el compilador parece hacer inline de esto. no es necesario pero esta cool */
 static void calc_fgv(struct soa &o_soa)
 {
-	const size_t b = 512ul; /* 512 tiene mejores resultados (por heuristica) */
-	const size_t N = o_soa.len - 1;
+	const size_t b = 2048ul; /* 2048 parece tener mejores resultados en paralelismo (heuristica) */
+	const size_t N = o_soa.len - 1ul;
 
-/* array unidimensional: paralelizar jj reduce false sharing (cada hilo de exec encasillado en [jj,jj+b]) */
-	for (size_t ii = 0; ii <= N; ii += b) {
-	#pragma omp parallel for
-	for (size_t jj = ii+1; jj <= N; jj += b) {
+/* paralelizar: fuerza resultante del conjunto de objetos es calculada "en simultaneo" */
+#pragma omp parallel for schedule(auto)
+	for (size_t ii = 0ul; ii <= N; ii += b) {
+/* paralelizar: sumatoria de la fuerza resultante en un objeto es calculada "en simultaneo" */
+#pragma omp parallel for schedule(auto)
+	for (size_t jj = ii+1ul; jj <= N; jj += b) {
 
 		/* asignar memoria dinamica en el stack: moralmente sucio */
-		double fx[b] __attribute__((aligned(64)));
-		double fy[b] __attribute__((aligned(64)));
-		double fz[b] __attribute__((aligned(64)));
+		double fx[b] __attribute__((aligned(ALIGNMENT)));
+		double fy[b] __attribute__((aligned(ALIGNMENT)));
+		double fz[b] __attribute__((aligned(ALIGNMENT)));
+		double norm[b] __attribute__((aligned(ALIGNMENT)));
+		double fgv_no_recalc[b] __attribute__((aligned(ALIGNMENT)));
 
-		for (size_t i = ii; i <= std::min(ii+b-1, N); i++) {
-			/* loop vectorizable
-			 * hay dependencia de flujo (RAW) entre asignar a fx[j-jj] y usarlo
-			 * en la suma y resta a las fuerzas de o_soa.fx[i] y o_soa.fx[j].
-			 * el compilador no vectoriza el loop en ese caso, pero al dividir el
+		for (size_t i = ii; i <= std::min(ii+b-1ul, N); ++i) {
+			/* loop vectorizable:
+			 * Dependencia de flujo (RAW) entre asignar a fx[j-jj] y usarlo
+			 * para la suma a las fuerzas de o_soa.f*[i] y o_soa.f*[j].
+			 * El compilador no vectoriza el loop en ese caso, pero al dividir el
 			 * proceso en 2 loops, el compilador puede vectorizar sin problemas.
 			 */
-			for (size_t j = std::max(jj, i+1); j <= std::min(jj+b-1, N); j++) {
+			#pragma omp simd
+			for (size_t j = std::max(jj, i+1ul); j <= std::min(jj+b-1ul, N); ++j) {
+				norm[j-jj] = calc_norm(i, j, o_soa);
+				fgv_no_recalc[j-jj] = (6.674e-11 * o_soa.m[i] * o_soa.m[j])
+					/ (norm[j-jj] * norm[j-jj] * norm[j-jj]);
 
-				double norm = calc_norm(i, j, o_soa);
-				double denom = norm * norm * norm;
-				double fgv_no_recalc = 6.674e-11 * o_soa.m[i] * o_soa.m[j] / denom;
-
-				fx[j-jj] = fgv_no_recalc * (o_soa.x[j] - o_soa.x[i]);
-				fy[j-jj] = fgv_no_recalc * (o_soa.y[j] - o_soa.y[i]);
-				fz[j-jj] = fgv_no_recalc * (o_soa.z[j] - o_soa.z[i]);
+				fx[j-jj] = fgv_no_recalc[j-jj] * (o_soa.x[j] - o_soa.x[i]);
+				fy[j-jj] = fgv_no_recalc[j-jj] * (o_soa.y[j] - o_soa.y[i]);
+				fz[j-jj] = fgv_no_recalc[j-jj] * (o_soa.z[j] - o_soa.z[i]);
 			}
 
-			double fxi, fyi, fzi;
-			fxi = fyi = fzi = 0;
-			/* Dependencia de output (WAW) en variables fxi, fyi, fzi,
-			 * pero el compilador parece poder vectorizar el loop de todas maneras.
+			/* loop vectorizable:
+			 * Dependencia de output (WAW) en variables fxi, fyi, fzi,
+			 * el compilador parece poder vectorizar el loop de todas maneras.
 			 * No vectoriza cuando se reemplazan las variables fx* por o_soa.f*[i].
 			 *
-			 * Marcar el loop entero como zona critica va mucho mejor que adquirir locks
-			 * en cada iteracion (loop no es muy grande, maximo b iteraciones)
+			 * condiciones de carrera:
+			 * Marcar el loop entero como zona critica va mucho mejor que adquirir lock
+			 * en cada iteracion (loop no es muy grande, maximo de b iteraciones)
 			 */
+			double fxi, fyi, fzi;
+			fxi = fyi = fzi = 0.0;
 			#pragma omp critical
-			for (size_t j = std::max(jj, i+1); j <= std::min(jj+b-1, N); j++) {
+			{
+			#pragma omp simd
+			for (size_t j = std::max(jj, i+1ul); j <= std::min(jj+b-1ul, N); j++) {
 				o_soa.fx[j] = o_soa.fx[j] - fx[j-jj];
 				o_soa.fy[j] = o_soa.fy[j] - fy[j-jj];
 				o_soa.fz[j] = o_soa.fz[j] - fz[j-jj];
@@ -186,20 +196,12 @@ static void calc_fgv(struct soa &o_soa)
 				fyi = fyi + fy[j-jj];
 				fzi = fzi + fz[j-jj];
 			}
-
-			#pragma omp critical
-			{
 			o_soa.fx[i] += fxi;
 			o_soa.fy[i] += fyi;
 			o_soa.fz[i] += fzi;
 			}
 		}
-	}}
-	/*
-	for (size_t i = 0; i < o_soa.len; ++i)
-		printf("o_soa.fx[%d]: %f\to_soa.fy[%d]: %f\to_soa.fz[%d]: %f\n",
-			  i, o_soa.fx[i], i, o_soa.fy[i], i, o_soa.fz[i]);
-	*/
+	}} /* fin omp parallel ii y jj */
 }
 
 /* chequear inline. no es critico pero estaria cool */
@@ -236,8 +238,8 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 
 	o_soa.z[i] = o_soa.z[i] + o_soa.vz[i] * time_step;
 	adjust_limits(i, size_enclosure, o_soa.z, o_soa.vz);
-	printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
-			o_soa.x[i], o_soa.y[i], o_soa.z[i]);
+	//printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
+	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
 static inline void merge_obj(size_t i, size_t j, struct soa &o_soa)
@@ -264,9 +266,11 @@ static inline void obj_copy_into(size_t into_idx, size_t from_idx, struct soa &o
 	o_soa.vz[into_idx] = o_soa.vz[from_idx];
 }
 
-static inline void mark(size_t idx, struct soa &o_soa)
+double double_max = std::numeric_limits<double>::max();
+static inline void mark_atomic(size_t idx, struct soa &o_soa)
 {
-	o_soa.m[idx] = 0;
+#pragma omp atomic
+	o_soa.m[idx] = o_soa.m[idx]-double_max;
 }
 
 static inline bool obj_marked(size_t idx, struct soa &o_soa)
@@ -276,20 +280,21 @@ static inline bool obj_marked(size_t idx, struct soa &o_soa)
 
 void mark_collisions(struct soa &o_soa)
 {
-	const size_t b = 512ul; /* 512 tiene mejores resultados (por heuristica) */
-	const size_t N = o_soa.len - 1;
+	const size_t b = 128ul; /* 128 tiene mejores resultados (heuristica) */
+	const size_t N = o_soa.len - 1ul;
 
 	for (size_t ii = 0; ii <= N; ii += b) {
+#pragma omp parallel for schedule(auto)
 	for (size_t jj = ii+1; jj <= N; jj += b) {
-		for (size_t i = ii; i <= std::min(ii+b-1, N); i++) {
+		for (size_t i = ii; i <= std::min(ii+b-1ul, N); i++) {
 			if (obj_marked(i, o_soa))
 				continue;
-			for (size_t j = std::max(jj, i+1); j <= std::min(jj+b-1, N); j++) {
+			for (size_t j = std::max(jj, i+1ul); j <= std::min(jj+b-1ul, N); j++) {
 				if (obj_marked(j, o_soa))
 					continue;
 				if (calc_norm(i, j, o_soa) < 1.0) {
 					merge_obj(i, j, o_soa);
-					mark(j, o_soa);
+					mark_atomic(j, o_soa);
 				}
 			}
 		}
@@ -299,8 +304,8 @@ void mark_collisions(struct soa &o_soa)
 
 void delete_marked(struct soa &o_soa)
 {
-	size_t last = 0;
-	for (size_t i = 0; i < o_soa.len; ++i, ++last) {
+	size_t last = 0ul;
+	for (size_t i = 0ul; i < o_soa.len; ++i, ++last) {
 		while (obj_marked(i, o_soa) && i < o_soa.len)
 			i++;
 		if (i >= o_soa.len)
@@ -318,7 +323,7 @@ static void inline collision_check(struct soa &o_soa)
 
 int main()
 {
-	unsigned int num_objects = 4000;
+	unsigned int num_objects = 10000;
 	unsigned int num_iterations = 250;
 	unsigned int random_seed = 666;
 	double size_enclosure = 2000;
@@ -333,17 +338,18 @@ int main()
 
 		calc_fgv(o_soa);
 
-		for (size_t i = 0; i < o_soa.len; ++i) {
+		/* loop secuencial. paralelizar puede causar diferencias en posiciones */
+		for (size_t i = 0ul; i < o_soa.len; ++i) {
 			calc_vel(i, time_step, o_soa);
 
 			/* ya no necesita fx, limpiar para prox iteracion */
-			o_soa.fx[i] = 0;
-			o_soa.fy[i] = 0;
-			o_soa.fz[i] = 0;
+			o_soa.fx[i] = 0ul;
+			o_soa.fy[i] = 0ul;
+			o_soa.fz[i] = 0ul;
 
 			calc_pos(i, time_step, size_enclosure, o_soa);
-
 		}
+
 		collision_check(o_soa);
 	}
 
