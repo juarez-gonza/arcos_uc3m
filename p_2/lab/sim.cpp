@@ -139,7 +139,9 @@ static void calc_fgv(struct soa &o_soa)
 	const size_t b = 512ul; /* 512 tiene mejores resultados (por heuristica) */
 	const size_t N = o_soa.len - 1;
 
+/* array unidimensional: paralelizar jj reduce false sharing (cada hilo de exec encasillado en [jj,jj+b]) */
 	for (size_t ii = 0; ii <= N; ii += b) {
+	#pragma omp parallel for
 	for (size_t jj = ii+1; jj <= N; jj += b) {
 
 		/* asignar memoria dinamica en el stack: moralmente sucio */
@@ -148,7 +150,12 @@ static void calc_fgv(struct soa &o_soa)
 		double fz[b] __attribute__((aligned(64)));
 
 		for (size_t i = ii; i <= std::min(ii+b-1, N); i++) {
-			/* loop vectorizable */
+			/* loop vectorizable
+			 * hay dependencia de flujo (RAW) entre asignar a fx[j-jj] y usarlo
+			 * en la suma y resta a las fuerzas de o_soa.fx[i] y o_soa.fx[j].
+			 * el compilador no vectoriza el loop en ese caso, pero al dividir el
+			 * proceso en 2 loops, el compilador puede vectorizar sin problemas.
+			 */
 			for (size_t j = std::max(jj, i+1); j <= std::min(jj+b-1, N); j++) {
 
 				double norm = calc_norm(i, j, o_soa);
@@ -158,16 +165,18 @@ static void calc_fgv(struct soa &o_soa)
 				fx[j-jj] = fgv_no_recalc * (o_soa.x[j] - o_soa.x[i]);
 				fy[j-jj] = fgv_no_recalc * (o_soa.y[j] - o_soa.y[i]);
 				fz[j-jj] = fgv_no_recalc * (o_soa.z[j] - o_soa.z[i]);
-
-				//printf("norm(%d, %d): %f, denom: %f\n", i, j, norm, denom);
-				/*
-				printf("fgv_no_recalc: %f, fx[%d]: %f, fy[%d]: %f, fz[%d]: %f\n",
-							fgv_no_recalc, j, fx[j-jj], j, fy[j-jj], j, fz[j-jj]);
-				*/
 			}
 
 			double fxi, fyi, fzi;
 			fxi = fyi = fzi = 0;
+			/* Dependencia de output (WAW) en variables fxi, fyi, fzi,
+			 * pero el compilador parece poder vectorizar el loop de todas maneras.
+			 * No vectoriza cuando se reemplazan las variables fx* por o_soa.f*[i].
+			 *
+			 * Marcar el loop entero como zona critica va mucho mejor que adquirir locks
+			 * en cada iteracion (loop no es muy grande, maximo b iteraciones)
+			 */
+			#pragma omp critical
 			for (size_t j = std::max(jj, i+1); j <= std::min(jj+b-1, N); j++) {
 				o_soa.fx[j] = o_soa.fx[j] - fx[j-jj];
 				o_soa.fy[j] = o_soa.fy[j] - fy[j-jj];
@@ -178,12 +187,14 @@ static void calc_fgv(struct soa &o_soa)
 				fzi = fzi + fz[j-jj];
 			}
 
+			#pragma omp critical
+			{
 			o_soa.fx[i] += fxi;
 			o_soa.fy[i] += fyi;
 			o_soa.fz[i] += fzi;
+			}
 		}
-	}
-	}
+	}}
 	/*
 	for (size_t i = 0; i < o_soa.len; ++i)
 		printf("o_soa.fx[%d]: %f\to_soa.fy[%d]: %f\to_soa.fz[%d]: %f\n",
@@ -199,8 +210,6 @@ static inline void calc_vel(size_t i, double time_step, struct soa &o_soa)
 	o_soa.vx[i] = o_soa.vx[i] + accel_no_recalc * o_soa.fx[i];
 	o_soa.vy[i] = o_soa.vy[i] + accel_no_recalc * o_soa.fy[i];
 	o_soa.vz[i] = o_soa.vz[i] + accel_no_recalc * o_soa.fz[i];
-	//printf("o_soa.vx[%d]: %f\to_soa.vy[%d]: %f\to_soa.vz[%d]: %f\n",
-	//		i, o_soa.vx[i], i, o_soa.vy[i], i, o_soa.vz[i]);
 }
 
 static inline void adjust_limits(size_t i, double size_enclosure,
@@ -227,10 +236,8 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 
 	o_soa.z[i] = o_soa.z[i] + o_soa.vz[i] * time_step;
 	adjust_limits(i, size_enclosure, o_soa.z, o_soa.vz);
-	//printf("o_soa.x[%d]: %f\to_soa.y[%d]: %f\to_soa.z[%d]: %f\n",
-	//		i, o_soa.x[i], i, o_soa.y[i], i, o_soa.z[i]);
-	//printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
-	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
+	printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
+			o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
 static inline void merge_obj(size_t i, size_t j, struct soa &o_soa)
@@ -311,8 +318,8 @@ static void inline collision_check(struct soa &o_soa)
 
 int main()
 {
-	unsigned int num_objects = 10000;
-	unsigned int num_iterations = 100;
+	unsigned int num_objects = 4000;
+	unsigned int num_iterations = 250;
 	unsigned int random_seed = 666;
 	double size_enclosure = 2000;
 	double time_step = 0.1;
