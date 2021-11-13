@@ -115,8 +115,7 @@ fail_x:
 	}
 };
 
-/*
- * chequear que de hecho el compilador haga inline de calc_norm().
+/* chequear que de hecho el compilador haga inline de calc_norm().
  * vectorizacion en calc_fgv() cuenta con inline.
  */
 #pragma omp declare simd
@@ -126,8 +125,7 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 	double dy = o_soa.y[i] - o_soa.y[j];
 	double dz = o_soa.z[i] - o_soa.z[j];
 
-	/*
-	 * std::sqrt() parece ser no vectorizable a no ser que se use -fno-math-errno
+	/* std::sqrt() parece ser no vectorizable a no ser que se use -fno-math-errno
 	 * (ver -ffast-math y -Ofast). guarda: tratan FP como asociativo y aproximar.
 	 * si pc target no tiene simd necesarias, considerar dividir el loop aqui.
 	 */
@@ -140,10 +138,11 @@ static void calc_fgv(struct soa &o_soa)
 	const size_t b = 2048ul; /* 2048 parece tener mejores resultados en paralelismo (heuristica) */
 	const size_t N = o_soa.len - 1ul;
 
-/* paralelizar: fuerza resultante del conjunto de objetos es calculada "en simultaneo" */
+/* paralelizar ii: fuerza resultante del conjunto de objetos es calculada "en simultaneo".
+ * paralelizar jj: sumatoria de la fuerza resultante en un objeto es calculada "en simultaneo".
+ */
 #pragma omp parallel for schedule(auto)
 	for (size_t ii = 0ul; ii <= N; ii += b) {
-/* paralelizar: sumatoria de la fuerza resultante en un objeto es calculada "en simultaneo" */
 #pragma omp parallel for schedule(auto)
 	for (size_t jj = ii+1ul; jj <= N; jj += b) {
 
@@ -155,11 +154,14 @@ static void calc_fgv(struct soa &o_soa)
 		double fgv_no_recalc[b] __attribute__((aligned(ALIGNMENT)));
 
 		for (size_t i = ii; i <= std::min(ii+b-1ul, N); ++i) {
-			/* loop vectorizable:
-			 * Dependencia de flujo (RAW) entre asignar a fx[j-jj] y usarlo
+			/* separacion de loop para vectorizacion:
+			 * Dependencia de flujo (RAW) entre asignar a f*[j-jj] y usarlo
 			 * para la suma a las fuerzas de o_soa.f*[i] y o_soa.f*[j].
-			 * El compilador no vectoriza el loop en ese caso, pero al dividir el
-			 * proceso en 2 loops, el compilador puede vectorizar sin problemas.
+			 * Parece ser la causa por la que el compilador no vectoriza el loop en ese caso.
+			 * Al dividir el calculo en 2 loops, el compilador puede vectorizar sin problemas.
+			 *
+			 * loop vectorizable:
+			 * RAW en fgv_no_recalc[j-jj] y RAW en norm[j-jj] parece no impedir vectorizacion.
 			 */
 			#pragma omp simd
 			for (size_t j = std::max(jj, i+1ul); j <= std::min(jj+b-1ul, N); ++j) {
@@ -179,7 +181,7 @@ static void calc_fgv(struct soa &o_soa)
 			 *
 			 * condiciones de carrera:
 			 * Marcar el loop entero como zona critica va mucho mejor que adquirir lock
-			 * en cada iteracion (loop no es muy grande, maximo de b iteraciones)
+			 * en cada iteracion (loop no es muuuuy grande -> maximo de b iteraciones).
 			 */
 			double fxi, fyi, fzi;
 			fxi = fyi = fzi = 0.0;
@@ -302,8 +304,7 @@ void mark_collisions(struct soa &o_soa)
 				}
 			}
 		}
-	}
-	}
+	}} /* fin loop ii y parallel jj */
 }
 
 void delete_marked(struct soa &o_soa)
@@ -346,7 +347,7 @@ int main()
 		for (size_t i = 0ul; i < o_soa.len; ++i) {
 			calc_vel(i, time_step, o_soa);
 
-			/* ya no necesita fx, limpiar para prox iteracion */
+			/* ya no necesita f*[i], limpiar para prox iteracion */
 			o_soa.fx[i] = 0ul;
 			o_soa.fy[i] = 0ul;
 			o_soa.fz[i] = 0ul;
