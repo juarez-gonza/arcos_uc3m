@@ -1,5 +1,4 @@
 #include <cmath>
-#include <limits>
 
 #include <omp.h>
 
@@ -139,8 +138,13 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
-//double double_max = std::numeric_limits<double>::max();
-/* chequear inline */
+/* chequear inline.
+ * omp atomic no parece permitir o_soa.m[idx] = 0,
+ * por lo que se resta su mismo valor para igualar a 0.
+ * se puede restar el maximo double. pero std::numeric_limits<double>::max()
+ * no puede llamarse en omp atomic y no hubo buena experiencia con
+ * su resolucion en tiempo de compilacion
+ */
 static inline void mark_atomic(size_t idx, struct soa &o_soa)
 {
 #pragma omp atomic
