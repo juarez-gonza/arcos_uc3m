@@ -18,8 +18,8 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 	double dz = o_soa.z[i] - o_soa.z[j];
 
 	/* std::sqrt() parece ser no vectorizable a no ser que se use -fno-math-errno
-	 * (ver -ffast-math y -Ofast). guarda: tratan FP como asociativo y aproximar.
-	 * si pc target no tiene simd necesarias, considerar dividir el loop aqui.
+	 * (ver -ffast-math y -Ofast). guarda: tratan FP como asociativo y aproximan por
+	 * metodos numericos.
 	 */
 	return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
@@ -94,7 +94,7 @@ static void calc_fgv(struct soa &o_soa)
 			o_soa.fz[i] += fzi;
 			} /* fin omp critical */
 		}
-	}} /* fin omp parallel ii y jj */
+	}} /* fin omp parallel ii y omp parallel jj */
 }
 
 /* chequear inline. no es critico pero estaria cool */
@@ -138,12 +138,12 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
-double double_max = std::numeric_limits<double>::max();
+//double double_max = std::numeric_limits<double>::max();
 /* chequear inline */
 static inline void mark_atomic(size_t idx, struct soa &o_soa)
 {
 #pragma omp atomic
-	o_soa.m[idx] = o_soa.m[idx]-double_max;
+	o_soa.m[idx] = o_soa.m[idx]-o_soa.m[idx];
 }
 
 void mark_collisions(struct soa &o_soa)
@@ -152,7 +152,7 @@ void mark_collisions(struct soa &o_soa)
 	const size_t N = o_soa.len - 1ul;
 
 	for (size_t ii = 0; ii <= N; ii += b) {
-#pragma omp parallel for schedule(auto)
+	#pragma omp parallel for schedule(auto)
 	for (size_t jj = ii+1; jj <= N; jj += b) {
 		for (size_t i = ii; i <= std::min(ii+b-1ul, N); i++) {
 			if (obj_marked(i, o_soa))

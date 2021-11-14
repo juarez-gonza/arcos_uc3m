@@ -1,2 +1,0 @@
-chequear valgrind --tool=memcheck
-implementar paralelismo

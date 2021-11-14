@@ -5,3 +5,5 @@ aligned_allocator.cpp
 *perf*
 final_config.txt
 init_config.txt
+build/*
+build
