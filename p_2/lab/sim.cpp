@@ -32,6 +32,7 @@ static void calc_fgv(struct soa &o_soa)
 
 /* paralelizar ii: fuerza resultante del conjunto de objetos es calculada "en simultaneo".
  * paralelizar jj: sumatoria de la fuerza resultante en un objeto es calculada "en simultaneo".
+ * paralelizar jj altera demasiado el orden de las operaciones?
  */
 #pragma omp parallel for schedule(auto)
 	for (size_t ii = 0ul; ii <= N; ii += b) {
@@ -142,7 +143,7 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 /* chequear inline */
 static inline void mark_atomic(size_t idx, struct soa &o_soa)
 {
-#pragma omp atomic
+//#pragma omp atomic
 	o_soa.m[idx] = o_soa.m[idx]-o_soa.m[idx];
 }
 
@@ -152,7 +153,7 @@ void mark_collisions(struct soa &o_soa)
 	const size_t N = o_soa.len - 1ul;
 
 	for (size_t ii = 0; ii <= N; ii += b) {
-	#pragma omp parallel for schedule(auto)
+	//#pragma omp parallel for schedule(auto)
 	for (size_t jj = ii+1; jj <= N; jj += b) {
 		for (size_t i = ii; i <= std::min(ii+b-1ul, N); i++) {
 			if (obj_marked(i, o_soa))
