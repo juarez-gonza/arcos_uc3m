@@ -130,6 +130,7 @@ void mark_collisions(struct soa &o_soa)
 				if (obj_marked(j, o_soa))
 					continue;
 				if (calc_norm(i, j, o_soa) < 1.0) {
+					/* merge_obj puede llevarse while loop de delete_marked() con args last, i */
 					merge_obj(i, j, o_soa);
 					mark(j, o_soa);
 				}
