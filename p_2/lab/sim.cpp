@@ -169,6 +169,9 @@ void mark_collisions(struct soa &o_soa)
 				if (obj_marked(j, o_soa))
 					continue;
 				if (calc_norm(i, j, o_soa) < 1.0) {
+					/* merge_obj() en la version paralela no da buenos resultados
+					 * al moverse a delete_marked() como merge_obj(last, i)
+					 */
 					merge_obj(i, j, o_soa);
 					mark_atomic(j, o_soa);
 				}
