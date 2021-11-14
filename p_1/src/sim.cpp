@@ -29,6 +29,7 @@ static inline double calc_norm(struct obj_soa &o_soa, unsigned int i, unsigned i
 static inline void calc_fgv(struct obj_soa &o_soa, unsigned int i, unsigned int j)
 {
 	/* fgv_no_recalc = G * mi * mj / denom */
+	double norm;
 	double denom;
 	double fgv_no_recalc;
 
@@ -36,8 +37,8 @@ static inline void calc_fgv(struct obj_soa &o_soa, unsigned int i, unsigned int 
 	double fy;
 	double fz;
 
-	denom = calc_norm(o_soa, i, j);
-	denom = denom * denom * denom;
+	norm = calc_norm(o_soa, i, j);
+	denom = norm * norm * norm;
 	fgv_no_recalc = 6.674e-11 * o_soa.m[i] * o_soa.m[j] / denom;
 
 	fx = fgv_no_recalc * (o_soa.x[j] - o_soa.x[i]);
@@ -51,6 +52,7 @@ static inline void calc_fgv(struct obj_soa &o_soa, unsigned int i, unsigned int 
 	fz = fgv_no_recalc * (o_soa.z[j] - o_soa.z[i]);
 	o_soa.fz[i] = o_soa.fz[i] + fz;
 	o_soa.fz[j] = o_soa.fz[j] - fz;
+
 }
 
 static inline void calc_vel(struct obj_soa &o_soa, unsigned int i, double time_step)
@@ -61,6 +63,8 @@ static inline void calc_vel(struct obj_soa &o_soa, unsigned int i, double time_s
 	o_soa.vx[i] = o_soa.vx[i] + accel_no_recalc * o_soa.fx[i];
 	o_soa.vy[i] = o_soa.vy[i] + accel_no_recalc * o_soa.fy[i];
 	o_soa.vz[i] = o_soa.vz[i] + accel_no_recalc * o_soa.fz[i];
+	//printf("o_soa.vx[]: %.3f\to_soa.vy[]: %.3f\to_soa.vz[]: %.3f\n",
+	//		o_soa.vx[i], o_soa.vy[i], o_soa.vz[i]);
 }
 
 static inline void calc_pos(struct obj_soa &o_soa, unsigned int i,
@@ -93,6 +97,9 @@ static inline void calc_pos(struct obj_soa &o_soa, unsigned int i,
 		o_soa.z[i] = 0;
 		o_soa.vz[i] = -o_soa.vz[i];
 	}
+
+	//printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
+	//				o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
 static unsigned int collision_check(struct obj_soa &o_soa)
@@ -111,7 +118,6 @@ static unsigned int collision_check(struct obj_soa &o_soa)
 			}
 		}
 	}
-
 	return merge_count;
 }
 
@@ -132,6 +138,8 @@ size_t simulate(struct obj_soa &o_soa, unsigned int num_iterations,
 					continue;
 				calc_fgv(o_soa, i, j);
 			}
+			//printf("o_soa.fx[%d]: %f\to_soa.fy[%d]: %f\to_soa.fz[%d]: %f\n",
+			//		i, o_soa.fx[i], i, o_soa.fy[i], i, o_soa.fz[i]);
 
 			/* necesita fuerza para calcular aceleracion */
 			calc_vel(o_soa, i, time_step);
@@ -142,14 +150,18 @@ size_t simulate(struct obj_soa &o_soa, unsigned int num_iterations,
 			o_soa.fz[i] = 0;
 
 			calc_pos(o_soa, i, size_enclosure, time_step);
+
 		}
 
 		/* chequeo de final de c/iteracion */
 		exist_ctr -= collision_check(o_soa);
 	}
 
+
 	return exist_ctr;
 }
+
+#include <omp.h>
 
 int main(int argc, char *argv[])
 {
@@ -165,7 +177,14 @@ int main(int argc, char *argv[])
 				arg_list.num_objects, o_soa))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
+	double tic = omp_get_wtime();
+
 	exist_num = simulate(o_soa, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
+
+
+	double toc = omp_get_wtime();
+
+	printf("tiempo de ejecucion: %f\n", toc-tic);
 
 	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step,
 				exist_num, o_soa))
