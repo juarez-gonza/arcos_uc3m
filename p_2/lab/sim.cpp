@@ -1,123 +1,12 @@
-#include <iostream>
-
-#include <stdlib.h>
-#include <cstring>
 #include <cmath>
-
-#include <random>
 
 #include <omp.h>
 
-#define LINESIZE 64
-#define ALIGNMENT 31
-#define _align(_num) ((_num) + ALIGNMENT) & ~ALIGNMENT
+#include "util.hpp"
+#include "obj.hpp"
 
-struct soa {
-
-	size_t len;
-	double *m;
-	double *x, *y, *z;
-	double *fx, *fy, *fz;
-	double *vx, *vy, *vz;
-
-	soa(size_t ua_len, unsigned int random_seed, double upperbound)
-	{
-
-		std::mt19937_64 gen(random_seed);
-		std::uniform_real_distribution<> uniform(0, upperbound);
-		std::normal_distribution<> normal(1e+21, 1e+15);
-
-		size_t size{_align(ua_len * sizeof(double))};
-
-		len = ua_len;
-
-		x = (double *)malloc(size);
-		if (NULL == x)
-			goto fail_x;
-		y = (double *)malloc(size);
-		if (NULL == y)
-			goto fail_y;
-		z = (double *)malloc(size);
-		if (NULL == z)
-			goto fail_z;
-		m = (double *)malloc(size);
-		if (NULL == m)
-			goto fail_m;
-
-		vx = (double *)malloc(size);
-		if (NULL == vx)
-			goto fail_vx;
-		memset(vx, 0, size);
-		vy = (double *)malloc(size);
-		if (NULL == vy)
-			goto fail_vy;
-		memset(vy, 0, size);
-		vz = (double *)malloc(size);
-		if (NULL == vz)
-			goto fail_vz;
-		memset(vy, 0, size);
-
-		fx = (double *)malloc(size);
-		if (NULL == fx)
-			goto fail_fx;
-		memset(fx, 0, size);
-		fy = (double *)malloc(size);
-		if (NULL == fy)
-			goto fail_fy;
-		memset(fy, 0, size);
-		fz = (double *)malloc(size);
-		if (NULL == fz)
-			goto fail_fz;
-		memset(fy, 0, size);
-
-		for (unsigned int i = 0; i < ua_len; ++i) {
-			x[i] = uniform(gen);
-			y[i] = uniform(gen);
-			z[i] = uniform(gen);
-			m[i] = normal(gen);
-		}
-
-		return;
-fail_fz:
-		free(fy);
-fail_fy:
-		free(fx);
-fail_fx:
-		free(vz);
-fail_vz:
-		free(vy);
-fail_vy:
-		free(vx);
-fail_vx:
-		free(m);
-fail_m:
-		free(z);
-fail_z:
-		free(y);
-fail_y:
-		free(x);
-fail_x:
-		throw std::bad_alloc();
-	}
-
-	~soa()
-	{
-		free(fz);
-		free(fy);
-		free(fx);
-		free(vz);
-		free(vy);
-		free(vx);
-		free(m);
-		free(z);
-		free(y);
-		free(x);
-	}
-};
-
-/*
- * chequear que de hecho el compilador haga el inline.
- * vectorizacion en calc_fgv() cuenta con esto
+/* chequear que de hecho el compilador haga inline de calc_norm().
+ * vectorizacion en calc_fgv() cuenta con inline.
  */
 static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 {
@@ -125,10 +14,9 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 	double dy = o_soa.y[i] - o_soa.y[j];
 	double dz = o_soa.z[i] - o_soa.z[j];
 
-	/*
-	 * std::sqrt() no vectorizable a no ser que se use -fno-math-errno
-	 * (ver -ffast-math y -Ofast). guarda: tratan FP como asociativo.
-	 * si pc target no tiene simd necesarias, considerar dividir el loop aqui.
+	/* std::sqrt() parece ser no vectorizable a no ser que se use -fno-math-errno
+	 * (ver -ffast-math y -Ofast). guarda: tratan FP como asociativo y aproximan por
+	 * metodos numericos.
 	 */
 	return std::sqrt(dx * dx + dy * dy + dz * dz);
 }
@@ -209,40 +97,13 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 
 	o_soa.z[i] = o_soa.z[i] + o_soa.vz[i] * time_step;
 	adjust_limits(i, size_enclosure, o_soa.z, o_soa.vz);
-	//printf("o_soa.x[%d]: %f\to_soa.y[%d]: %f\to_soa.z[%d]: %f\n",
-	//		i, o_soa.x[i], i, o_soa.y[i], i, o_soa.z[i]);
-}
-
-static inline void merge_obj(size_t i, size_t j, struct soa &o_soa)
-{
-	o_soa.m[i] += o_soa.m[j];
-	o_soa.vx[i] += o_soa.vx[j];
-	o_soa.vy[i] += o_soa.vy[j];
-	o_soa.vz[i] += o_soa.vz[j];
-}
-
-static inline void obj_copy_into(size_t into_idx, size_t from_idx, struct soa &o_soa)
-{
-	o_soa.m[into_idx] = o_soa.m[from_idx];
-	o_soa.x[into_idx] = o_soa.x[from_idx];
-	o_soa.y[into_idx] = o_soa.y[from_idx];
-	o_soa.z[into_idx] = o_soa.z[from_idx];
-	o_soa.fx[into_idx] = o_soa.fx[from_idx];
-	o_soa.fy[into_idx] = o_soa.fy[from_idx];
-	o_soa.fz[into_idx] = o_soa.fz[from_idx];
-	o_soa.vx[into_idx] = o_soa.vx[from_idx];
-	o_soa.vy[into_idx] = o_soa.vy[from_idx];
-	o_soa.vz[into_idx] = o_soa.vz[from_idx];
+	//printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
+	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
 static inline void mark(size_t idx, struct soa &o_soa)
 {
 	o_soa.m[idx] = 0;
-}
-
-static inline bool obj_marked(size_t idx, struct soa &o_soa)
-{
-	return o_soa.m[idx] <= 0;
 }
 
 void mark_collisions(struct soa &o_soa)
@@ -280,18 +141,9 @@ static void inline collision_check(struct soa &o_soa)
 	delete_marked(o_soa);
 }
 
-int main()
+void simulate(struct soa &o_soa, unsigned int num_iterations,
+		double size_enclosure, double time_step)
 {
-	unsigned int num_objects = 2000;
-	unsigned int num_iterations = 100;
-	unsigned int random_seed = 666;
-	double size_enclosure = 2000;
-	double time_step = 0.1;
-
-	struct soa o_soa{num_objects, random_seed, size_enclosure};
-
-	double tic = omp_get_wtime();
-
 	collision_check(o_soa);
 	for (unsigned int k = 0; k < num_iterations; ++k) {
 		for (size_t i = 0; i < o_soa.len; ++i) {
@@ -308,8 +160,31 @@ int main()
 
 		}
 		collision_check(o_soa);
-	}
+	 }
+}
+
+int main(int argc, char *argv[])
+{
+	struct args arg_list{};
+
+	parse_args(arg_list, argc, argv);
+
+	struct soa o_soa(arg_list.num_objects,
+		arg_list.random_seed, arg_list.size_enclosure);
+
+	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, o_soa))
+		log_n_exit("Error while trying to write to init_config.txt\n", 1);
+
+
+	double tic = omp_get_wtime();
+
+	simulate(o_soa, arg_list.num_iterations,
+		arg_list.size_enclosure, arg_list.time_step);
 
 	double toc = omp_get_wtime();
+
 	printf("tiempo de ejecucion: %f\n", toc-tic);
+
+	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, o_soa))
+		log_n_exit("Error while trying to write to final_config.txt\n", 1);
 }
