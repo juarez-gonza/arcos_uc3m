@@ -3,3 +3,4 @@ cachegrind*
 asd.cpp
 aligned_allocator.cpp
 *perf*
+build/*
