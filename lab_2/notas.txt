@@ -1,0 +1,8 @@
+Functional Unit			Latency		Initiation Interval
+Integer ALU			0		1
+Data memory (int & FP loads)	1		1
+FP add				3		1
+FP multiply (& int multiply)	6		1
+FP divide (& int divide)	24		25
+
+"Computer Architecture". Patterson. 5th ed. Apendix C. C-53.

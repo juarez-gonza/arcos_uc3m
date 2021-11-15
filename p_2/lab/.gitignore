@@ -4,3 +4,4 @@ asd.cpp
 aligned_allocator.cpp
 build/
 *perf*
+*config.txt
