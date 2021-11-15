@@ -30,7 +30,6 @@ static inline void calc_fgv(struct obj_soa &o_soa, unsigned int i, unsigned int 
 {
 	/* fgv_no_recalc = G * mi * mj / denom */
 	double norm;
-	double denom;
 	double fgv_no_recalc;
 
 	double fx;
@@ -38,8 +37,7 @@ static inline void calc_fgv(struct obj_soa &o_soa, unsigned int i, unsigned int 
 	double fz;
 
 	norm = calc_norm(o_soa, i, j);
-	denom = norm * norm * norm;
-	fgv_no_recalc = 6.674e-11 * o_soa.m[i] * o_soa.m[j] / denom;
+	fgv_no_recalc = 6.674e-11 * o_soa.m[i] * o_soa.m[j] / (norm * norm * norm);
 
 	fx = fgv_no_recalc * (o_soa.x[j] - o_soa.x[i]);
 	o_soa.fx[i] = o_soa.fx[i] + fx;

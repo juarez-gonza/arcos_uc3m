@@ -24,47 +24,26 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 /* el compilador parece hacer inline de esto. no es necesario pero esta cool */
 static void calc_fgv(size_t i, struct soa &o_soa)
 {
-	const size_t b = 2048ul; /* 16 tiene mejores resultados (por heuristica) */
+	const size_t b = 2048ul; /* 2048 tiene mejores resultados (por heuristica) */
 
 	for (size_t jj = i + 1; jj < o_soa.len; jj += b) {
-
 		/* asignar memoria dinamica en el stack: moralmente sucio */
-		double fx[b] __attribute__((aligned(64)));
-		double fy[b] __attribute__((aligned(64)));
-		double fz[b] __attribute__((aligned(64)));
 		double norm[b] __attribute__((aligned(64)));
 		double fgv_no_recalc[b] __attribute__((aligned(64)));
 
-#pragma omp simd
 		for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j) {
 			norm[j-jj] = calc_norm(i, j, o_soa);
 			fgv_no_recalc[j-jj] = 6.674e-11 * o_soa.m[i] * o_soa.m[j]
 				/ (norm[j-jj] * norm[j-jj] * norm[j-jj]);
 
-			fx[j-jj] = fgv_no_recalc[j-jj] * (o_soa.x[j] - o_soa.x[i]);
-			fy[j-jj] = fgv_no_recalc[j-jj] * (o_soa.y[j] - o_soa.y[i]);
-			fz[j-jj] = fgv_no_recalc[j-jj] * (o_soa.z[j] - o_soa.z[i]);
-		}
+			o_soa.fx[j] = o_soa.fx[j] - fgv_no_recalc[j-jj] * (o_soa.x[j] - o_soa.x[i]);
+			o_soa.fy[j] = o_soa.fy[j] - fgv_no_recalc[j-jj] * (o_soa.y[j] - o_soa.y[i]);
+			o_soa.fz[j] = o_soa.fz[j] - fgv_no_recalc[j-jj] * (o_soa.z[j] - o_soa.z[i]);
 
-		double fxi, fyi, fzi;
-		fxi = fyi = fzi = 0;
-#pragma omp critical
-		{
-		#pragma omp simd
-		for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j) {
-			o_soa.fx[j] = o_soa.fx[j] - fx[j-jj];
-			o_soa.fy[j] = o_soa.fy[j] - fy[j-jj];
-			o_soa.fz[j] = o_soa.fz[j] - fz[j-jj];
-
-			fxi = fxi + fx[j-jj];
-			fyi = fyi + fy[j-jj];
-			fzi = fzi + fz[j-jj];
+			o_soa.fx[i] = o_soa.fx[i] + fgv_no_recalc[j-jj] * (o_soa.x[j] - o_soa.x[i]);
+			o_soa.fy[i] = o_soa.fy[i] + fgv_no_recalc[j-jj] * (o_soa.y[j] - o_soa.y[i]);
+			o_soa.fz[i] = o_soa.fz[i] + fgv_no_recalc[j-jj] * (o_soa.z[j] - o_soa.z[i]);
 		}
-		o_soa.fx[i] += fxi;
-		o_soa.fy[i] += fyi;
-		o_soa.fz[i] += fzi;
-		}
-
 	}
 	//printf("o_soa.fx[%d]: %f\to_soa.fy[%d]: %f\to_soa.fz[%d]: %f\n",
 	//		i, o_soa.fx[i], i, o_soa.fy[i], i, o_soa.fz[i]);
@@ -124,7 +103,7 @@ void mark_collisions(struct soa &o_soa)
 			if (obj_marked(j, o_soa))
 				continue;
 			if (calc_norm(i, j, o_soa) < 1.0) {
-				merge_obj(i, j, o_soa);
+				merge_obj(last, i, o_soa);
 				mark(j, o_soa);
 			}
 		}
@@ -135,8 +114,9 @@ void delete_marked(struct soa &o_soa)
 {
 	size_t last = 0;
 	for (size_t i = 0; i < o_soa.len; ++i, ++last) {
-		while (obj_marked(i, o_soa) && i < o_soa.len)
+		while (obj_marked(i, o_soa) && i < o_soa.len) {
 			i++;
+		}
 		if (i >= o_soa.len)
 			break;
 		obj_copy_into(last, i, o_soa);
@@ -157,13 +137,13 @@ void simulate(struct soa &o_soa, unsigned int num_iterations,
 
 	collision_check(o_soa);
 	for (unsigned int k = 0; k < num_iterations; ++k) {
-#pragma omp parallel for schedule(auto)
+//#pragma omp parallel for schedule(auto)
 		for (size_t ii = 0; ii < o_soa.len; ii+=b) {
 		for (size_t i = ii; i < std::min(ii+b, o_soa.len); ++i) {
-		//for (size_t i = 0; i < o_soa.len; ++i) {
-
+		//for (size_t i = 0ul; i < o_soa.len; ++i) {
 			calc_fgv(i, o_soa);
 		}} /* fin ii parallel for */
+
 		for (size_t i = 0ul; i < o_soa.len; ++i) {
 			calc_vel(i, time_step, o_soa);
 
