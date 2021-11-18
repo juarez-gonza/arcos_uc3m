@@ -15,6 +15,6 @@ if (OpenMP_CXX_FOUND)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
 
-add_compile_options(-Wall -Wextra -Wno-deprecated -pedantic -pedantic-errors -O3 -Ofast -march=native)
+add_compile_options(-Wall -Wextra -Wno-deprecated -pedantic -pedantic-errors -O3 -march=native)
 
 add_executable(sim-soa sim.cpp obj.cpp util.cpp)
