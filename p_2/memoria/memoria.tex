@@ -1,0 +1,61 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+
+\title{Programación Orientada al Rendimiento.\\Proyecto de Programación Paralela.}
+
+\author{
+	Gonzalo Juarez Tello, 100467578\\
+	Hodei Urigoitia Merodio, 100374256\\
+	Adrián Mancera González, 100429049\\
+	Gonzalo Martinez Martín, 100428963
+}
+
+\date{}
+
+\begin{document}
+
+\begin{figure}
+	\includegraphics[width=\linewidth,height=0.7\textwidth]{resources/logo_uc3m.png}
+\end{figure}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introducción.\label{intro}}
+
+\section{Diseño Original.\label{original}}
+\subsection{SOA Secuencial.}
+\subsection{AOS Secuencial.}
+
+\section{Optimizaciones.\label{opt}}
+\subsection{Optimizaciones secuenciales.\label{opt_seq}}
+\begin{enumerate}
+\item Vectorización en cálculos de fuerza.
+\item Cache-blocking en bucles anidados.
+\item Flags de compilador.
+\end{enumerate}
+\subsection{Optimizaciones paralelas.\label{opt_parallel}}
+\begin{enumerate}
+\item Paralelización en cálculos de fuerza.
+\item Reducción.
+\item Strip-Mining.
+\end{enumerate}
+\subsection{Conclusiones sobre las optimizaciones.}
+
+\section{Diseño Final.\label{final}}
+\subsection{AOS paralelo.}
+\subsection{SOA paralelo.}
+
+\section{Evaluación de Rendimiento.\label{performance}}
+\subsection{Resultados obtenidos.}
+\subsection{Secuencial vs. Paralelo.}
+\subsection{Interpretación de resultados y pruebas.}
+
+\section{Conclusiones Finales.\label{conclusiones}}
+
+\end{document}
