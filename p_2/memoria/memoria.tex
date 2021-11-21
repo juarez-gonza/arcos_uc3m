@@ -32,18 +32,34 @@
 \subsection{AOS Secuencial.}
 
 \section{Optimizaciones.\label{opt}}
+
 \subsection{Optimizaciones secuenciales.\label{opt_seq}}
 \begin{enumerate}
 \item Vectorización en cálculos de fuerza.
+
 \item Cache-blocking en bucles anidados.
+\begin{equation}
+	\left\{
+	\begin{array}{rrrr}
+	1+2\leq3\\
+	3+4\geq7
+	\end{array}
+	\right.
+\end{equation}
+
 \item Flags de compilador.
 \end{enumerate}
+
 \subsection{Optimizaciones paralelas.\label{opt_parallel}}
+
 \begin{enumerate}
 \item Paralelización en cálculos de fuerza.
+
 \item Reducción.
+
 \item Strip-Mining.
 \end{enumerate}
+
 \subsection{Conclusiones sobre las optimizaciones.}
 
 \section{Diseño Final.\label{final}}
