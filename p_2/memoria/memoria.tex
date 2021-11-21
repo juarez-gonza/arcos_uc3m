@@ -3,6 +3,8 @@
 \usepackage{graphicx}
 \usepackage[spanish]{babel}
 
+\usepackage{caption}
+
 \usepackage{listings}
 \lstdefinestyle{CStyle}{
 	basicstyle=\footnotesize,
@@ -104,7 +106,8 @@ for (i = 0; i <= N; ++i)
 	\centering
 	\includegraphics[width=0.6\linewidth,height=0.6\textwidth]{resources/loop_anidado_no_tiling_505x565.png}
 	\caption{espacio de iteración de $0\leq{i} < {num\_objects}$, y $i+1\leq{j} < {num\_objects}$
-	cuando ${num\_objects}=5$. Las flechas marcan el flujo de ejecución del loop doble.}
+	cuando ${num\_objects}=5$. Las flechas marcan el flujo de ejecución del loop doble.
+	delimitado por las flechas. \textit{i} en eje de abscisas, \textit{j} en eje de ordenadas.}
 	\label{fig:no_tiling}
 \end{figure}
 %\newpage
@@ -199,16 +202,60 @@ en \ref{strip-mining-parallel}, la sección de esta técnica en las optimizacion
 
 \subsubsection{Loop-tiling en loops anidados.}
 
-Loop-tiling es una técnica para mejorar la localidad temporal en loops anidados de n-dimensiones\footnote{profundidad del anidado de loops}.
-Básicamente consiste en 2 pasos: strip-mining, y permutación loops.
+Loop-tiling es una técnica para mejorar la localidad temporal en loops anidados de
+n-dimensiones\footnote{profundidad del anidado de loops}. Básicamente consiste en 2 pasos: strip-mining, y permutación loops.
 
-El procedimiento de strip-mining es el explicado en la subsección \ref{strip-mining}.
-\begin{equation}
+
+Strip-mining es el primer paso para loop-tiling. Ya está cubierto en la subsección \ref{strip-mining}.
+
+
+El último paso, la permutación o intercambio de loops \textit{simplemente}, consiste en cambiar las cabeceras de los bucles.
+Esto es válido cuando las dependencias de datos no existen o se mantienen lexicográficamente positivas
+tras el intercambio de loops.
+
+
+Asumiendo que los loops son independientes (que en nuestro caso, de asumir asociatividad, lo son),
+¿qué tan simple es el intercambio de loops? En un espacio de iteración cuadrado, bastante simple. Resulta
+que es un poco más complicado de lo que parece. Pero de la sección \ref{original} damos por entendido que
+nuestro espacio de iteración es triangular (como se lo ve en la figura \ref{fig:no_tiling}).
+En un loop como el de Código \ref{doble_loop:striping-no_tiling}, nos gustaría permutar las cabeceras de manera que
+\textit{ii} y \textit{jj} sean las primeras 2 cabeceras, con el loop de \textit{i} por debajo, y finalmente
+el de \textit{j}. Para lograr esto hay que permutar la cabecera del loop \textit{i} con la del loop \textit{jj}.
+
+
+¿Cómo implementar loop-tiling en un espacio de iteración triangular? El \textbf{modelo del poliedro} es parte
+de un área de estudio que lleva bastante tiempo siendo desarrollada. Básicamente plantea que los espacios
+de iteración que puedan plantearse como un \textbf{poliedro convexo}\footnote{convexo: una línea entre 2 puntos
+del poliedro pasa únicamente por puntos interiores al poliedro} (como un espacio triangular) y cumplan las dependencias
+de datos previamente explicadas, pueden replantearse para intercambiar cabeceras. La metodología básica consiste
+plantear un sistema de inecuaciones que defina al \textbf{poliedro S} a partir de las cláusulas de los loops. Luego utilizar
+algo llamado \textbf{método de eliminación de Fourier-Motzkin} para proyectar la variable a reacomodar (o sea, variable a eliminar y
+reinsertar en algún momento). Tras la proyección, un sistema de inecuaciones de n-dimensiones (loop de n-variables)
+queda como un sistema de m-dimensiones donde $m=n-1$. Con el método de Fourier-Motzkin se pueden eliminar progresivamente las variables,
+para finalmente reinsertar las cabeceras de dichas variables eliminadas, bajo las nuevas cláusulas (inecuaciones). Este resultado
+final es un nuevo sistema de inecuaciones que define un \textbf{poliedro S'} tal que \textit{S' es equivalente a S}.
+Esta conversión en nuestro \textbf{doble loop} se representa como en la Figura \ref{fig:fourier_motzkin}. El código
+resultante para las cabeceras es el de Código \ref{doble_loop:striping-tiling}.
+
+
+Tanto el modelo del poliedro como la eliminación por método de Fourier-Motzkin, tienen utilidades más allá
+de estas optimizaciones.
+
+\begin{figure}
+\begin{displaymath}
 	\begin{array}{rrr}
 		\left\{
 			\begin{array}{r}
-			1+2\leq3\\
-			3+4\geq7
+			ii\geq 0\\
+			ii\leq n\\
+			i\geq ii\\
+			i\leq n\\
+			i\leq ii+stride-1\\
+			jj\geq i+1\\
+			jj\leq n\\
+			j\geq jj\\
+			j\leq jj+stride-1\\
+			j\leq n
 			\end{array}
 		\right.
 		&
@@ -216,13 +263,64 @@ El procedimiento de strip-mining es el explicado en la subsección \ref{strip-mi
 		&
 		\left\{
 			\begin{array}{r}
-			1+2\leq3\\
-			3+4\geq7
+			ii\geq 0\\
+			ii\leq n\\
+			i\geq ii\\
+			i\leq n\\
+			i\leq ii+stride-1\\
+			jj\geq ii+1\\
+			jj\leq n\\
+			j\geq jj\\
+			j\geq i+1
+			j\leq jj+stride-1\\
+			j\leq n\\
 			\end{array}
 		\right.
 	\end{array}
-\end{equation}
+\end{displaymath}
+	\caption{Pasaje del sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-no_tiling},
+	al sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-tiling}}
+	\label{fig:fourier_motzkin}
+\end{figure}
+
+\begin{lstlisting}[style=CStyle,label=doble_loop:striping-tiling,caption=doble loop con loop-tiling]
+for (ii = 0; ii <= N; ii+=stride)
+for (jj = i+1; jj <= N; jj+=stride)
+	for (i = ii; i <= min(ii+stride-1, N); ++i)
+		for (j = max(jj, i+1); j <= min(jj+stride-1, N); j++)
+\end{lstlisting}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.6\linewidth,height=0.6\textwidth]{resources/loop_anidado_tiling_505x565.png}
+	\caption{espacio de iteración triangular con loop-tiling cuando $N=5$ y $stride=2$. Flujo de ejecución
+	delimitado por las flechas. \textit{i} en eje de abscisas, \textit{j} en eje de ordenadas.}
+	\label{fig:no_tiling}
+\end{figure}
+
+
+Esta optimización en conjunto con vectorización (sección \ref{simd}) dieron al programa un speedup de más de x2.
+Lastimosamente asumir asociatividad en las operaciones de punto flotante no pudo contener la propagación del error
+para número de objetos e iteraciones grandes ($N > 4000$, $iteraciones > 250$), por lo que loop-tiling fue descartado
+como optimización tanto para el cálculo de fuerzas como para el marcado de colisiones.
+
 \subsubsection{Flags de compilador.}
+Como programadores, además de jugar con el algoritmo, podemos jugar con las flags
+del compilador en este trade-off de performance por precisión y viceversa.
+Las flags usadas son:
+\begin{itemize}
+		\item -O3
+		\item -fexcess-precision=fast -fno-rounding-math -fno-signaling-nans
+			-fno-math-errno -fno-signed-zeros -fno-trapping-math: Optimizaciones
+			sobre punto flotante que eran activadas por -ffast-math. Pero -ffast-math
+			a su vez activa -funsafe-math-optimizations, la cual permite entre otras
+			cosas aproximar por métodos numéricos, multiplicación por inverso, y asociatividad
+			de punto flotante. Estas flags no muestran cambios en el resultado porque en su
+			gran parte son para señalizar errores como por ejemplo división por cero, lo cual, si la detección
+			de colisiones funciona bien, no debería pasar.
+		\item march=native: optimizaciones especificas para la arquitectura que compile el programa (en el procesador
+			utilizado esto resulta en vectorización por AVX y AVX512 en lugar de SSE).
+\end{itemize}
 
 \subsection{Optimizaciones con paralelismo.\label{opt_parallel}}
 
