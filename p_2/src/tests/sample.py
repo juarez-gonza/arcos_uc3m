@@ -38,6 +38,7 @@ def run(exe_file):
                     for count in range(sample_size):
                         print("i: %d, num_iterations: %d, num_objects: %d"
                                 % (count, num_iterations, num_objects))
+
                         p = run_cmd("./%s %d %d %d %f %f"
                             % (exe_file, num_objects, num_iterations,
                                 random_seed, size_enclosure, time_step))

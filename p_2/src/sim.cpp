@@ -28,21 +28,30 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 	 * de threads (false sharing)
 	 */
 	const size_t b = nxt_pow_2(o_soa.len/OMP_NUM_THREADS);
+
 #pragma omp parallel
 	{
 	std::vector<double> fgv_no_recalc(b); /* mejor vector(heap) que VLA(stack)? */
+	std::vector<double> norm(b); /* mejor vector(heap) que VLA(stack)? */
 
 	#pragma omp for ordered schedule(auto)
 	for (size_t jj = i + 1; jj < o_soa.len; jj += b) {
+
 		for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j) {
 			/* vectorizar cambia el resultado asi que dejar
 			 * calc_norm() aqui para que std::sqrt() en calc_norm()
 			 * evite que el loop sea vectorizado.
 			 */
-			double norm = calc_norm(i, j, o_soa);
-			fgv_no_recalc[j-jj] = 6.674e-11 * o_soa.m[i] * o_soa.m[j]
-				/ (norm * norm * norm);
+			norm[j-jj]= calc_norm(i, j, o_soa);
 		}
+
+		/* es lo unico que se puede vectorizar sin cambiar resultados.
+		 * mide un leve speedup de todas maneras.
+		 */
+		#pragma omp simd
+		for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j)
+			fgv_no_recalc[j-jj] = 6.674e-11 * o_soa.m[i] * o_soa.m[j]
+				/ (norm[j-jj] * norm[j-jj] * norm[j-jj]);
 
 		#pragma omp ordered
 		{
@@ -50,19 +59,19 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 			fx = fy = fz = 0;
 			for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j) {
 				/* podria hacerse un array fx[b], fy[b], fz[b] y no dejar
-				* el calculo de los valores para esta parte, pero cambia resultado.
-				*/
+				 * el calculo de los valores para esta parte, pero cambia resultado.
+				 */
 				fx = fgv_no_recalc[j-jj] * (o_soa.x[j] - o_soa.x[i]);
 				fy = fgv_no_recalc[j-jj] * (o_soa.y[j] - o_soa.y[i]);
 				fz = fgv_no_recalc[j-jj] * (o_soa.z[j] - o_soa.z[i]);
 
-				o_soa.fx[j] -= fx;
-				o_soa.fy[j] -= fy;
-				o_soa.fz[j] -= fz;
+				o_soa.fx[j] = o_soa.fx[j] - fx;
+				o_soa.fy[j] = o_soa.fy[j] - fy;
+				o_soa.fz[j] = o_soa.fz[j] - fz;
 
-				o_soa.fx[i] += fx;
-				o_soa.fy[i] += fy;
-				o_soa.fz[i] += fz;
+				o_soa.fx[i] = o_soa.fx[i] + fx;
+				o_soa.fy[i] = o_soa.fy[i] + fy;
+				o_soa.fz[i] = o_soa.fz[i] + fz;
 			}
 		} /* fin #pragma omp ordered */
 	}} /* fin #pragma omp for y #pragma omp parallel */
@@ -155,8 +164,8 @@ void simulate(struct soa &o_soa, unsigned int num_iterations,
 			calc_fgv(i, o_soa);
 		}
 
-/* probar si de hecho sirve tener esto paralelizado o no */
-//#pragma omp parallel for schedule(guided)
+/* leve speedup por paralelizacion de este loop */
+#pragma omp parallel for schedule(guided)
 		for (size_t i = 0ul; i < o_soa.len; ++i) {
 
 			calc_vel(i, time_step, o_soa);
