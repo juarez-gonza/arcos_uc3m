@@ -4,6 +4,10 @@
 #include "util.hpp"
 #include "obj.hpp"
 
+#ifndef OMP_NUM_THREADS
+#define OMP_NUM_THREADS 8
+#endif
+
 static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 {
 	double dx = o_soa.x[i] - o_soa.x[j];
@@ -20,13 +24,13 @@ static inline double calc_norm(size_t i, size_t j, struct soa &o_soa)
 /* el compilador parece hacer inline de esto. no es necesario pero esta cool */
 static void calc_fgv(size_t i, struct soa &o_soa)
 {
-	const size_t b = 1024ul; /* 1024 tiene mejores resultados para n = 8000 */
-
+	/* tratar de conseguir un tamaño de bloque tal que no hayan superposiciones entre bloques
+	 * de threads (false sharing)
+	 */
+	const size_t b = nxt_pow_2(o_soa.len/OMP_NUM_THREADS);
 #pragma omp parallel
 	{
-
-	double norm[b] __attribute__((aligned(64)));
-	double fgv_no_recalc[b] __attribute__((aligned(64)));
+	std::vector<double> fgv_no_recalc(b); /* mejor vector(heap) que VLA(stack)? */
 
 	#pragma omp for ordered schedule(auto)
 	for (size_t jj = i + 1; jj < o_soa.len; jj += b) {
@@ -35,9 +39,9 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 			 * calc_norm() aqui para que std::sqrt() en calc_norm()
 			 * evite que el loop sea vectorizado.
 			 */
-			norm[j-jj] = calc_norm(i, j, o_soa);
+			double norm = calc_norm(i, j, o_soa);
 			fgv_no_recalc[j-jj] = 6.674e-11 * o_soa.m[i] * o_soa.m[j]
-				/ (norm[j-jj] * norm[j-jj] * norm[j-jj]);
+				/ (norm * norm * norm);
 		}
 
 		#pragma omp ordered
@@ -72,8 +76,6 @@ static inline void calc_vel(size_t i, double time_step, struct soa &o_soa)
 	o_soa.vx[i] = o_soa.vx[i] + accel_no_recalc * o_soa.fx[i];
 	o_soa.vy[i] = o_soa.vy[i] + accel_no_recalc * o_soa.fy[i];
 	o_soa.vz[i] = o_soa.vz[i] + accel_no_recalc * o_soa.fz[i];
-	//printf("o_soa.vx[%d]: %f\to_soa.vy[%d]: %f\to_soa.vz[%d]: %f\n",
-	//		i, o_soa.vx[i], i, o_soa.vy[i], i, o_soa.vz[i]);
 }
 
 static inline void adjust_limits(size_t i, double size_enclosure,
@@ -100,8 +102,6 @@ static void calc_pos(size_t i, double time_step, double size_enclosure, struct s
 
 	o_soa.z[i] = o_soa.z[i] + o_soa.vz[i] * time_step;
 	adjust_limits(i, size_enclosure, o_soa.z, o_soa.vz);
-	//printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
-	//		o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
 static inline void mark(size_t idx, struct soa &o_soa)
@@ -111,7 +111,7 @@ static inline void mark(size_t idx, struct soa &o_soa)
 
 void mark_collisions(struct soa &o_soa)
 {
-	/* paralelizable?? */
+	/* paralelizable sin modificar orden de operaciones en merge_obj()?? */
 	for (size_t i = 0ul; i < o_soa.len; ++i) {
 		if (obj_marked(i, o_soa))
 			continue;
@@ -124,24 +124,6 @@ void mark_collisions(struct soa &o_soa)
 			}
 		}
 	}
-	/*
-	const size_t b = 2048ul;
-	for (size_t ii = 0ul; ii <= o_soa.len-1; ii += b) {
-	for (size_t jj = ii + 1ul; jj <= o_soa.len-1; jj += b) {
-		for (size_t i = ii; i <= std::min(ii+b-1, o_soa.len-1); ++i) {
-			if (obj_marked(i, o_soa))
-				continue;
-			for (size_t j = std::max(jj, i + 1ul); j <= std::min(jj+b-1, o_soa.len-1); ++j) {
-				if (obj_marked(j, o_soa))
-					continue;
-				if (calc_norm(i, j, o_soa) < 1.0) {
-					merge_obj(i, j, o_soa);
-					mark(j, o_soa);
-				}
-			}
-		}
-	}}
-	*/
 }
 
 void delete_marked(struct soa &o_soa)

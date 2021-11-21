@@ -16,5 +16,7 @@ if (OpenMP_CXX_FOUND)
 endif()
 
 add_compile_options(-Wall -Wextra -Wno-deprecated -pedantic -pedantic-errors -O3 -march=native)
+add_compile_options(-Wall -Wextra -Wno-deprecated -pedantic -pedantic-errors -O3 -march=native
+-fexcess-precision=fast -fno-rounding-math -fno-signaling-nans -fno-math-errno -fno-signed-zeros -fno-trapping-math)
 
 add_executable(sim-soa sim.cpp obj.cpp util.cpp)
