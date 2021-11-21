@@ -1,0 +1,36 @@
+Resultados Kruskal-Wallis H-Test:
+
+Configuración: num_iterations: 4000, num_objects: 250, p_valor: 0.000000003707
+	Sí hay diferencia significativa en las medias de las muestras
+
+Configuración: num_iterations: 4000, num_objects: 500, p_valor: 0.000000000070
+	Sí hay diferencia significativa en las medias de las muestras
+
+Configuración: num_iterations: 8000, num_objects: 250, p_valor: 0.000000000481
+	Sí hay diferencia significativa en las medias de las muestras
+
+Configuración: num_iterations: 8000, num_objects: 500, p_valor: 0.000000000295
+	Sí hay diferencia significativa en las medias de las muestras
+
+
+Resultados T-Test:
+
+Configuración: num_iterations: 4000, num_objects: 250, p_valor: 0.000023486219
+	Sí hay diferencia significativa en las medias de las muestras
+		media a: 13.117954, media b: 14.397698
+			Speedup = 1.097557
+
+Configuración: num_iterations: 4000, num_objects: 500, p_valor: 0.000000000000
+	Sí hay diferencia significativa en las medias de las muestras
+		media a: 21.497755, media b: 24.902056
+			Speedup = 1.158356
+
+Configuración: num_iterations: 8000, num_objects: 250, p_valor: 0.000009911266
+	Sí hay diferencia significativa en las medias de las muestras
+		media a: 22.572013, media b: 21.050593
+			Speedup = 1.072274
+
+Configuración: num_iterations: 8000, num_objects: 500, p_valor: 0.000000036031
+	Sí hay diferencia significativa en las medias de las muestras
+		media a: 23.853744, media b: 22.070424
+			Speedup = 1.080801
