@@ -28,7 +28,7 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 	double norm[b] __attribute__((aligned(64)));
 	double fgv_no_recalc[b] __attribute__((aligned(64)));
 
-	#pragma omp for ordered schedule(guided)
+	#pragma omp for ordered schedule(auto)
 	for (size_t jj = i + 1; jj < o_soa.len; jj += b) {
 		for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j) {
 			/* vectorizar cambia el resultado asi que dejar
@@ -77,7 +77,7 @@ static inline void calc_vel(size_t i, double time_step, struct soa &o_soa)
 }
 
 static inline void adjust_limits(size_t i, double size_enclosure,
-		double pos[], double vel[])
+		std::vector<double> &pos, std::vector<double> &vel)
 {
 	if (pos[i] >= size_enclosure) {
 		pos[i] = size_enclosure;
