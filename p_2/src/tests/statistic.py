@@ -1,3 +1,4 @@
+import sys
 import os
 import re
 
@@ -15,7 +16,7 @@ if __name__ == "__main__":
     num_objects = 0
     num_iterations = 0
 
-    with open("samples", "r") as f:
+    with open(sys.argv[1], "r") as f:
         for line in f:
             if "num_objects" in line:
                 num_objects, num_iterations = int_re.findall(line)
@@ -41,9 +42,9 @@ if __name__ == "__main__":
     ax.set_zlabel("elapsed_time (seconds)")
     ax.scatter(num_obj_x, num_iter_y, means,
             linewidths=1, alpha=1, edgecolor='k', s=200)
-    plt.savefig(os.path.join(os.getcwd(), "exe_vs_num_obj&iter.png"))
+    plt.savefig(os.path.join(os.getcwd(), "%s_exe_vs_num_obj&iter.png" % sys.argv[1]))
 
-    fig, axes = plt.subplots(3, 3, figsize=(18,12), sharey=True, dpi=100)
+    fig, axes = plt.subplots(2, 2, figsize=(18,12), sharey=True, dpi=100)
     i = j = 0
     for k in data.keys():
         sns.histplot(data=data[k], kde=True, ax=axes[i, j])
@@ -54,9 +55,9 @@ if __name__ == "__main__":
                 % (np.mean(data[k]), np.std(data[k]), conf_interval[k][0], conf_interval[k][1])
         props = dict(boxstyle="round", facecolor="wheat", alpha=0.5)
         # los valorse para las coordenadas x e y del texto son obtenidos con prueba y error
-        axes[i, j].text(0.63+(j*1.065) , 2.1 - 0.7*i, s=textstr, transform=ax.transAxes, fontsize=12,
+        axes[i, j].text(0.35+(j*1.65) , 2.1 - 1.10*i, s=textstr, transform=ax.transAxes, fontsize=12,
                         verticalalignment='top', bbox=props)
-        j = (j + 1) % 3
+        j = (j + 1) % 2
         if j == 0:
-            i = (i + 1) % 3
-    plt.savefig(os.path.join(os.getcwd(), "conf_interval.png"))
+            i = (i + 1) % 2
+    plt.savefig(os.path.join(os.getcwd(), "%s_conf_interval.png" % sys.argv[1]))
