@@ -277,11 +277,13 @@ de estas optimizaciones.
 	\end{array}
 \end{displaymath}
 	\caption{Pasaje del sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-no_tiling},
-	al sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-tiling}}
+	al sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-tiling}. Notar
+	como las condiciones en las cabeceras de Código \ref{doble_loop:striping-no_tiling} y \ref{doble_loop:striping-tiling} se corresponden
+	de manera directa con los sistemas de inecuaciones \textit{S} y \textit{S'}, respectivamente.}
 	\label{fig:fourier_motzkin}
 \end{figure}
 
-\begin{lstlisting}[style=CStyle,label=doble_loop:striping-tiling,caption=doble loop con loop-tiling]
+\begin{lstlisting}[style=CStyle,label=doble_loop:striping-tiling,caption=doble loop con loop-tiling.]
 for (ii = 0; ii <= N; ii+=stride)
 for (jj = i+1; jj <= N; jj+=stride)
 	for (i = ii; i <= min(ii+stride-1, N); ++i)
@@ -328,20 +330,20 @@ Las flags usadas son:
 \end{itemize}
 
 \subsection{Optimizaciones con paralelismo.\label{opt_parallel}}
-\subsubsection{Paralelización en cálculos de fuerza.}
+\subsubsection{Paralelismo en cálculos de fuerza y verificación de colisiones.}
 La mayoría de las optimizaciones en paralelismo se enfocan alrededor del cálculo de fuerza resultante.
 Esta parte del programa es la que ocupa la mayor parte del tiempo de ejecución. Y al tratarse de una sumatoria,
 con cuidado por el punto flotante, es donde podría conseguirse un speedup significativo.
 
 
 Inicialmente se intentó aprovechar al máximo las técnicas de loop tiling y vectorización discutidas
-en \ref{loop-tiling} y \ref{simd}. El speedup de estas 2 técnicas sin paralelizar ya era de por x2. En
-papel (y cometiendo el grave error de ignorar de asumir asociatividad), el algoritmo que contempa varias
-técnicas de optimizaciones secuenciales es muy apto a ser paralelizable. Paralelizar esto terminó en un speedup muy grande.
-Se paralelizó tanto del loop de \textit{ii} como de \textit{jj} (por separado, sin directiva `collapse' ni colapso manual),
+en \ref{loop-tiling} y \ref{simd}. El speedup de estas 2 técnicas sin paralelizar ya era alto, y en
+papel (y cometiendo el grave error de ignorar de asumir asociatividad), el mismo algoritmo es muy apto a ser paralelizable.
+Se paralelizó tanto del loop de \textit{ii} como el de \textit{jj} (por separado, sin directiva `collapse' ni colapso manual),
 sumado a la paralelización y loop-tiling del loop para marcado de colisiones. El tiempo de ejecución para 10000 objetos, 500 iteraciones y un
-tamaño de recinto de $10^6$ era de 22 segundos, mientras que el del código original era de 226 segundos.
-Aunque se usaron técnicas de reducción para evitar carreras de datos y se evitó el false-sharing, esto resultó en muchas operaciones
+tamaño de recinto de $10^6$ era de alrededor de 22 segundos para el código optimizado de manera secuencial y paralela,
+una diferencia de poco más de 200 segundos al comparar con el tiempo de ejecución del programa secuencial de la sección \ref{original}.
+Aunque se usaron técnicas de reducción para evitar carreras de datos y false-sharing, esto resultó en muchas operaciones
 no asociativas ocurriendo desordenamdamente por la naturaleza misma del algoritmo. No solo eso, si no que
 por depender del scheduler del sistema operativo (no se usaron directivas de ordenamiento), el resultado era no determinístico.
 
@@ -352,10 +354,24 @@ Loop-tiling desordena las operaciones para mejorar su localidad temporal.
 
 
 El bucle \textit{jj} tiene una directiva de ordenamiento (`\#pragma omp ordered'), y en su interior
-no hay un bucle \textit{j}, si no 3\footnote{una de las ventajas de strip-mining: rehuso de dato en distintas partes
-algoritmo}. De estos loops \textit{j}, el último funciona como
-reducción y tiene en su cabecera la otra directiva de ordenamiento necesaria por \textit{OpenMP}
-para forzar el orden de ejecución.
+no hay un bucle \textit{j}, si no tres\footnote{una de las ventajas de strip-mining: rehúso de un mismo dato en distintas partes
+del algoritmo}:
+
+\begin{enumerate}
+	\item El primero de estos loops \textit{j} no es vectorizable sin perder precisión ya que usa la función \textit{sqrt()} para
+obtener la norma.
+
+	\item El segundo loop calcula un factor común al cálculo de fuerzas en todas las componentes, o sea, evita
+recalcularlo. Esto asume algo de asociatividad, pero no afecta los resultados numéricos con relación al programa original.
+Además, este segundo bucle \textit{j} es la única parte vectorizable del cálculo de fuerzas, ya que por alguna razón el
+cálculo de fuerzas resultantes y su posterior adición a los objetos en una reducción, cambia los resultados. Sin embargo,
+esta pequeña vectorización otorga un speedup pequeño pero hace una diferencia en fin.
+
+
+	\item Finalmente, el último bucle \textit{j} funciona como reducción y tiene en su cabecera la directiva de ordenamiento
+necesaria por \textit{OpenMP} para forzar el orden de ejecución.
+
+\end{enumerate}
 
 \subsubsection{Uso de Strip-Mining para paralelismo.\label{strip-mining-parallel}}
 Strip-mining en paralelismo facilita la división la tarea en bloques del tamaño \textit{stride}
@@ -367,24 +383,32 @@ a la misma dirección de memoria.}.
 
 
 \subsection{Conclusiones sobre las optimizaciones.}
-En conclusión, asumir asociatividad de punto flotante es un error que solo pueden permitirse iteraciones
+Asumir asociatividad de punto flotante es un error que solo pueden permitirse iteraciones
 y números de objetos bajos. Intentar implementar aunque sea en pequeñas partes del código algunas de
-las optimizaciones presentadas terminaban en un cambio de resultados. Alteraciones en el orden de operaciones
+las optimizaciones presentadas terminaban en un cambio de resultados. Alteraciones del orden de operaciones
 en el espacio de iteración triangular, vectorización, y flags del compilador, fueron las principales
 variables a controlar para poder mantener los resultados de la primera versión.
 
 
 A continuación se exponen los resultados numéricos de las pruebas realizadas.
 Desde ya, con tanta limitación a la hora de optimizar, el algoritmo paralelo no difiere mucho del
-original de la sección \ref{original}. Desde ya, las pruebas hacen considerar si siquiera vale
-la pena optimizar, o si no se contemplaron mejores optimizaciones a la hora de poner las cartas sobre la mesa.
-
-%\section{Diseño Final.\label{final}}
-%\subsection{AOS paralelo.}
-%\subsection{SOA paralelo.}
+original de la sección \ref{original}.
 
 \section{Evaluación de Rendimiento.\label{performance}}
+El multiprocesador donde se desarrolló el código y se ejecutaron las pruebas es un
+procesador intel i7 de 10ma generación, modelo \textbf{i7-1065G7}:
+\begin{itemize}
+	\item 4 núcleos (8 hilos).
+	\item caché L1 de datos: 192 KiB (48 KiB por núcleo), 12 vías (64 conjuntos por núcleo), línea de caché de 64 bytes.
+	\item caché L1 de instrucciones: 128 KiB (32 KiB por núcleo), 8 vías (64 conjuntos por núcleo), línea de caché de 64 bytes.
+	\item caché L2 privada: 2 MiB (512 KiB por núcleo), 8 vías (1024 conjuntos por núcleo), línea de caché de 64 bytes.
+	\item caché L3 compartida: 8MiB, 16 vías (8192 conjuntos), línea de caché de 64 bytes.
+\end{itemize}
+
 \subsection{Resultados obtenidos.}
+Para las pruebas hemos estudiado la configuración con parámetros fijos ${size\_enclosure}=10^5$ ${random\_seed}=666$ y
+${time\_step}=0.1$. En los parámetros restantes, representados en la tupla $({num\_objects}, {num\_iterations})$,
+estudiamos las combinaciones $(4000, 250)$, $(4000, 500)$, $(8000, 250)$, y $(8000, 500)$.
 
 \begin{figure}[htp]
 	%\centering
@@ -394,43 +418,27 @@ la pena optimizar, o si no se contemplaron mejores optimizaciones a la hora de p
 		\label{fig:8core}
 	}%
 	%\hfill%
-	\subfloat[Pruebas con 16 hilos de ejecución.]{%
-		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/16core_samples_conf_interval.png}
-		%\caption{Pruebas con 16 núcleos}
-		\label{fig:16core}
+	\subfloat[Pruebas algoritmo secuencial de la sección \ref{original}.]{%
+		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/p_1_samples_conf_interval.png}
+		\label{fig:p_1}
 	}%
-	\caption{}
+	\caption{Pruebas con 8 hilos de ejecución y pruebas en el algoritmo secuencial de la sección \ref{original}. SoA.}
 \end{figure}
 \begin{figure}[htp]
 	%\centering
 	\hspace*{-3.5cm}
-	\subfloat[Pruebas con 2 hilos de ejecución.]{%
-		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/2core_samples_conf_interval.png}
-		\label{fig:2core}
-	}%
-	%\hfill%
 	\subfloat[Pruebas con 4 hilos de ejecución.]{%
 		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/4core_samples_conf_interval.png}
 		\label{fig:4core}
 	}%
-	\caption{}
-\end{figure}
-\begin{figure}[htp]
-	%\centering
-	\hspace*{-3.5cm}
-	\subfloat[Pruebas con 1 hilo de ejecución en algoritmo paralelo]{%
-		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/1core_samples_conf_interval.png}
-		%\caption{Pruebas con 16 núcleos}
-		\label{fig:1core}
+	\subfloat[Pruebas con 16 hilos de ejecución.]{%
+		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/16core_samples_conf_interval.png}
+		\label{fig:16core}
 	}%
-	%\hfill%
-	\subfloat[Pruebas con 1 hilo de ejecución en algoritmo secuencial de la sección \ref{original}]{%
-		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/p_1_samples_conf_interval.png}
-		\label{fig:p_1}
-	}%
-	\caption{}
+	\caption{Pruebas con 4 y 16 hilos de ejecución. SoA.}
 \end{figure}
 
+\subsection{Todos contra todos.}
 \subsection{Secuencial vs. Paralelo.}
 \subsection{Interpretación de resultados y pruebas.}
 
