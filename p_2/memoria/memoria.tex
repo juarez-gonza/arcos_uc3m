@@ -1,6 +1,9 @@
 \documentclass{article}
 \usepackage[spanish]{babel}
 
+\usepackage[style=numeric,backend=bibtex8]{biblatex}
+\addbibresource{./referencias.bib}
+
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage{caption}
@@ -133,7 +136,7 @@ que procesen grandes conjuntos de datos (similar a nuestro programa). Las distin
 ejemplos de paralelismo a nivel de datos. Estas operaciones son capaces de aplicar la misma operación sobre varios
 datos al mismo tiempo.
 
-En nuestro código intentamos sacar ventaja de esto, pero la \textit{vectorización} tiene algunos requisitos.
+En nuestro código intentamos sacar ventaja de esto, pero la \textit{vectorización} tiene algunos requisitos \cite{intel_vec_guidelines}.
 Evitar dependencias de datos, especialmente de tipo RAW. Y ausencia de estructuras condicionales a no ser
 que puedan ser tratadas como \textit{masked assignments}. Otras operaciones simplemente no son vectorizables,
 en su manera ``pura''(un ejemplo es sqrt()\footnote{sqrt() es vectorizable si se indica \textit{-funsafe-math-optimizations},
@@ -204,7 +207,14 @@ en \ref{strip-mining-parallel}, la sección de esta técnica en las optimizacion
 \subsubsection{Loop-tiling en loops anidados.\label{loop-tiling}}
 
 Loop-tiling es una técnica para mejorar la localidad temporal en loops anidados de
-n-dimensiones\footnote{profundidad del anidado de loops}. Básicamente consiste en 2 pasos: strip-mining, y permutación loops.
+n-dimensiones\footnote{profundidad del anidado de loops}. A su vez, caba bloque resultante
+es un buen candidato como unidad de trabajo para la paralelización de tareas, disminuyendo
+la frecuencia de sincronización. El tamaño de cada bloque puede
+cambiarse para aprovechar la localidad propuesta por la jerarquía de memoria. Y la vectorización
+se asienta naturalmente dentro de un bloque \cite{Wolfe89moreiteration}.
+
+
+Básicamente consiste en 2 pasos: strip-mining, y permutación loops.
 
 
 Strip-mining es el primer paso para loop-tiling. Ya está cubierto en la subsección \ref{strip-mining}.
@@ -212,7 +222,7 @@ Strip-mining es el primer paso para loop-tiling. Ya está cubierto en la subsecc
 
 El último paso, la permutación o intercambio de loops \textit{simplemente}, consiste en cambiar las cabeceras de los bucles.
 Esto es válido cuando las dependencias de datos no existen o se mantienen lexicográficamente positivas
-tras el intercambio de loops.
+tras el intercambio de loops \cite{Laforest10ece1754}.
 
 
 Asumiendo que los loops son independientes (que en nuestro caso, de asumir asociatividad, lo son),
@@ -374,8 +384,9 @@ necesaria por \textit{OpenMP} para forzar el orden de ejecución.
 \end{enumerate}
 
 \subsubsection{Uso de Strip-mining para paralelismo.\label{strip-mining-parallel}}
-Strip-mining en paralelismo facilita la división la tarea en bloques del tamaño \textit{stride}
-previamente mencionado. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
+Strip-mining en paralelismo facilita la división la tarea en tiras del tamaño \textit{stride}, de la misma
+manera en que los bloques generados por loop-tiling son la unidad de trabajo candidata para la división
+de tareas \cite{Wolfe89moreiteration}. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
 tenemos la capacidad de disminuir condiciones de carrera. Si cada bucle está trabajando en su propio bloque
 \textit{jj}, y estos bloques tienen poca o nada de superposición, entonces se evita
 \textit{cache-thrashing}.
@@ -534,8 +545,8 @@ Resultados T-Test para \textit{SoA}:
 		$\mu_{seq}: 23.853744$, $\mu_{8hilos}: 22.070424$, $Speedup = 1.080801$
 \end{itemize}
 
-Lo obvio es que se encuentra una diferencia significativa en cada prueba. Esto significa que si hay un
-speedup, este es significativo, ya sea menor a 1 (más lento) o mayor a 1 (más rápido).
+Lo primero que se puede observar es que hay una diferencia significativa en cada prueba.
+Esto significa que si hay un speedup, este es significativo, ya sea menor a 1 (más lento) o mayor a 1 (más rápido).
 
 Los resultados nos muestran que el programa secuencial tiene un tiempo de ejecución levemente más rápido
 para una cantidad medianamente grande de objetos (${N} <= 4000$). Pero la situación se revierte
@@ -574,4 +585,5 @@ No descartamos que se hayan pasado por alto optimizaciones u otro tipo de consid
 en el diseño que podrían haber terminado en mejores resultados. Pero sí es cierto que decisiones
 en el diseño original y mantener sus resultados en precisión, fueron cargas que se hicieron
 notar muy fuertemente a la hora de paralelizar el algoritmo.
+\printbibliography
 \end{document}
