@@ -1,7 +1,8 @@
 \documentclass{article}
+\usepackage[spanish]{babel}
 
 \usepackage{graphicx}
-\usepackage[spanish]{babel}
+\usepackage{subfig}
 
 \usepackage{caption}
 
@@ -160,9 +161,8 @@ facilitado por strip-mining. Pero esto puede resultar en una pérdida de rendimi
 hay que medir.
 
 
-Como nota: la función para obtener raíz cuadradas no es vectorizable a no ser que se utilice una flag
-del compilador que permite su aproximación por métodos numéricos. Esta estimación está bien hasta
-cierto número de iteraciones y objetos donde el error que arrastra se vuelve imperdonable.
+\footnote{sqrt() no es vectorizable a no ser que se especifique \textit{-funsafe-math-optimizations},
+al compilador. Pero a cierto punto, el error propagado es muy grande (como se menciona en \ref{compiler})}
 
 
 El código original no pareció incorporar muy bien las instrucciones SIMD en el cálculo de fuerzas.
@@ -200,7 +200,7 @@ for (i = ii; i <= min(ii+stride-1, N); ++i)
 El código final también hace uso de la técnica para evitar false-sharing, algo que se explica con mas profundidad
 en \ref{strip-mining-parallel}, la sección de esta técnica en las optimizaciones paralelas.
 
-\subsubsection{Loop-tiling en loops anidados.}
+\subsubsection{Loop-tiling en loops anidados.\label{loop-tiling}}
 
 Loop-tiling es una técnica para mejorar la localidad temporal en loops anidados de
 n-dimensiones\footnote{profundidad del anidado de loops}. Básicamente consiste en 2 pasos: strip-mining, y permutación loops.
@@ -225,11 +225,11 @@ el de \textit{j}. Para lograr esto hay que permutar la cabecera del loop \textit
 
 ¿Cómo implementar loop-tiling en un espacio de iteración triangular? El \textbf{modelo del poliedro} es parte
 de un área de estudio que lleva bastante tiempo siendo desarrollada. Básicamente plantea que los espacios
-de iteración que puedan plantearse como un \textbf{poliedro convexo}\footnote{convexo: una línea entre 2 puntos
+de iteración que pueden ser pensados como un \textbf{poliedro convexo}\footnote{convexo: una línea entre 2 puntos
 del poliedro pasa únicamente por puntos interiores al poliedro} (como un espacio triangular) y cumplan las dependencias
 de datos previamente explicadas, pueden replantearse para intercambiar cabeceras. La metodología básica consiste
 plantear un sistema de inecuaciones que defina al \textbf{poliedro S} a partir de las cláusulas de los loops. Luego utilizar
-algo llamado \textbf{método de eliminación de Fourier-Motzkin} para proyectar la variable a reacomodar (o sea, variable a eliminar y
+el \textbf{método de eliminación de Fourier-Motzkin} para proyectar la variable a reacomodar (o sea, variable a eliminar y
 reinsertar en algún momento). Tras la proyección, un sistema de inecuaciones de n-dimensiones (loop de n-variables)
 queda como un sistema de m-dimensiones donde $m=n-1$. Con el método de Fourier-Motzkin se pueden eliminar progresivamente las variables,
 para finalmente reinsertar las cabeceras de dichas variables eliminadas, bajo las nuevas cláusulas (inecuaciones). Este resultado
@@ -244,7 +244,7 @@ de estas optimizaciones.
 \begin{figure}
 \begin{displaymath}
 	\begin{array}{rrr}
-		\left\{
+		S\left\{
 			\begin{array}{r}
 			ii\geq 0\\
 			ii\leq n\\
@@ -259,9 +259,9 @@ de estas optimizaciones.
 			\end{array}
 		\right.
 		&
-		\textit{se convierte en}
+		\textit{equivalente a}
 		&
-		\left\{
+		S'\left\{
 			\begin{array}{r}
 			ii\geq 0\\
 			ii\leq n\\
@@ -300,22 +300,29 @@ for (jj = i+1; jj <= N; jj+=stride)
 
 
 Esta optimización en conjunto con vectorización (sección \ref{simd}) dieron al programa un speedup de más de x2.
-Lastimosamente asumir asociatividad en las operaciones de punto flotante no pudo contener la propagación del error
-para número de objetos e iteraciones grandes ($N > 4000$, $iteraciones > 250$), por lo que loop-tiling fue descartado
-como optimización tanto para el cálculo de fuerzas como para el marcado de colisiones.
+Loop-tiling permite mantener el false-sharing bajo y la localidad temporal alta. Los fallos a caché entonces eran bajos,
+la vectorización resultaba en loops con instrucciones SIMD. No solo eso, a mayor número de objetos e iteraciones, mayor la diferencia con
+el código original, no porque el optimizado se vuelva más rápido, si no porque el original debe reemplazar todos los datos en caché por cada
+iteración del loop \textit{j}, aumentando el speedup de la versión vectorizada con loop-tiling para esa configuración.
 
-\subsubsection{Flags de compilador.}
+
+Pero asumir asociatividad en las operaciones de punto flotante no pudo contener la propagación del error
+para número de objetos e iteraciones grandes ($N > 4000$, $iteraciones > 250$), por lo que loop-tiling fue descartado
+como optimización tanto para el cálculo de fuerzas como para el marcado de colisiones. No obstante hay un único loop del cálculo de fuerzas que pudo mantenerse vectorizado para conseguir un muy pequeño, pero
+mesurable, speedup.
+
+\subsubsection{Flags de compilador.\label{compiler}}
 Como programadores, además de jugar con el algoritmo, podemos jugar con las flags
 del compilador en este trade-off de performance por precisión y viceversa.
 Las flags usadas son:
 \begin{itemize}
 		\item -O3
 		\item -fexcess-precision=fast -fno-rounding-math -fno-signaling-nans
-			-fno-math-errno -fno-signed-zeros -fno-trapping-math: Optimizaciones
-			sobre punto flotante que eran activadas por -ffast-math. Pero -ffast-math
-			a su vez activa -funsafe-math-optimizations, la cual permite entre otras
-			cosas aproximar por métodos numéricos, multiplicación por inverso, y asociatividad
-			de punto flotante. Estas flags no muestran cambios en el resultado porque en su
+			-fno-math-errno -fno-signed-zeros -fno-trapping-math: Son algunas de las optimizaciones
+			sobre punto flotante que son activadas por -ffast-math. Pero -ffast-math
+			a su vez activa -funsafe-math-optimizations (aproximación por métodos numéricos, multiplicación por inverso, y asociatividad
+			de punto flotante, entre otras cosas). A cierto número de objetos e iteraciones, el error
+			de -funsafe-math-optimizations se propaga demasiado. En cambio, estas otras flags no muestran cambios en el resultado porque en su
 			gran parte son para señalizar errores como por ejemplo división por cero, lo cual, si la detección
 			de colisiones funciona bien, no debería pasar.
 		\item march=native: optimizaciones especificas para la arquitectura que compile el programa (en el procesador
@@ -323,19 +330,109 @@ Las flags usadas son:
 \end{itemize}
 
 \subsection{Optimizaciones con paralelismo.\label{opt_parallel}}
-
 \subsubsection{Paralelización en cálculos de fuerza.}
+La mayoría de las optimizaciones en paralelismo se enfocan alrededor del cálculo de fuerza resultante.
+Esta parte del programa es la que ocupa la mayor parte del tiempo de ejecución. Y al tratarse de una sumatoria,
+con cuidado por el punto flotante, es donde podría conseguirse un speedup significativo.
+
+
+Inicialmente se intentó aprovechar al máximo las técnicas de loop tiling y vectorización discutidas
+en \ref{loop-tiling} y \ref{simd}. El speedup de estas 2 técnicas sin paralelizar ya era de por x2. En
+papel (y cometiendo el grave error de ignorar de asumir asociatividad), el algoritmo que contempa varias
+técnicas de optimizaciones secuenciales es muy apto a ser paralelizable. Paralelizar esto terminó en un speedup muy grande.
+Se paralelizó tanto del loop de \textit{ii} como de \textit{jj} (por separado, sin directiva `collapse' ni colapso manual),
+sumado a la paralelización y loop-tiling del loop para marcado de colisiones. El tiempo de ejecución para 10000 objetos, 500 iteraciones y un
+tamaño de recinto de $10^6$ era de 22 segundos, mientras que el del código original era de 226 segundos.
+Aunque se usaron técnicas de reducción para evitar carreras de datos y se evitó el false-sharing, esto resultó en muchas operaciones
+no asociativas ocurriendo desordenamdamente por la naturaleza misma del algoritmo. No solo eso, si no que
+por depender del scheduler del sistema operativo (no se usaron directivas de ordenamiento), el resultado era no determinístico.
+
+
+En la versión final del código únicamente se paraleliza el loop de cabecera \textit{jj}, obtenido
+por strip-mining, no por loop-tiling (similar a Código \ref{doble_loop:striping-no_tiling}).
+Loop-tiling desordena las operaciones para mejorar su localidad temporal.
+
+
+El bucle \textit{jj} tiene una directiva de ordenamiento (`\#pragma omp ordered'), y en su interior
+no hay un bucle \textit{j}, si no 3\footnote{una de las ventajas de strip-mining: rehuso de dato en distintas partes
+algoritmo}. De estos loops \textit{j}, el último funciona como
+reducción y tiene en su cabecera la otra directiva de ordenamiento necesaria por \textit{OpenMP}
+para forzar el orden de ejecución.
 
 \subsubsection{Uso de Strip-Mining para paralelismo.\label{strip-mining-parallel}}
+Strip-mining en paralelismo facilita la división la tarea en bloques del tamaño \textit{stride}
+previamente mencionado. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
+tenemos la capacidad de disminuir condiciones de carrera. Si cada bucle está trabajando en su propio bloque
+\textit{jj}, y estos bloques tienen poca o nada de superposición, entonces se evita
+\textit{cache-thrashing}\footnote{cantidad excesiva de fallos a caché por múltiples núcleos intentando accediendo
+a la misma dirección de memoria.}.
+
 
 \subsection{Conclusiones sobre las optimizaciones.}
+En conclusión, asumir asociatividad de punto flotante es un error que solo pueden permitirse iteraciones
+y números de objetos bajos. Intentar implementar aunque sea en pequeñas partes del código algunas de
+las optimizaciones presentadas terminaban en un cambio de resultados. Alteraciones en el orden de operaciones
+en el espacio de iteración triangular, vectorización, y flags del compilador, fueron las principales
+variables a controlar para poder mantener los resultados de la primera versión.
 
-\section{Diseño Final.\label{final}}
-\subsection{AOS paralelo.}
-\subsection{SOA paralelo.}
+
+A continuación se exponen los resultados numéricos de las pruebas realizadas.
+Desde ya, con tanta limitación a la hora de optimizar, el algoritmo paralelo no difiere mucho del
+original de la sección \ref{original}. Desde ya, las pruebas hacen considerar si siquiera vale
+la pena optimizar, o si no se contemplaron mejores optimizaciones a la hora de poner las cartas sobre la mesa.
+
+%\section{Diseño Final.\label{final}}
+%\subsection{AOS paralelo.}
+%\subsection{SOA paralelo.}
 
 \section{Evaluación de Rendimiento.\label{performance}}
 \subsection{Resultados obtenidos.}
+
+\begin{figure}[htp]
+	%\centering
+	\hspace*{-2cm}
+	\subfloat{%
+		\includegraphics[width=0.72\linewidth,height=0.6\linewidth]{resources/8core_samples_conf_interval.png}
+		\label{fig:8core}
+	}%
+	%\hfill%
+	\subfloat{%
+		\includegraphics[width=0.72\linewidth,height=0.6\linewidth]{resources/16core_samples_conf_interval.png}
+		%\caption{Pruebas con 16 núcleos}
+		\label{fig:16core}
+	}%
+	\caption{Pruebas con 8 y 16 núcleos (izquierda y derecha, respectivamente)}
+\end{figure}
+\begin{figure}[htp]
+	%\centering
+	\hspace*{-2cm}
+	\subfloat{%
+		\includegraphics[width=0.72\linewidth,height=0.6\linewidth]{resources/2core_samples_conf_interval.png}
+		\label{fig:2core}
+	}%
+	%\hfill%
+	\subfloat{%
+		\includegraphics[width=0.72\linewidth,height=0.6\linewidth]{resources/4core_samples_conf_interval.png}
+		\label{fig:4core}
+	}%
+	\caption{Pruebas con 2 y 4 núcleos (izquierda y derecha, respectivamente)}
+\end{figure}
+\begin{figure}[htp]
+	%\centering
+	\hspace*{-2cm}
+	\subfloat{%
+		\includegraphics[width=0.72\linewidth,height=0.6\linewidth]{resources/1core_samples_conf_interval.png}
+		%\caption{Pruebas con 16 núcleos}
+		\label{fig:1core}
+	}%
+	%\hfill%
+	\subfloat{%
+		\includegraphics[width=0.72\linewidth,height=0.6\linewidth]{resources/p_1_samples_conf_interval.png}
+		\label{fig:p_1}
+	}%
+	\caption{Pruebas con 1 núcleo en algoritmo paralelo y con algoritmo original según la sección \ref{original} (izquierda y derecha, respectivamente)}
+\end{figure}
+
 \subsection{Secuencial vs. Paralelo.}
 \subsection{Interpretación de resultados y pruebas.}
 
