@@ -64,35 +64,35 @@ sobre cuales optimizaciones lograron permanecer en la versión final, cuáles no
 
 
 Luego exponemos los resultados de las pruebas realizadas, los analizamos estadísticamente en la sección \ref{performance},
-y cerramos con conclusiones al respecto.
+donde también cerramos con conclusiones al respecto.
 
 \section{Diseño Original.\label{original}}
 En el diseño original de este programa, ambas versiones SoA\footnote{Struct of Arrays} y AoS\footnote{Array of Structs}
 son bastante similares. Por lo que consideramos que en este repaso no vale la pena discutir sus diseños por separado.
 
 
-Una vez superada la inicialización de los objetos. Ambas versiones consitían en 3 loops anidados.
-Un loop externo (con variable \textit{k} de manera que $0\leq{k} < {num\_iterations}$)
+Una vez superada la inicialización de los objetos. Ambas versiones consisten en 3 loops anidados.
+Un loop externo (con variable \textit{k} de manera que $0\leq{k} < {num\_iterations}$),
 un loop interno que itera por todos los objetos de uno en uno usando una variable \textit{i}
-($0\leq{i} < {num\_objects}$) , y un loop externo que itera por los objetos desde \textit{i}
+($0\leq{i} < {num\_objects}$), y un loop externo que itera por los objetos desde \textit{i}
 excluyendo \textit{i} ($i+1\leq{j} < {num\_objects}$).
 
 A lo largo de la memoria, a esta última
-parte de los loops anidados con variables \textit{i} y \textit{j} le llamaremos \textbf{doble loop} ó \textbf{loop doble} ().
+parte de los loops anidados con variables \textit{i} y \textit{j} le llamaremos \textbf{doble loop} ó \textbf{loop doble}.
 Su forma básica puede verse en Código \ref{doble_loop:no_striping-no_tiling}.
 Es una estructura recurrente en el programa. La variable k desde el vamos no se presta a optimizar porque
 necesita la verificación de colisiones antes de cada iteración (tiene una dependencia de datos total
-entre una iteración y la otra). El doble loop aparece tanto en chequeo de colisiones, como en cálculo de
+entre una iteración y la otra). El doble loop aparece tanto en verificación de colisiones, como en cálculo de
 fuerzas resultantes de un objeto con el resto.
 
 
-En cada loop doble se calculan las fuerzas resultantes de un objeto con todos los demás, se aplica la
+En cada loop doble se calculan las fuerzas resultantes de un objeto con todos los demás, se añade la
 correspondiente fuerza resultante a cada cuerpo involucrado en el cálculo, y luego se calcula la
 aceleración, velocidad, y nueva posición del objeto \textit{i}. La optimización más importante de la
 versión original (y la más obvia) es esta de evitar calcular dos veces la fuerza resultante entre
-dos objetos. Esto resulta en un espacio de iteración triangular. Que nos es de mucho interés
+dos objetos. Esto resulta en un espacio de iteración triangular. La forma del espacio de iteración nos es de mucho interés
 a la hora de tener en cuenta optimizaciones (sección \ref{opt}). La figura \ref{fig:no_tiling} ilustra
-el espacio de iteración del doble loop, así como su flujo de ejecución (indicado por las flechas).
+el espacio de iteración del doble loop, así como su flujo de ejecución.
 
 
 Por último, el diseño original nunca elimina objetos, si no que
@@ -126,9 +126,9 @@ del código de ejecución serializada. Si no también preparar al algoritmo
 para poder aprovechar mejor la paralelización a nivel de tarea.
 
 \subsubsection{Vectorización en cálculos de fuerza.\label{simd}}
-El título de la subsección \ref{opt_seq} habla de optimizaciones secuenciales, pero para ser honestos,
-no es tan así. El paralelismo a nivel de datos puede dar grandes mejoras de rendimiento a aplicaciones
-que procesen datos de maneras similares a nuestro programa. Las distintas familias de instrucciones
+El título de la subsección \ref{opt_seq} habla de optimizaciones secuenciales, pero hay un poco de mentira
+en ese título. El paralelismo a nivel de datos puede dar mejoras de rendimiento a aplicaciones
+que procesen grandes conjuntos de datos (similar a nuestro programa). Las distintas familias de instrucciones
 \textbf{SIMD}\footnote{Single Instruction-Multiple Data} que disponen las arquitecturas x86-64 son
 ejemplos de paralelismo a nivel de datos. Estas operaciones son capaces de aplicar la misma operación sobre varios
 datos al mismo tiempo.
@@ -141,7 +141,7 @@ en tiempo de compilación. Pero a cierto punto, el error propagado es muy grande
 
 
 El diseño original tiene condicionales dispersos por todo el código. Como se menciona en
-la sección \ref{original}, los objetos no se eliminan, se marcan, y su debe verificar su existencia.
+la sección \ref{original}, los objetos no se eliminan, se marcan, y se debe verificar su existencia.
 Todo esto lo hace la función de chequeo de colisiones. Si esta función se divide en una parte de marcado
 de colisiones y fusión de objetos (que no hace más que sumar objeto \textit{a} con objeto \textit{b}), y
 una segunda parte donde se eliminen en una sola pasada los objetos marcados y se actualice la longitud
@@ -149,9 +149,9 @@ del array de objetos. Entonces el resto del código no necesita condicionales pa
 
 
 Otra restricción para que el compilador pueda vectorizar el código, es la \textit{supresión de dependencias de datos}.
-En particular y como mínimo, evitar \textit{RAW} (al menos en x86-64). El cálculo de fuerzas tiene de esto en algunas
+En particular y como mínimo, evitar \textit{RAW} (al menos en x86-64). El cálculo de fuerzas tiene este tipo de dependencias en algunas
 partes. Por ejemplo, el objeto en el índice del loop menos profundo \textit{i}, tiene dependencias WAW entre iteraciones.
-O bien, hay dependencias RAW propias de utilizar el resultado de un cálculo almacenado en una variable, para un nuevo cálculo.
+O bien, hay dependencias RAW propias de utilizar el resultado de un cálculo almacenado en una variable para un nuevo cálculo.
 
 
 Una técnica llamada \textit{strip-mining} presentada en \ref{strip-mining} permite exponer la vectorización
@@ -160,21 +160,23 @@ la única utilidad que se le da en el código pero en esta sección es lo que no
 
 
 Para lidiar con RAW, una posible solución es la de dividir un loop con RAW en 2 loops sin RAW (también
-facilitado por strip-mining. Pero esto puede resultar en una pérdida de rendimiento, por lo tanto
+facilitado por strip-mining). Pero esto puede resultar en una pérdida de rendimiento, por lo tanto
 hay que medir la performance del programa.
 
 
 El código original no pareció incorporar muy bien las instrucciones SIMD en el cálculo de fuerzas.
-Por alguna razón, incluso eliminando las dependencias de datos, el compilador se rehúsa a vectorizar
-una parte caliente\footnote{parte del programa accedida con mucha frecuencia} del código, y obligarlo
-con la directiva \textit{\#pragma omp simd} no termina en buenos resultados ni performance.
+Por alguna razón (que no pudimos determinar analizando el código fuente)
+incluso eliminando las dependencias de datos, el compilador se rehúsa a vectorizar
+una parte caliente\footnote{parte del programa accedida con mucha frecuencia} del código. Obligar la vectorización
+con la directiva \textit{\#pragma omp simd} no termina en buenos resultados ni performance (claramente el compilador
+es más inteligente).
 
-\subsubsection{Strip-Mining.\label{strip-mining}}
-Strip-mining es una técnica que permite exponer oportunidades de vectorización al compilador, como es mencionado
+\subsubsection{Strip-mining.\label{strip-mining}}
+Strip-mining es una técnica que expone oportunidades de vectorización al compilador, como es mencionado
 en la subsección \ref{simd}. Varias veces el compilador puede llevar a cabo esta optimización por su cuenta.
 
 
-También permite mejorar la localidad tanto espacial como temporal si los mismos datos son utilizados en distintas partes
+También puede mejorar la localidad tanto espacial como temporal si los mismos datos son utilizados en distintas partes
 del algoritmo. Este último uso es el que se le dá en la versión final del código para el cálculo de fuerzas.
 
 
@@ -215,7 +217,7 @@ tras el intercambio de loops.
 
 Asumiendo que los loops son independientes (que en nuestro caso, de asumir asociatividad, lo son),
 ¿qué tan simple es el intercambio de loops? En un espacio de iteración cuadrado, bastante simple. Resulta
-que es un poco más complicado de lo que parece. Pero de la sección \ref{original} damos por entendido que
+que es un poco más complicado de lo que parece. De la sección \ref{original} entendemos que
 nuestro espacio de iteración es triangular (como se lo ve en la figura \ref{fig:no_tiling}).
 En un loop como el de Código \ref{doble_loop:striping-no_tiling}, nos gustaría permutar las cabeceras de manera que
 \textit{ii} y \textit{jj} sean las primeras 2 cabeceras, con el loop de \textit{i} por debajo, y finalmente
@@ -224,9 +226,9 @@ el de \textit{j}. Para lograr esto hay que permutar la cabecera del loop \textit
 
 ¿Cómo implementar loop-tiling en un espacio de iteración triangular? El \textbf{modelo del poliedro} es parte
 de un área de estudio que lleva bastante tiempo siendo desarrollada. Básicamente plantea que los espacios
-de iteración que pueden ser pensados como un \textbf{poliedro convexo}\footnote{convexo: una línea entre 2 puntos
+de iteración que puedan ser pensados como un \textbf{poliedro convexo}\footnote{convexo: una línea entre 2 puntos
 del poliedro pasa únicamente por puntos interiores al poliedro} (como un espacio triangular) y cumplan las dependencias
-de datos previamente explicadas, pueden replantearse para intercambiar cabeceras. La metodología básica consiste
+de datos previamente explicadas, pueden replantearse para intercambiar cabeceras. La metodología consiste en
 plantear un sistema de inecuaciones que defina al \textbf{poliedro S} a partir de las cláusulas de los loops. Luego utilizar
 el \textbf{método de eliminación de Fourier-Motzkin} para proyectar la variable a reacomodar (o sea, variable a eliminar y
 reinsertar en algún momento). Tras la proyección, un sistema de inecuaciones de n-dimensiones (loop de n-variables)
@@ -267,14 +269,14 @@ de estas optimizaciones.
 			jj\geq ii+1\\
 			jj\leq n\\
 			j\geq jj\\
-			j\geq i+1
+			j\geq i+1\\
 			j\leq jj+stride-1\\
 			j\leq n\\
 		\end{cases}
 	\end{array}
 \end{displaymath}
 	\caption{Pasaje del sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-no_tiling},
-	al sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-tiling}. Notar
+	al sistema de inecuaciones que define al poliedro \textit{S'} en Código \ref{doble_loop:striping-tiling}. Notar
 	como las condiciones en las cabeceras de Código \ref{doble_loop:striping-no_tiling} y \ref{doble_loop:striping-tiling} se corresponden
 	de manera directa con los sistemas de inecuaciones \textit{S} y \textit{S'}, respectivamente.}
 	\label{fig:fourier_motzkin}
@@ -297,7 +299,8 @@ for (jj = i+1; jj <= N; jj+=stride)
 
 
 Esta optimización en conjunto con vectorización (sección \ref{simd}) dieron al programa un speedup de más de x2.
-Loop-tiling permite mantener el false-sharing bajo y la localidad temporal alta. Los fallos a caché entonces eran bajos,
+Loop-tiling permite mantener \textit{cache-thrashing}\footnote{cantidad excesiva de fallos a caché por múltiples núcleos intentando accediendo
+a la misma dirección de memoria.} bajo y la localidad temporal alta. Los fallos a caché entonces eran bajos,
 la vectorización resultaba en loops con instrucciones SIMD. No solo eso, a mayor número de objetos e iteraciones, mayor la diferencia con
 el código original, no porque el optimizado se vuelva más rápido, si no porque el original debe reemplazar todos los datos en caché por cada
 iteración del loop \textit{j}, aumentando el speedup de la versión vectorizada con loop-tiling para esa configuración.
@@ -319,8 +322,8 @@ Las flags usadas son:
 			sobre punto flotante que son activadas por -ffast-math. Pero -ffast-math
 			a su vez activa -funsafe-math-optimizations (aproximación por métodos numéricos, multiplicación por inverso, y asociatividad
 			de punto flotante, entre otras cosas). A cierto número de objetos e iteraciones, el error
-			de -funsafe-math-optimizations se propaga demasiado. En cambio, estas otras flags no muestran cambios en el resultado porque en su
-			gran parte son para señalizar errores como por ejemplo división por cero, lo cual, si la detección
+			de -funsafe-math-optimizations se propaga demasiado. En cambio, estas otras flags no muestran cambios en el resultado porque, en su
+			mayoría, son para señalizar errores como por ejemplo división por cero. Lo cual, si la detección
 			de colisiones funciona bien, no debería pasar.
 		\item march=native: optimizaciones especificas para la arquitectura que compile el programa (en el procesador
 			utilizado esto resulta en vectorización por AVX y AVX512 en lugar de SSE).
@@ -370,13 +373,12 @@ necesaria por \textit{OpenMP} para forzar el orden de ejecución.
 
 \end{enumerate}
 
-\subsubsection{Uso de Strip-Mining para paralelismo.\label{strip-mining-parallel}}
+\subsubsection{Uso de Strip-mining para paralelismo.\label{strip-mining-parallel}}
 Strip-mining en paralelismo facilita la división la tarea en bloques del tamaño \textit{stride}
 previamente mencionado. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
 tenemos la capacidad de disminuir condiciones de carrera. Si cada bucle está trabajando en su propio bloque
 \textit{jj}, y estos bloques tienen poca o nada de superposición, entonces se evita
-\textit{cache-thrashing}\footnote{cantidad excesiva de fallos a caché por múltiples núcleos intentando accediendo
-a la misma dirección de memoria.}.
+\textit{cache-thrashing}.
 
 Esto es confirmado por las mediciones de fallos a caché de la herramienta \textit{perf c2c}.
 Donde los fallos a caché privada con strip-mining se mantienen por debajo o alrededor de 3\%
@@ -569,6 +571,7 @@ desde el vamos parecía más optimizable por paralelismo y consideramos nos perm
 si nuestra inclinación por SoA no es evidente).
 
 No descartamos que se hayan pasado por alto optimizaciones u otro tipo de consideraciones
-en el diseño que podrían haber terminado en mejores resultados. Pero sí es cierto que el diseño original y mantener sus resultados en precisión,
-fueron cargas que se hicieron notar muy fuertemente a la hora de paralelizar el algoritmo.
+en el diseño que podrían haber terminado en mejores resultados. Pero sí es cierto que decisiones
+en el diseño original y mantener sus resultados en precisión, fueron cargas que se hicieron
+notar muy fuertemente a la hora de paralelizar el algoritmo.
 \end{document}
