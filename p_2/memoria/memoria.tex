@@ -3,8 +3,9 @@
 
 \usepackage{graphicx}
 \usepackage{subfig}
-
 \usepackage{caption}
+
+\usepackage{amsmath}
 
 \usepackage{listings}
 \lstdefinestyle{CStyle}{
@@ -242,8 +243,7 @@ de estas optimizaciones.
 \begin{figure}
 \begin{displaymath}
 	\begin{array}{rrr}
-		S\left\{
-			\begin{array}{r}
+		S\begin{cases}
 			ii\geq 0\\
 			ii\leq n\\
 			i\geq ii\\
@@ -254,13 +254,11 @@ de estas optimizaciones.
 			j\geq jj\\
 			j\leq jj+stride-1\\
 			j\leq n
-			\end{array}
-		\right.
+		\end{cases}
 		&
 		\textit{equivalente a}
 		&
-		S'\left\{
-			\begin{array}{r}
+		S'\begin{cases}
 			ii\geq 0\\
 			ii\leq n\\
 			i\geq ii\\
@@ -272,8 +270,7 @@ de estas optimizaciones.
 			j\geq i+1
 			j\leq jj+stride-1\\
 			j\leq n\\
-			\end{array}
-		\right.
+		\end{cases}
 	\end{array}
 \end{displaymath}
 	\caption{Pasaje del sistema de inecuaciones que define al poliedro \textit{S} en Código \ref{doble_loop:striping-no_tiling},
@@ -381,8 +378,13 @@ tenemos la capacidad de disminuir condiciones de carrera. Si cada bucle está tr
 \textit{cache-thrashing}\footnote{cantidad excesiva de fallos a caché por múltiples núcleos intentando accediendo
 a la misma dirección de memoria.}.
 
+Esto es confirmado por las mediciones de fallos a caché de la herramienta \textit{perf c2c}.
+Donde los fallos a caché privada con strip-mining se mantienen por debajo o alrededor de 3\%
+(dependiendo de la configuración de la ejecución). Porcentaje de fallos que se hace notar en
+el tiempo de ejecución al comparar con su contraparte sin strip-mining.
 
-\subsection{Conclusiones sobre las optimizaciones.}
+
+\subsection{Conclusiones sobre las optimizaciones.\label{opt_conclusiones}}
 Asumir asociatividad de punto flotante es un error que solo pueden permitirse iteraciones
 y números de objetos bajos. Intentar implementar aunque sea en pequeñas partes del código algunas de
 las optimizaciones presentadas terminaban en un cambio de resultados. Alteraciones del orden de operaciones
@@ -408,21 +410,49 @@ procesador intel i7 de 10ma generación, modelo \textbf{i7-1065G7}:
 \subsection{Resultados obtenidos.}
 Para las pruebas hemos estudiado la configuración con parámetros fijos ${size\_enclosure}=10^5$ ${random\_seed}=666$ y
 ${time\_step}=0.1$. En los parámetros restantes, representados en la tupla $({num\_objects}, {num\_iterations})$,
-estudiamos las combinaciones $(4000, 250)$, $(4000, 500)$, $(8000, 250)$, y $(8000, 500)$.
+estudiamos las combinaciones $(4000, 250)$, $(4000, 500)$, $(8000, 250)$, y $(8000, 500)$. Por lo que hay
+un total de 4 pruebas por configuración.
 
+Cada prueba tiene una muestra de tamaño ${n}=10$. Estadísticamente
+hablando, una muestra tan pequeña ($n < 30$) no nos permite aprovechar el \textit{Teorema del Límite Central}.
+Por lo que las pruebas de comparación de 2 medias por distribución normal de dos colas, y ANOVA\footnote{Análisis de Varianza}
+no han sido utilizadas. En su lugar, se optó por \textbf{T-Test} para la comparación de dos medias, y se reemplazó a ANOVA
+por su equivalente no paramétrico: \textbf{Kruskal-Wallis H-Test}.
+
+\subsection{Todos contra todos.\label{kruskal}}
+En esta primera comparación buscamos las diferencias, si las hay en tiempos de ejecución para el programa
+paralelo con diferentes cantidad de hilos de ejecución, y el programa secuencial. En particular, se comparan
+los tiempos de ejecución para las 4 configuraciones de las pruebas en el programa secuencial y en el programa paralelo
+con 16, 8, 4, 2, y 1 hilo de ejecución.
+
+
+Para no rellenar páginas con gráficos, las figuras \ref{fig:8core_p_1} y \ref{fig:4core_16core} muestran únicamente los casos de 4, 8 y 16 hilos de ejecución, así como los resultados del programa
+secuencial bajo la misma carga, usando la estructura de datos \textit{SoA}. Estos casos son suficientes
+para un análisis comprensivo de SoA en las secciones \ref{kruskal} y \ref{t-test}.
+
+
+En esta primera prueba, como fue mencionado ya, usamos la prueba no paramétrica de \textit{Kruskal-Wallis}. Planteando
+las hipótesis alternativa y nula correspondientes:
+\begin{displaymath}
+\begin{cases}
+	{H_0}: \text{las medias poblacionales son iguales.}\\
+	{H_A}: \text{al menos una media poblacional difiere.}\\
+\end{cases}
+\end{displaymath}
 \begin{figure}[htp]
 	%\centering
 	\hspace*{-3.5cm}
 	\subfloat[Pruebas con 8 hilos de ejecución.]{%
-		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/8core_samples_conf_interval.png}
+		\includegraphics[width=0.8\linewidth,height=0.55\linewidth]{resources/8core_samples_conf_interval.png}
 		\label{fig:8core}
 	}%
 	%\hfill%
-	\subfloat[Pruebas algoritmo secuencial de la sección \ref{original}.]{%
-		\includegraphics[width=0.8\linewidth,height=0.65\linewidth]{resources/p_1_samples_conf_interval.png}
+	\subfloat[Pruebas en algoritmo secuencial de la sección \ref{original}.]{%
+		\includegraphics[width=0.8\linewidth,height=0.55\linewidth]{resources/p_1_samples_conf_interval.png}
 		\label{fig:p_1}
 	}%
-	\caption{Pruebas con 8 hilos de ejecución y pruebas en el algoritmo secuencial de la sección \ref{original}. SoA.}
+	\caption{Pruebas con 8 hilos de ejecución y pruebas en algoritmo secuencial de la sección \ref{original}. SoA.}
+	\label{fig:8core_p_1}
 \end{figure}
 \begin{figure}[htp]
 	%\centering
@@ -436,12 +466,109 @@ estudiamos las combinaciones $(4000, 250)$, $(4000, 500)$, $(8000, 250)$, y $(80
 		\label{fig:16core}
 	}%
 	\caption{Pruebas con 4 y 16 hilos de ejecución. SoA.}
+	\label{fig:4core_16core}
 \end{figure}
 
-\subsection{Todos contra todos.}
-\subsection{Secuencial vs. Paralelo.}
-\subsection{Interpretación de resultados y pruebas.}
+
+Los resultados obtenidos en Kruskal-Wallis H-Test para las distintas configuraciones son:
+\begin{itemize}
+\item Configuración: num\_iterations: 4000, num\_objects: 250, p\_valor: 0.000000003707
+	Sí hay \textbf{diferencia significativa} en las medias poblacionales.
+
+\item Configuración: num\_iterations: 4000, num\_objects: 500, p\_valor: 0.000000000070
+	Sí hay \textbf{diferencia significativa} en las medias poblacionales.
+
+\item Configuración: num\_iterations: 8000, num\_objects: 250, p\_valor: 0.000000000481
+	Sí hay \textbf{diferencia significativa} en las medias poblacionales.
+
+\item Configuración: num\_iterations: 8000, num\_objects: 500, p\_valor: 0.000000000295
+	Sí hay \textbf{diferencia significativa} en las medias poblacionales.
+\end{itemize}
+El bajo valor numérico de \textit{p\_valor} hace que para todas las configuraciones se rechace
+la hipótesis nula ${H_0}$ de Kruskal-Wallis. Se concluye que hay una diferencia significativa
+en los tiempos de ejecución.
+
+Notar que 8 hilos de ejecución da la mejor performance del programa paralelo. El procesador
+utilizado para las pruebas tiene 4 núcleos, que gracias a \textit{hyper-threading} de intel quedan en 8 hilos.
+Entonces el programa que usa 8 hilos de ejecución es el que más aprovecha la configuración del hardware.
+Tanto menos hilos (Figura \ref{fig:4core}) como más hilos (Figura \ref{fig:16core}) dan peores
+resultados que los obtenidos en 8 hilos de ejecución (Figura \ref{fig:8core}).
+
+
+\subsection{Secuencial vs. Paralelo.\label{t-test}}
+En la sección \ref{opt_conclusiones} se habló de las dificultades que aparecieron al paralelizar el programa
+original. Esto restringió mucho las optimizaciones aplicables sin modificar el resultado obtenido.
+Como era de esperar, en \ref{fig:8core_p_1} podemos ver que el speedup no es la gran cosa. De hecho, nos urge
+la necesidad de comprobar si de hecho hay un speedup.
+
+Por ello en esta sección hacemos una prueba T-Test para
+verificar si existe un speedup significativo (hipótesis alternativa) o si la velocidad de ejecución en realidad
+es significativamente igual. La configuración paralela será la de 8 hilos de ejecución, porque entre los resultados
+obtenidos, es la cantidad de hilos de ejecución candidata a mostrar un speedup significativo contra la versión secuencial.
+\begin{displaymath}
+\begin{cases}
+	{H_0}: \mu_{8hilos} = \mu_{seq}\\
+	{H_A}: \mu_{8hilos} \neq \mu_{seq}\\
+\end{cases}
+\end{displaymath}
+
+Resultados T-Test para \textit{SoA}:
+
+\begin{itemize}
+\item Configuración: num\_iterations: 4000, num\_objects: 250, p\_valor: 0.000023486219
+	Sí hay diferencia significativa en las medias de las muestras. \textbf{Favorece a secuencial.}\\
+		$\mu_{seq} = 13.117954$, $\mu_{8hilos} = 14.397698$. $Speedup = 1.097557$
+
+\item Configuración: num\_iterations: 4000, num\_objects: 500, p\_valor: 0.000000000000
+	Sí hay diferencia significativa en las medias de las muestras. \textbf{Favorece a secuencial.}\\
+		$\mu_{seq} = 21.497755$, $\mu_{8hilos} = 24.902056$, $Speedup = 1.158356$
+
+\item Configuración: num\_iterations: 8000, num\_objects: 250, p\_valor: 0.000009911266
+	Sí hay diferencia significativa en las medias de las muestras. \textbf{Favorece a 8 hilos.}\\
+		$\mu_{seq} = 22.572013$, $\mu_{8hilos} = 21.050593$, $Speedup = 1.072274$
+
+\item Configuración: num\_iterations: 8000, num\_objects: 500, p\_valor: 0.000000036031
+	Sí hay diferencia significativa en las medias de las muestras. \textbf{Favorece a 8 hilos.}\\
+		$\mu_{seq}: 23.853744$, $\mu_{8hilos}: 22.070424$, $Speedup = 1.080801$
+\end{itemize}
+
+Lo obvio es que se encuentra una diferencia significativa en cada prueba. Esto significa que si hay un
+speedup, este es significativo, ya sea menor a 1 (más lento) o mayor a 1 (más rápido).
+
+Los resultados nos muestran que el programa secuencial tiene un tiempo de ejecución levemente más rápido
+para una cantidad medianamente grande de objetos (${N} <= 4000$). Pero la situación se revierte
+en las pruebas donde ${N} = 8000$. Dificilmente esto se deba a mejoras en localidad de caché, ya que
+como fue discutido en la sección \ref{opt_conclusiones}, poco se ha podido hacer en este ámbito.
+Más bien, el speedup en muestras grandes se da porque el \textit{overhead} de creación
+de procesos y sincronización (exigida para mantener el orden de operaciones), no se hace notar
+si no hasta tamaños grandes de muestra.
 
 \section{Conclusiones Finales.\label{conclusiones}}
+En la paralelización de este programa nos encontramos con desafíos. Entre los cuales están: la asociatividad
+del punto flotante, desafíos propios del paralelismo (), y decisiones en el algoritmo original descrito en
+la sección \ref{original} que afectaron las optimizaciones factibles a la hora de paralelizar (como impocisiones
+en el orden de operaciones). No obstante, para programas que procesan una gran cantidad de datos, como cuando ${num_objects=8000}$,
+incluso el poco paralelismo que pudo ser aplicado mostró un speedup. Si bien para las pruebas realizadas este speedup no fue
+muy grande, lo más probable es que la diferencia crezca a medida que la cantidad de datos lo haga.
 
+
+Es crucial a la hora de paralelizar algoritmos, tener en cuenta la configuración del hardware. Queda demostrado
+en la mejora de resultados al usar 8 hilos, o más bien, en los malos resultados obtenidos por 1, 2, 4, y 16 hilos (configuraciones
+que no tienen en cuenta el hardware usado).
+
+
+A su vez, la elección de estructuras de datos juega un gran papel al paralelizar algoritmos, e incluso al optimizar secuencialmente.
+Empezando por lo `secuencial', SoA es mucho más apto a optimizaciones de vectorización, un \textit{trend} no menor en manufacturadores
+de chips de hoy en día. A su vez, SoA en muchos casos, como el de este programa, se puede ajustar mejor a técnicas que mejoran
+la localidad temporal y espacial.
+
+A la hora de paralelizar, esta mejora en localidad de SoA se acentúa aún más. A diferencia de AoS, tener en caché únicamente
+los datos necesarios para el cálculo, permite disminuir los fallos de caché al
+facilitar la eliminación de \textit{cache-thrashing}. Es verdad que gran parte del desarrollo se concentró en SoA, en lugar de AoS, porque
+desde el vamos parecía más optimizable por paralelismo y consideramos nos permitiría sacar mejores conclusiones para este proyecto (por
+si nuestra inclinación por SoA no es evidente).
+
+No descartamos que se hayan pasado por alto optimizaciones u otro tipo de consideraciones
+en el diseño que podrían haber terminado en mejores resultados. Pero sí es cierto que el diseño original y mantener sus resultados en precisión,
+fueron cargas que se hicieron notar muy fuertemente a la hora de paralelizar el algoritmo.
 \end{document}
