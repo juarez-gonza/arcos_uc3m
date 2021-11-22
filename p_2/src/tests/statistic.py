@@ -48,14 +48,16 @@ if __name__ == "__main__":
     i = j = 0
     for k in data.keys():
         sns.histplot(data=data[k], kde=True, ax=axes[i, j])
-        axes[i, j].set_title(k + " (num_obj, num_iter)")
+        axes[i, j].set_title(k + " (num_obj, num_iter)", size=22)
+        axes[i,j].set_xlabel('tiempo de ejecución', fontsize=18)
+        axes[i,j].set_ylabel('conteo histograma', fontsize=18)
         axes[i, j].axvline(conf_interval[k][0])
         axes[i, j].axvline(conf_interval[k][1])
         textstr = "mean: %f\nstdev: %f\ninterval: [%f, %f]"\
                 % (np.mean(data[k]), np.std(data[k]), conf_interval[k][0], conf_interval[k][1])
         props = dict(boxstyle="round", facecolor="wheat", alpha=0.5)
         # los valorse para las coordenadas x e y del texto son obtenidos con prueba y error
-        axes[i, j].text(0.35+(j*1.65) , 2.1 - 1.10*i, s=textstr, transform=ax.transAxes, fontsize=12,
+        axes[i, j].text(0.35+(j*1.65) , 2.1 - 1.10*i, s=textstr, transform=ax.transAxes, fontsize=22,
                         verticalalignment='top', bbox=props)
         j = (j + 1) % 2
         if j == 0:
