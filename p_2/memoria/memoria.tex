@@ -48,13 +48,13 @@
 
 \section{Introducción.\label{intro}}
 En esta parte de Programación Orientada al Rendimiento, paralelizamos
-el programa simulador de fuerzas ejercidas entre objetos
+un programa simulador de fuerzas ejercidas entre objetos
 en un cubo cerrado. Sobre este ejemplo estudiamos el impacto de las
 estructuras de datos, los algoritmos, y las optimizaciones secuenciales
 y paralelas en el rendimiento\footnote{rendimiento usado como sinónimo de
 `tiempo de ejecución'.} final del programa.
 
-Como refresco rápido repasamos primero el diseño secuencial.
+Como refresco rápido repasamos primero el diseño secuencial en la sección \ref{original}.
 
 
 En la sección \ref{opt} exploramos las optimizaciones tanto secuenciales como
@@ -106,8 +106,8 @@ for (i = 0; i <= N; ++i)
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.6\linewidth,height=0.6\textwidth]{resources/loop_anidado_no_tiling_505x565.png}
-	\caption{espacio de iteración de $0\leq{i} < {num\_objects}$, y $i+1\leq{j} < {num\_objects}$
-	cuando ${num\_objects}=5$. Las flechas marcan el flujo de ejecución del loop doble.
+	\caption{espacio de iteración de $0\leq{i} < {N}$, y $i+1\leq{j} < {N}$
+	cuando ${N}=5$, y N se corresponde al número de objetos. Las flechas marcan el flujo de ejecución del loop doble.
 	delimitado por las flechas. \textit{i} en eje de abscisas, \textit{j} en eje de ordenadas.}
 	\label{fig:no_tiling}
 \end{figure}
@@ -134,7 +134,9 @@ datos al mismo tiempo.
 
 En nuestro código intentamos sacar ventaja de esto, pero la \textit{vectorización} tiene algunos requisitos.
 Evitar dependencias de datos, especialmente de tipo RAW. Y ausencia de estructuras condicionales a no ser
-que puedan ser tratadas como \textit{masked assignments}.
+que puedan ser tratadas como \textit{masked assignments}. Otras operaciones simplemente no son vectorizables,
+en su manera ``pura''(un ejemplo es sqrt()\footnote{sqrt() es vectorizable si se indica \textit{-funsafe-math-optimizations},
+en tiempo de compilación. Pero a cierto punto, el error propagado es muy grande (como se menciona en \ref{compiler})}).
 
 
 El diseño original tiene condicionales dispersos por todo el código. Como se menciona en
@@ -158,11 +160,7 @@ la única utilidad que se le da en el código pero en esta sección es lo que no
 
 Para lidiar con RAW, una posible solución es la de dividir un loop con RAW en 2 loops sin RAW (también
 facilitado por strip-mining. Pero esto puede resultar en una pérdida de rendimiento, por lo tanto
-hay que medir.
-
-
-\footnote{sqrt() no es vectorizable a no ser que se especifique \textit{-funsafe-math-optimizations},
-al compilador. Pero a cierto punto, el error propagado es muy grande (como se menciona en \ref{compiler})}
+hay que medir la performance del programa.
 
 
 El código original no pareció incorporar muy bien las instrucciones SIMD en el cálculo de fuerzas.
