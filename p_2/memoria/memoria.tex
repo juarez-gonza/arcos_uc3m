@@ -138,7 +138,7 @@ datos al mismo tiempo.
 
 En nuestro código intentamos sacar ventaja de esto, pero la \textit{vectorización} tiene algunos requisitos \cite{intel_vec_guidelines}.
 Evitar dependencias de datos, especialmente de tipo RAW. Y ausencia de estructuras condicionales a no ser
-que puedan ser tratadas como \textit{masked assignments}. Otras operaciones simplemente no son vectorizables,
+que puedan ser tratadas como \textit{masked assignments}. Otras operaciones simplemente no son vectorizables
 en su manera ``pura''(un ejemplo es sqrt()\footnote{sqrt() es vectorizable si se indica \textit{-funsafe-math-optimizations},
 en tiempo de compilación. Pero a cierto punto, el error propagado es muy grande (como se menciona en \ref{compiler})}).
 
@@ -157,9 +157,9 @@ partes. Por ejemplo, el objeto en el índice del loop menos profundo \textit{i},
 O bien, hay dependencias RAW propias de utilizar el resultado de un cálculo almacenado en una variable para un nuevo cálculo.
 
 
-Una técnica llamada \textit{strip-mining} presentada en \ref{strip-mining} permite exponer la vectorización
-del algoritmo, así como eliminar algunas dependencias WAW (convertir variables únicas en arrays). No es
-la única utilidad que se le da en el código pero en esta sección es lo que nos importa.
+La técnica \textit{strip-mining} (presentada en \ref{strip-mining}) expone la vectorización
+del algoritmo, y ayuda a eliminar algunas dependencias WAW (al convertir variables únicas en arrays). No es
+la única utilidad que se le da en el programa final a esta técnica, pero en esta sección es lo que nos importa.
 
 
 Para lidiar con RAW, una posible solución es la de dividir un loop con RAW en 2 loops sin RAW (también
@@ -387,11 +387,9 @@ necesaria por \textit{OpenMP} para forzar el orden de ejecución.
 Strip-mining en paralelismo facilita la división la tarea en tiras del tamaño \textit{stride}, de la misma
 manera en que los bloques generados por loop-tiling son la unidad de trabajo candidata para la división
 de tareas \cite{Wolfe89moreiteration}. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
-tenemos la capacidad de disminuir condiciones de carrera. Si cada bucle está trabajando en su propio bloque
-\textit{jj}, y estos bloques tienen poca o nada de superposición, entonces se evita
-\textit{cache-thrashing}.
+se reducen las condiciones de carrera, el exceso de sincronización, y \textit{cache-thrashing}.
 
-Esto es confirmado por las mediciones de fallos a caché de la herramienta \textit{perf c2c}.
+Esto último es confirmado por las mediciones de fallos a caché de la herramienta \textit{perf c2c}.
 Donde los fallos a caché privada con strip-mining se mantienen por debajo o alrededor de 3\%
 (dependiendo de la configuración de la ejecución). Porcentaje de fallos que se hace notar en
 el tiempo de ejecución al comparar con su contraparte sin strip-mining.
@@ -582,8 +580,8 @@ desde el vamos parecía más optimizable por paralelismo y consideramos nos perm
 si nuestra inclinación por SoA no es evidente).
 
 No descartamos que se hayan pasado por alto optimizaciones u otro tipo de consideraciones
-en el diseño que podrían haber terminado en mejores resultados. Pero sí es cierto que decisiones
-en el diseño original y mantener sus resultados en precisión, fueron cargas que se hicieron
-notar muy fuertemente a la hora de paralelizar el algoritmo.
+en el diseño que podrían haber terminado en mejores resultados. Últimamente, la performance final se vió muy
+afectada por decisiones en el diseño original, que quitaron la posibilidad de usar varias optimizaciones
+a fines de mantener la precisión en el resultado final del programa.
 \printbibliography
 \end{document}
