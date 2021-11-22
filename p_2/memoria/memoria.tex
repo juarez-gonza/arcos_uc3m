@@ -70,7 +70,7 @@ Luego exponemos los resultados de las pruebas realizadas, los analizamos estadí
 donde también cerramos con conclusiones al respecto.
 
 \section{Diseño Original.\label{original}}
-En el diseño original de este programa, ambas versiones SoA\footnote{Struct of Arrays} y AoS\footnote{Array of Structs}
+En el diseño original de este programa, ambas versiones SoA\footnote{Struct of Arrays.} y AoS\footnote{Array of Structs.}
 son bastante similares. Por lo que consideramos que en este repaso no vale la pena discutir sus diseños por separado.
 
 
@@ -132,14 +132,14 @@ para poder aprovechar mejor la paralelización a nivel de tarea.
 El título de la subsección \ref{opt_seq} habla de optimizaciones secuenciales, pero hay un poco de mentira
 en ese título. El paralelismo a nivel de datos puede dar mejoras de rendimiento a aplicaciones
 que procesen grandes conjuntos de datos (similar a nuestro programa). Las distintas familias de instrucciones
-\textbf{SIMD}\footnote{Single Instruction-Multiple Data} que disponen las arquitecturas x86-64 son
+\textbf{SIMD}\footnote{Single Instruction-Multiple Data.} que disponen las arquitecturas x86-64 son
 ejemplos de paralelismo a nivel de datos. Estas operaciones son capaces de aplicar la misma operación sobre varios
 datos al mismo tiempo.
 
 En nuestro código intentamos sacar ventaja de esto, pero la \textit{vectorización} tiene algunos requisitos \cite{intel_vec_guidelines}.
 Evitar dependencias de datos, especialmente de tipo RAW. Y ausencia de estructuras condicionales a no ser
 que puedan ser tratadas como \textit{masked assignments}. Otras operaciones simplemente no son vectorizables
-en su manera ``pura''(un ejemplo es sqrt()\footnote{sqrt() es vectorizable si se indica \textit{-funsafe-math-optimizations},
+en su manera ``pura''(un ejemplo es sqrt()\footnote{sqrt() es vectorizable si se indica \textit{-funsafe-math-optimizations.},
 en tiempo de compilación. Pero a cierto punto, el error propagado es muy grande (como se menciona en \ref{compiler})}).
 
 
@@ -170,7 +170,7 @@ hay que medir la performance del programa.
 El código original no pareció incorporar muy bien las instrucciones SIMD en el cálculo de fuerzas.
 Por alguna razón (que no pudimos determinar analizando el código fuente)
 incluso eliminando las dependencias de datos, el compilador se rehúsa a vectorizar
-una parte caliente\footnote{parte del programa accedida con mucha frecuencia} del código. Obligar la vectorización
+una parte caliente\footnote{parte del programa accedida con mucha frecuencia.} del código. Obligar la vectorización
 con la directiva \textit{\#pragma omp simd} no termina en buenos resultados ni performance (claramente el compilador
 es más inteligente).
 
@@ -207,7 +207,7 @@ en \ref{strip-mining-parallel}, la sección de esta técnica en las optimizacion
 \subsubsection{Loop-tiling en loops anidados.\label{loop-tiling}}
 
 Loop-tiling es una técnica para mejorar la localidad temporal en loops anidados de
-n-dimensiones\footnote{profundidad del anidado de loops}. A su vez, caba bloque resultante
+n-dimensiones\footnote{profundidad del anidado de loops.}. A su vez, caba bloque resultante
 es un buen candidato como unidad de trabajo para la paralelización de tareas, disminuyendo
 la frecuencia de sincronización. El tamaño de cada bloque puede
 cambiarse para aprovechar la localidad propuesta por la jerarquía de memoria. Y la vectorización
@@ -237,7 +237,7 @@ el de \textit{j}. Para lograr esto hay que permutar la cabecera del loop \textit
 ¿Cómo implementar loop-tiling en un espacio de iteración triangular? El \textbf{modelo del poliedro} es parte
 de un área de estudio que lleva bastante tiempo siendo desarrollada. Básicamente plantea que los espacios
 de iteración que puedan ser pensados como un \textbf{poliedro convexo}\footnote{convexo: una línea entre 2 puntos
-del poliedro pasa únicamente por puntos interiores al poliedro} (como un espacio triangular) y cumplan las dependencias
+del poliedro pasa únicamente por puntos interiores al poliedro.} (como un espacio triangular) y cumplan las dependencias
 de datos previamente explicadas, pueden replantearse para intercambiar cabeceras. La metodología consiste en
 plantear un sistema de inecuaciones que defina al \textbf{poliedro S} a partir de las cláusulas de los loops. Luego utilizar
 el \textbf{método de eliminación de Fourier-Motzkin} para proyectar la variable a reacomodar (o sea, variable a eliminar y
@@ -363,7 +363,7 @@ Loop-tiling desordena las operaciones para mejorar su localidad temporal.
 
 El bucle \textit{jj} tiene una directiva de ordenamiento (`\#pragma omp ordered'), y en su interior
 no hay un bucle \textit{j}, si no tres\footnote{una de las ventajas de strip-mining: rehúso de un mismo dato en distintas partes
-del algoritmo}:
+del algoritmo.}:
 
 \begin{enumerate}
 	\item El primero de estos loops \textit{j} no es vectorizable sin perder precisión ya que usa la función \textit{sqrt()} para
@@ -427,7 +427,7 @@ un total de 4 pruebas por configuración.
 
 Cada prueba tiene una muestra de tamaño ${n}=10$. Estadísticamente
 hablando, una muestra tan pequeña ($n < 30$) no nos permite aprovechar el \textit{Teorema del Límite Central}.
-Por lo que las pruebas de comparación de 2 medias por distribución normal de dos colas, y ANOVA\footnote{Análisis de Varianza}
+Por lo que las pruebas de comparación de 2 medias por distribución normal de dos colas, y ANOVA\footnote{Análisis de Varianza.}
 no han sido utilizadas. En su lugar, se optó por \textbf{T-Test} para la comparación de dos medias, y se reemplazó a ANOVA
 por su equivalente no paramétrico: \textbf{Kruskal-Wallis H-Test}.
 
@@ -559,26 +559,24 @@ si no hasta tamaños grandes de muestra.
 En la paralelización de este programa nos encontramos con desafíos. Entre los cuales están: la asociatividad
 del punto flotante, desafíos propios del paralelismo (), y decisiones en el algoritmo original descrito en
 la sección \ref{original} que afectaron las optimizaciones factibles a la hora de paralelizar (como impocisiones
-en el orden de operaciones). No obstante, para programas que procesan una gran cantidad de datos, como cuando ${num_objects=8000}$,
+en el orden de operaciones). No obstante, para programas que procesan una gran cantidad de datos (pruebas donde ${num_objects=8000}$)
 incluso el poco paralelismo que pudo ser aplicado mostró un speedup. Si bien para las pruebas realizadas este speedup no fue
 muy grande, lo más probable es que la diferencia crezca a medida que la cantidad de datos lo haga.
 
 
-Es crucial a la hora de paralelizar algoritmos, tener en cuenta la configuración del hardware. Queda demostrado
-en la mejora de resultados al usar 8 hilos, o más bien, en los malos resultados obtenidos por 1, 2, 4, y 16 hilos (configuraciones
-que no tienen en cuenta el hardware usado).
-
+Es crucial a la hora de paralelizar algoritmos tener en cuenta la configuración del hardware. Queda demostrado
+en la mejora de resultados al usar 8 hilos, o más bien, en los malos resultados obtenidos por
+1, 2, 4, y 16 hilos (configuraciones que no tienen en cuenta el hardware usado).
 
 A su vez, la elección de estructuras de datos juega un gran papel al paralelizar algoritmos, e incluso al optimizar secuencialmente.
 Empezando por lo `secuencial', SoA es mucho más apto a optimizaciones de vectorización, un \textit{trend} no menor en manufacturadores
-de chips de hoy en día. A su vez, SoA en muchos casos, como el de este programa, se puede ajustar mejor a técnicas que mejoran
+de chips de hoy en día. SoA en muchos casos, como el de este programa, se puede ajustar mejor a técnicas que buscan mejorar
 la localidad temporal y espacial.
 
 A la hora de paralelizar, esta mejora en localidad de SoA se acentúa aún más. A diferencia de AoS, tener en caché únicamente
-los datos necesarios para el cálculo, permite disminuir los fallos de caché al
-facilitar la eliminación de \textit{cache-thrashing}. Es verdad que gran parte del desarrollo se concentró en SoA, en lugar de AoS, porque
-desde el vamos parecía más optimizable por paralelismo y consideramos nos permitiría sacar mejores conclusiones para este proyecto (por
-si nuestra inclinación por SoA no es evidente).
+los datos necesarios para el cálculo disminuye los fallos de caché al. Es verdad que gran parte del desarrollo se concentró en SoA,
+en lugar de AoS, porque desde un inicio considermos más optimizable por paralelismo y nos permitiría sacar mejores conclusiones
+para este proyecto.
 
 No descartamos que se hayan pasado por alto optimizaciones u otro tipo de consideraciones
 en el diseño que podrían haber terminado en mejores resultados. Últimamente, la performance final se vió muy
