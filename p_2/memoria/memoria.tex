@@ -309,11 +309,9 @@ for (jj = i+1; jj <= N; jj+=stride)
 
 
 Esta optimización en conjunto con vectorización (sección \ref{simd}) dieron al programa un speedup de más de x2.
-Loop-tiling permite mantener \textit{cache-thrashing}\footnote{cantidad excesiva de fallos a caché por múltiples núcleos intentando accediendo
-a la misma dirección de memoria.} bajo y la localidad temporal alta. Los fallos a caché entonces eran bajos,
-la vectorización resultaba en loops con instrucciones SIMD. No solo eso, a mayor número de objetos e iteraciones, mayor la diferencia con
-el código original, no porque el optimizado se vuelva más rápido, si no porque el original debe reemplazar todos los datos en caché por cada
-iteración del loop \textit{j}, aumentando el speedup de la versión vectorizada con loop-tiling para esa configuración.
+A mayor número de objetos e iteraciones, mayor la diferencia con el código original, no porque el optimizado se
+vuelva más rápido, si no porque el original debe reemplazar todos los datos en caché por cada iteración del loop \textit{j},
+aumentando el speedup de la versión vectorizada con loop-tiling para esa configuración.
 
 
 Pero asumir asociatividad en las operaciones de punto flotante no pudo contener la propagación del error
@@ -387,7 +385,8 @@ necesaria por \textit{OpenMP} para forzar el orden de ejecución.
 Strip-mining en paralelismo facilita la división la tarea en tiras del tamaño \textit{stride}, de la misma
 manera en que los bloques generados por loop-tiling son la unidad de trabajo candidata para la división
 de tareas \cite{Wolfe89moreiteration}. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
-se reducen las condiciones de carrera, el exceso de sincronización, y \textit{cache-thrashing}.
+se reducen las condiciones de carrera, el exceso de sincronización, y \textit{cache-thrashing}\footnote{cantidad excesiva
+de fallos a caché por múltiples núcleos intentando accediendo a la misma dirección de memoria.}.
 
 Esto último es confirmado por las mediciones de fallos a caché de la herramienta \textit{perf c2c}.
 Donde los fallos a caché privada con strip-mining se mantienen por debajo o alrededor de 3\%
