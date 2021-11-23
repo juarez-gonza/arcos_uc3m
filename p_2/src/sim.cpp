@@ -14,6 +14,10 @@
 #include "util.hpp"
 #include "obj.hpp"
 
+#ifndef OMP_NUM_THREADS
+#define OMP_NUM_THREADS 8
+#endif
+
 static inline double calc_norm(struct obj &o_i, struct obj &o_j)
 {
 	double d_x = o_i.x - o_j.x;
@@ -23,26 +27,55 @@ static inline double calc_norm(struct obj &o_i, struct obj &o_j)
 	return std::sqrt(d_x * d_x + d_y * d_y + d_z * d_z);
 }
 
-static inline void calc_fgv(struct obj &o_i, struct obj &o_j)
+size_t inline nxt_pow_2(size_t n)
 {
-	/* fgv_no_recalc = G * mi * mj / denom */
-	double norm = calc_norm(o_i, o_j);
-	double fgv_no_recalc = 6.674e-11 * o_i.m * o_j.m / (norm * norm * norm);
+	n--;
+	n = n | (n >> 1);
+	n = n | (n >> 2);
+	n = n | (n >> 4);
+	n = n | (n >> 8);
+	n = n | (n >> 16);
+	return ++n;
+}
 
-	double fx = fgv_no_recalc * (o_j.x - o_i.x);
-	double fz = fgv_no_recalc * (o_j.z - o_i.z);
-	double fy = fgv_no_recalc * (o_j.y - o_i.y);
+static void calc_fgv(my_vector<struct obj> &o_list)
+{
+	const size_t b = nxt_pow_2(o_list.get_len()/OMP_NUM_THREADS);
+	for (size_t i = 0; i < o_list.get_len(); ++i) {
+		#pragma omp parallel
+		{
+		/* preferible std::vector a VLA. aunque vector usa heap que tecnicamente no es memoria
+		 * privada al thread.
+		 */
 
-	o_i.fx = o_i.fx + fx;
-	o_j.fx = o_j.fx - fx;
+		std::vector<double> fgv_no_recalc(b);
+		#pragma omp for ordered schedule(auto)
+		for (size_t jj = i + 1; jj < o_list.get_len(); jj += b) {
+			for (size_t j = jj; j < std::min(jj+b, o_list.get_len()); ++j) {
+				double norm = calc_norm(o_list[i], o_list[j]);
+				/* a diferencia de SoA, fgv_no_recalc no es vectorizable,
+				 * o_list[j].m no estan proximas en la memoria.
+				 */
+				fgv_no_recalc[j-jj] = 6.674e-11 * o_list[i].m * o_list[j].m
+					/ (norm * norm * norm);
+			}
 
-	o_i.fy = o_i.fy + fy;
-	o_j.fy = o_j.fy - fy;
+			#pragma omp ordered
+			for (size_t j = jj; j < std::min(jj+b, o_list.get_len()); ++j) {
+				double fx = fgv_no_recalc[j-jj] * (o_list[j].x - o_list[i].x);
+				double fz = fgv_no_recalc[j-jj] * (o_list[j].z - o_list[i].z);
+				double fy = fgv_no_recalc[j-jj] * (o_list[j].y - o_list[i].y);
 
-	o_i.fz = o_i.fz + fz;
-	o_j.fz = o_j.fz - fz;
+				o_list[j].fx = o_list[j].fx - fx;
+				o_list[j].fy = o_list[j].fy - fy;
+				o_list[j].fz = o_list[j].fz - fz;
 
-	//printf("o.fx: %f, o.fy: %f, o.fz: %f\n", o_i.fx, o_i.fy, o_i.fz);
+				o_list[i].fx = o_list[i].fx + fx;
+				o_list[i].fy = o_list[i].fy + fy;
+				o_list[i].fz = o_list[i].fz + fz;
+			}
+		}} /* fin #pragma omp for y pragma omp parallel */
+	}
 }
 
 static inline void calc_vel(struct obj &o, double time_step)
@@ -112,9 +145,8 @@ void delete_marked(my_vector<struct obj> &o_list)
 {
 	size_t last = 0ul;
 	for (size_t i = 0ul; i < o_list.get_len(); ++i, ++last) {
-		while (obj_marked(o_list[i]) && i < o_list.get_len()) {
+		while (obj_marked(o_list[i]) && i < o_list.get_len())
 			i++;
-		}
 		if (i >= o_list.get_len())
 			break;
 		obj_copy_into(o_list[last], o_list[i]);
@@ -134,12 +166,9 @@ static void simulate(my_vector<struct obj> &o_list, unsigned int num_iterations,
 	/* chequeo pre-primera iteracion */
 	collision_check(o_list);
 	for (unsigned int k = 0; k < num_iterations; ++k) {
-		for (size_t i = 0; i < o_list.get_len(); ++i)
-			for (size_t j = i + 1; j < o_list.get_len(); ++j)
-				calc_fgv(o_list[i], o_list[j]);
+		calc_fgv(o_list);
 
-
-		/* no es un speedup en soa */
+		/* paralelizar esto parece no ser un speedup en AoS */
 		//#pragma omp parallel for schedule(auto)
 		for (size_t i = 0; i < o_list.get_len(); ++i) {
 			/* necesita fuerza para calcular aceleracion */
