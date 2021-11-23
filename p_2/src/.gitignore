@@ -1,1 +1,8 @@
+cachegrind.out*
+.gitignore
+static.out
+*.out
+cg*
+*_config.txt
 build/*
+build/
