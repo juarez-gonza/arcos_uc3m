@@ -134,12 +134,14 @@ static void simulate(my_vector<struct obj> &o_list, unsigned int num_iterations,
 	/* chequeo pre-primera iteracion */
 	collision_check(o_list);
 	for (unsigned int k = 0; k < num_iterations; ++k) {
-		for (size_t i = 0; i < o_list.get_len(); ++i) {
-
-			for (size_t j = i + 1; j < o_list.get_len(); ++j) {
+		for (size_t i = 0; i < o_list.get_len(); ++i)
+			for (size_t j = i + 1; j < o_list.get_len(); ++j)
 				calc_fgv(o_list[i], o_list[j]);
-			}
 
+
+		/* no es un speedup en soa */
+		//#pragma omp parallel for schedule(auto)
+		for (size_t i = 0; i < o_list.get_len(); ++i) {
 			/* necesita fuerza para calcular aceleracion */
 			calc_vel(o_list[i], time_step);
 
