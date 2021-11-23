@@ -31,19 +31,18 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 
 #pragma omp parallel
 	{
-	std::vector<double> fgv_no_recalc(b); /* mejor vector(heap) que VLA(stack)? */
-	std::vector<double> norm(b); /* mejor vector(heap) que VLA(stack)? */
+	/* preferible std::vector a VLA. aunque vector usa heap que tecnicamente no es memoria
+	 * privada al thread.
+	 */
+	std::vector<double> fgv_no_recalc(b);
+	std::vector<double> norm(b);
 
 	#pragma omp for ordered schedule(auto)
 	for (size_t jj = i + 1; jj < o_soa.len; jj += b) {
 
-		for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j) {
-			/* vectorizar cambia el resultado asi que dejar
-			 * calc_norm() aqui para que std::sqrt() en calc_norm()
-			 * evite que el loop sea vectorizado.
-			 */
+		/* loop no vectorizable sin -funsafe-math-optimizations */
+		for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j)
 			norm[j-jj]= calc_norm(i, j, o_soa);
-		}
 
 		/* es lo unico que se puede vectorizar sin cambiar resultados.
 		 * mide un leve speedup de todas maneras.
@@ -59,7 +58,8 @@ static void calc_fgv(size_t i, struct soa &o_soa)
 			fx = fy = fz = 0;
 			for (size_t j = jj; j < std::min(jj+b, o_soa.len); ++j) {
 				/* podria hacerse un array fx[b], fy[b], fz[b] y no dejar
-				 * el calculo de los valores para esta parte, pero cambia resultado.
+				 * el calculo de los valores para esta parte (e incluso vectorizar),
+				 * pero cambia resultado.
 				 */
 				fx = fgv_no_recalc[j-jj] * (o_soa.x[j] - o_soa.x[i]);
 				fy = fgv_no_recalc[j-jj] * (o_soa.y[j] - o_soa.y[i]);
@@ -139,9 +139,8 @@ void delete_marked(struct soa &o_soa)
 {
 	size_t last = 0ul;
 	for (size_t i = 0ul; i < o_soa.len; ++i, ++last) {
-		while (obj_marked(i, o_soa) && i < o_soa.len) {
+		while (obj_marked(i, o_soa) && i < o_soa.len)
 			i++;
-		}
 		if (i >= o_soa.len)
 			break;
 		obj_copy_into(last, i, o_soa);
