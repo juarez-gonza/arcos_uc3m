@@ -139,8 +139,6 @@ static void simulate(my_vector<struct obj> &o_list, unsigned int num_iterations,
 				calc_fgv(o_list[i], o_list[j]);
 
 
-		/* no es un speedup en soa */
-		//#pragma omp parallel for schedule(auto)
 		for (size_t i = 0; i < o_list.get_len(); ++i) {
 			/* necesita fuerza para calcular aceleracion */
 			calc_vel(o_list[i], time_step);
