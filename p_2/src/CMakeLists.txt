@@ -10,7 +10,7 @@ if (OpenMP_CXX_FOUND)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
-add_compile_options(-Wall -Wextra -Wno-deprecated -pedantic -pedantic-errors -O3 -march=native -DOMP_NUM_THREADS=8
+add_compile_options(-Wall -Wextra -Wno-deprecated -pedantic -pedantic-errors -O3 -march=native -DOMP_NUM_THREADS=1
 -fexcess-precision=fast -fno-rounding-math -fno-signaling-nans -fno-math-errno -fno-signed-zeros -fno-trapping-math)
 
 add_executable(sim-aos sim.cpp obj.cpp util.cpp)
