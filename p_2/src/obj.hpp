@@ -3,14 +3,25 @@
 #include <vector>
 #include <random>
 
-template<typename T>
-class my_vector : public std::vector<T> {
+struct obj {
+	double x, y, z;
+	double m;
+	double fx, fy, fz;
+	/* vz y vx entran en otra linea de cache */
+	double vx, vy, vz;
+}__attribute__((aligned(8))); /* aligned 8 es el comportamiento default */
+
+void obj_copy_into(struct obj &o_into, struct obj &o_from);
+
+void merge_obj(struct obj &o_i, struct obj &o_j);
+
+class aos : public std::vector<struct obj> {
 private:
 	size_t len;
 public:
-	explicit my_vector(size_t size, unsigned int random_seed,
+	explicit aos(size_t size, unsigned int random_seed,
 			double upperbound) :
-		std::vector<T>(size),
+		std::vector<struct obj>(size),
 		len{size}
 	{
 		std::mt19937_64 gen(random_seed);
@@ -50,15 +61,3 @@ public:
 		return len;
 	}
 };
-
-struct obj {
-	double x, y, z;
-	double m;
-	double fx, fy, fz;
-	/* vz y vx entran en otra linea de cache */
-	double vx, vy, vz;
-}__attribute__((aligned(8))); /* aligned 8 es el comportamiento default */
-
-void obj_copy_into(struct obj &o_into, struct obj &o_from);
-
-void merge_obj(struct obj &o_i, struct obj &o_j);

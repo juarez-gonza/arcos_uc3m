@@ -38,7 +38,7 @@ size_t inline nxt_pow_2(size_t n)
 	return ++n;
 }
 
-static void calc_fgv(my_vector<struct obj> &o_list)
+static void calc_fgv(aos &o_list)
 {
 	const size_t b = nxt_pow_2(o_list.get_len()/OMP_NUM_THREADS);
 	for (size_t i = 0; i < o_list.get_len(); ++i) {
@@ -124,7 +124,7 @@ static inline bool obj_marked(struct obj &o)
 	return o.m <= 0;
 }
 
-void mark_collisions(my_vector<struct obj> &o_list)
+void mark_collisions(aos &o_list)
 {
 /* paralelizable sin modificar orden de operaciones en merge_obj()?? */
 	for (size_t i = 0ul; i < o_list.get_len(); ++i) {
@@ -141,7 +141,7 @@ void mark_collisions(my_vector<struct obj> &o_list)
 	}
 }
 
-void delete_marked(my_vector<struct obj> &o_list)
+void delete_marked(aos &o_list)
 {
 	size_t last = 0ul;
 	for (size_t i = 0ul; i < o_list.get_len(); ++i, ++last) {
@@ -154,13 +154,13 @@ void delete_marked(my_vector<struct obj> &o_list)
 	o_list.set_len(last);
 }
 
-static void inline collision_check(my_vector<struct obj> &o_list)
+static void inline collision_check(aos &o_list)
 {
 	mark_collisions(o_list);
 	delete_marked(o_list);
 }
 
-static void simulate(my_vector<struct obj> &o_list, unsigned int num_iterations,
+static void simulate(aos &o_list, unsigned int num_iterations,
 		double size_enclosure, double time_step)
 {
 	/* chequeo pre-primera iteracion */
@@ -193,7 +193,7 @@ int main(int argc, char *argv[])
 
 	parse_args(arg_list, argc, argv);
 
-	my_vector<struct obj> o_list(arg_list.num_objects, arg_list.random_seed, arg_list.size_enclosure);
+	aos o_list(arg_list.num_objects, arg_list.random_seed, arg_list.size_enclosure);
 
 	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, o_list))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
