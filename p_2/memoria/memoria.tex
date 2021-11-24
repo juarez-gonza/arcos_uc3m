@@ -378,8 +378,9 @@ Strip-mining en paralelismo facilita la división la tarea en tiras del tamaño 
 manera en que los bloques generados por loop-tiling son la unidad de trabajo candidata para la división
 de tareas \cite{Wolfe89moreiteration}. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
 se reduce el exceso de sincronización, y \textit{cache-thrashing}\footnote{cantidad excesiva
-de fallos a caché por múltiples núcleos intentando accediendo a la misma dirección de memoria.} (confirmado
-con herramienta \textit{perf c2c}.
+de fallos a caché por múltiples núcleos intentando accediendo a la misma dirección de memoria.}. Esto último
+es confirmado por la herramienta \textit{perf c2c}, donde para SoA los fallos a caché L1 fueron por debajo
+del 3\%, valor mucho menor al programa SoA paralelizado sin strip-mining.
 
 \subsection{Conclusiones sobre las optimizaciones.\label{opt_conclusiones}}
 Asumir asociatividad de punto flotante es un error que solo pueden permitirse iteraciones
@@ -503,7 +504,7 @@ obtenidos, es la configuración candidata a mostrar un speedup significativo con
 \end{displaymath}
 
 \begin{table}[htp]
-\begin{tabular}{|p{3cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+\begin{tabular}{|p{3cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|p{2.2cm}|}
 	\hline
 	\textit{(num\_objects, num\_iterations)} & aos\_p vs. soa\_p & soa\_seq vs. soa\_p & aos\_p vs. aos\_seq & soa\_p vs. aos\_seq & aos\_p vs. soa\_seq \\
 	\hline
