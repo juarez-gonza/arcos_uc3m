@@ -101,7 +101,7 @@ void parse_args(struct args &arg_list,
 }
 
 int write_config(std::string filename, double size_enclosure,
-		double time_step, my_vector<struct obj> &o_list)
+		double time_step, aos &o_list)
 {
 	std::ofstream ofs(filename);
 	if (!ofs)
