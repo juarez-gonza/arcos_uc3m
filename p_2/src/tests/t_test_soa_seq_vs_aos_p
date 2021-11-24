@@ -1,0 +1,19 @@
+Resultados T-Test:
+
+Configuración: num_iterations: 4000, num_objects: 250, p_valor: 0.000000011656
+	Sí hay diferencia significativa en las medias de las muestras
+		media aos/8core_samples: 14.614192, media soa/p_1_samples: 13.117954
+			Speedup = 1.114060
+
+Configuración: num_iterations: 4000, num_objects: 500, p_valor: 0.000000000000
+	Sí hay diferencia significativa en las medias de las muestras
+		media aos/8core_samples: 25.928277, media soa/p_1_samples: 21.497755
+			Speedup = 1.206092
+
+Configuración: num_iterations: 8000, num_objects: 250, p_valor: 0.291014733485
+	No hay diferencia significativa en las medias de las muestras
+
+Configuración: num_iterations: 8000, num_objects: 500, p_valor: 0.000073699710
+	Sí hay diferencia significativa en las medias de las muestras
+		media aos/8core_samples: 23.529817, media soa/p_1_samples: 23.853744
+			Speedup = 1.013767

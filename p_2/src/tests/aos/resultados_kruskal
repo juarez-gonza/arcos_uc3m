@@ -1,0 +1,13 @@
+Resultados Kruskal-Wallis H-Test:
+
+Configuración: num_iterations: 4000, num_objects: 250, p_valor: 0.000000000270
+	Sí hay diferencia significativa en las medias de las muestras
+
+Configuración: num_iterations: 4000, num_objects: 500, p_valor: 0.000000000114
+	Sí hay diferencia significativa en las medias de las muestras
+
+Configuración: num_iterations: 8000, num_objects: 250, p_valor: 0.000000000572
+	Sí hay diferencia significativa en las medias de las muestras
+
+Configuración: num_iterations: 8000, num_objects: 500, p_valor: 0.000000000099
+	Sí hay diferencia significativa en las medias de las muestras
