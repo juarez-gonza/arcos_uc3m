@@ -50,8 +50,6 @@ static inline void calc_fgv(struct obj &o_i, struct obj &o_j)
 	fz = fgv_no_recalc * (o_j.z - o_i.z);
 	o_i.fz = o_i.fz + fz;
 	o_j.fz = o_j.fz - fz;
-
-	//printf("o.fx: %f, o.fy: %f, o.fz: %f\n", o_i.fx, o_i.fy, o_i.fz);
 }
 
 static inline void calc_vel(struct obj &o, double time_step)
@@ -62,7 +60,6 @@ static inline void calc_vel(struct obj &o, double time_step)
 	o.vx = o.vx + accel_no_recalc * o.fx;
 	o.vy = o.vy + accel_no_recalc * o.fy;
 	o.vz = o.vz + accel_no_recalc * o.fz;
-	//printf("o.vx: %f, o.vy: %f, o.vz: %f\n", o.vx, o.vy, o.vz);
 }
 
 static inline void calc_pos(struct obj &o, double size_enclosure, double time_step)
@@ -94,7 +91,6 @@ static inline void calc_pos(struct obj &o, double size_enclosure, double time_st
 		o.z = 0;
 		o.vz = -o.vz;
 	}
-	//printf("o.x: %f, o.y: %f, o.z: %f\n", o.x, o.y, o.z);
 }
 
 static unsigned int collision_check(std::vector<struct obj> &o_list)
@@ -170,13 +166,7 @@ int main(int argc, char *argv[])
 				arg_list.num_objects, o_list))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
-	double tic = omp_get_wtime();
-
 	exist_num = simulate(o_list, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
-
-	double toc = omp_get_wtime();
-
-	printf("tiempo de ejecucion: %f\n", toc-tic);
 
 	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step,
 				exist_num, o_list))
