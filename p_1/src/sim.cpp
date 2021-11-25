@@ -61,8 +61,6 @@ static inline void calc_vel(struct obj_soa &o_soa, unsigned int i, double time_s
 	o_soa.vx[i] = o_soa.vx[i] + accel_no_recalc * o_soa.fx[i];
 	o_soa.vy[i] = o_soa.vy[i] + accel_no_recalc * o_soa.fy[i];
 	o_soa.vz[i] = o_soa.vz[i] + accel_no_recalc * o_soa.fz[i];
-	//printf("o_soa.vx[]: %.3f\to_soa.vy[]: %.3f\to_soa.vz[]: %.3f\n",
-	//		o_soa.vx[i], o_soa.vy[i], o_soa.vz[i]);
 }
 
 static inline void calc_pos(struct obj_soa &o_soa, unsigned int i,
@@ -95,9 +93,6 @@ static inline void calc_pos(struct obj_soa &o_soa, unsigned int i,
 		o_soa.z[i] = 0;
 		o_soa.vz[i] = -o_soa.vz[i];
 	}
-
-	//printf("o_soa.x[]: %f\to_soa.y[]: %f\to_soa.z[]: %f\n",
-	//				o_soa.x[i], o_soa.y[i], o_soa.z[i]);
 }
 
 static unsigned int collision_check(struct obj_soa &o_soa)
@@ -136,8 +131,6 @@ size_t simulate(struct obj_soa &o_soa, unsigned int num_iterations,
 					continue;
 				calc_fgv(o_soa, i, j);
 			}
-			//printf("o_soa.fx[%d]: %f\to_soa.fy[%d]: %f\to_soa.fz[%d]: %f\n",
-			//		i, o_soa.fx[i], i, o_soa.fy[i], i, o_soa.fz[i]);
 
 			/* necesita fuerza para calcular aceleracion */
 			calc_vel(o_soa, i, time_step);
@@ -175,14 +168,7 @@ int main(int argc, char *argv[])
 				arg_list.num_objects, o_soa))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
-	double tic = omp_get_wtime();
-
 	exist_num = simulate(o_soa, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
-
-
-	double toc = omp_get_wtime();
-
-	printf("tiempo de ejecucion: %f\n", toc-tic);
 
 	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step,
 				exist_num, o_soa))
