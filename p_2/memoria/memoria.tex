@@ -463,7 +463,8 @@ Entonces el programa que usa 8 hilos de ejecución es el que más aprovecha la c
 Tanto menos hilos como más hilos consiguen peores resultados que los obtenidos en 8 hilos de ejecución.
 
 Por cuestiones de extensión de la memoria, y porque es de más interes reservar espacio
-para la siguiente sección, las muestras, sus gráficos, y los resultados de las pruebas de Kruskal-Wallis quedan como archivos adjuntos a la memoria (en carpetas aos\_extra/ y soa\_extra/).
+para la siguiente sección, las muestras, sus gráficos, y los resultados de las pruebas de Kruskal-Wallis quedan como archivos adjuntos a la memoria (en carpetas \textit{tests\_resultados/aos/}
+y \textit{tests\_resultados/soa/}).
 
 \subsection{Aos vs. SoA. Paralelo vs. Secuencial.\label{t-test}}
 Para completar los datos con una visualización de AoS, el gráfico \ref{fig:aos_8core_&_no_if} muestra los resultados
@@ -536,8 +537,9 @@ proporciona strip-mining en el cálculo de fuerzas. A diferencia de SoA, AoS deb
 datos que entre en una línea de caché (los que usa y los que no), haciendo que el uso verdadero de la unidad
 de trabajo sea mucho menor.
 
-\paragraph{Aos vs. SoA:}
-De todas las versiones finales, AoS secuencial consigue el mejor rendimiento. Esta versión es la más beneficiada
+\paragraph{AoS vs. SoA:}
+De todas las versiones finales, AoS secuencial con eliminación de objetos en una pasada consigue el mejor rendimiento.
+Esta versión es la más beneficiada
 por el diseño original. Luego SoA paralelo consigue mejor performance que AoS paralelo, esto es porque
 incluso debiendo respetar un diseño original poco favorable, SoA se beneficia más de las unidades de trabajo
 propuestas por strip-mining e incluso un poco de vectorización (muy poco).
