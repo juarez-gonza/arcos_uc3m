@@ -197,14 +197,8 @@ int main(int argc, char *argv[])
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
 
-	double tic = omp_get_wtime();
-
 	simulate(o_soa, arg_list.num_iterations,
 		arg_list.size_enclosure, arg_list.time_step);
-
-	double toc = omp_get_wtime();
-
-	printf("tiempo de ejecucion: %f\n", toc-tic);
 
 	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, o_soa))
 		log_n_exit("Error while trying to write to final_config.txt\n", 1);
