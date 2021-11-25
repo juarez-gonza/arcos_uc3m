@@ -51,7 +51,7 @@
 \newpage
 
 \section{Introducción.\label{intro}}
-En esta parte de Programación Orientada al Rendimiento, paralelizamos
+En este proyecto de Programación Orientada al Rendimiento paralelizamos
 un programa simulador de fuerzas ejercidas entre objetos
 en un cubo cerrado. Sobre este ejemplo estudiamos el impacto de las
 estructuras de datos, los algoritmos, y las optimizaciones secuenciales
@@ -125,11 +125,11 @@ Las siguientes optimizaciones no solamente intentan mejorar la velocidad
 del código de ejecución serializada. Si no también preparar al algoritmo
 para poder aprovechar mejor la paralelización a nivel de tarea.
 
-\subsubsection{Sin verificación de existencia de objeto.\label{no_if}}
+\subsubsection{Sin condicionales dispersos por el código.\label{no_if}}
 
-El diseño original tiene condicionales dispersos por todo el código. Como se menciona en
+Como se menciona en
 la sección \ref{original}, los objetos no se eliminan, se marcan, y se debe verificar su existencia.
-Todo esto lo hace la función de chequeo de colisiones. Si esta función se divide en una parte de marcado
+El marcado de objetos lo hace la función de chequeo de colisiones. Si esta función se divide en una parte de marcado
 de colisiones y fusión de objetos (que no hace más que sumar objeto \textit{a} con objeto \textit{b}), y
 una segunda parte donde se eliminen en una sola pasada los objetos marcados y se actualice la longitud
 del array de objetos. Entonces el resto del código no necesita condicionales para verificar la existencia de objetos.
@@ -137,7 +137,7 @@ del array de objetos. Entonces el resto del código no necesita condicionales pa
 
 Esta optimización no hace una gran diferencia en performance para SoA. Pero logró una diferencia muy grande en AoS. Para verificar la existencia de un objeto
 hay que leer un campo en su memoria, antes de eso hay que tener el objeto en caché. SoA aprovecha mucho
-la localidad espacial, por lo que leer un solo campo de 8 bytes no significa mucho. Pero para AoS esto
+la localidad espacial, por lo que leer un solo campo de 8 bytes no impacta significativamente al rendimiento. Pero para AoS esto
 implica un fallo menos de caché por cada verificación evitada (el struct de objeto tiene un tamaño mayor al de una línea de caché). ¡Los tiempos
 de AoS sin condicionales mejoraron en algunos casos más de un 30\%! De aquí se deriva la versión paralelizada. Este AoS
 secuencial sin condicionales es la versión contra la cual AoS paralelo es comparado en la sección \ref{t-test}.
@@ -152,8 +152,8 @@ instrucciones \textbf{SIMD}\footnote{Single Instruction-Multiple Data. Una instr
 La \textit{vectorización} tiene algunos requisitos \cite{intel_vec_guidelines}.
 Evitar dependencias de datos, especialmente de tipo RAW. Y ausencia de estructuras condicionales a no ser
 que puedan ser tratadas como \textit{masked assignments}. De esto último se encarga la optimización de \ref{no_if}.
-Hay operaciones que simplemente no son vectorizables
-en su manera ``pura''(un ejemplo es sqrt()\footnote{sqrt() es vectorizable si se indica \textit{-funsafe-math-optimizations.},
+Por otro lado, hay operaciones que simplemente no son vectorizables
+en su manera ``pura''(un ejemplo es sqrt()\footnote{sqrt() es vectorizable si se indica \textit{-funsafe-math-optimizations}
 en tiempo de compilación. Pero a cierto punto, el error propagado es muy grande (como se menciona en \ref{compiler})}).
 
 
@@ -164,7 +164,7 @@ del algoritmo, y ayuda a eliminar algunas dependencias WAW (al convertir variabl
 la única utilidad que se le da en el programa final a esta técnica, pero en esta sección es lo que nos importa.
 
 
-Para lidiar con RAW, una posible solución es la de dividir un loop con RAW en 2 loops sin RAW (también
+Para lidiar con RAW, una posible solución es la de dividir las operaciones en un loop con RAW en 2 o más loops sin RAW (también
 facilitado por strip-mining). Pero esto puede resultar en una pérdida de rendimiento por la introducción
 de nuevos loops a ejecutar de principio a fin, por lo tanto hay que medir la performance del programa.
 
@@ -183,7 +183,7 @@ puede mejorar la localidad tanto espacial como temporal si los mismos datos son 
 del algoritmo. Este último uso es el que se le dá en la versión final del código para el cálculo de fuerzas.
 
 
-Si N es el tamaño del array a recorrer, se utiliza un tamaño de \textit{stride} ó \textit{step} para que una variable \textit{ii}
+Si $N + 1$ es el tamaño del array a recorrer, se utiliza un tamaño de \textit{stride} ó \textit{step} para que una variable \textit{ii}
 tome valores $0\leq{ii}\leq N$ avanzando cada iteración el valor del step. Luego la variable \textit{i} original puede recorrer
 el tamaño de \textit{stride} de uno en uno. Esto aplicado a \textit{loop doble}, lo deja expresado de como se lo ve en
 Código \ref{doble_loop:striping-no_tiling}.
@@ -232,14 +232,14 @@ el de \textit{j}. Para lograr esto hay que permutar la cabecera del loop \textit
 de un área de estudio que lleva bastante tiempo siendo desarrollada. El modelo plantea que los espacios
 de iteración que puedan ser pensados como un \textbf{poliedro convexo}\footnote{convexo: una línea entre 2 puntos
 del poliedro pasa únicamente por puntos interiores al poliedro.} (como nuestro espacio triangular) y cumplan las condiciones de dependencias
-de datos de la \textit{permutación}, pueden reescribirse intercambiando cabeceras de loops y cambiando las cláusulas que en ellas aparecen.
+de datos de la \textit{permutación}, pueden reescribirse intercambiando cabeceras de loops y cambiando las cláusulas de los mismos.
 La metodología consiste en
 definir un sistema de inecuaciones que defina al \textbf{poliedro S} a partir de las cláusulas de los loops. Luego utilizar
 el \textbf{método de eliminación de Fourier-Motzkin} para proyectar la variable a reacomodar (o sea, variable a eliminar y
 reinsertar en algún momento). Tras la proyección, un sistema de inecuaciones de n-dimensiones (loop de n-variables)
 queda como un sistema de m-dimensiones donde $m=n-1$. Con el método de Fourier-Motzkin se pueden eliminar progresivamente las variables,
 para finalmente reinsertar las cabeceras de dichas variables eliminadas bajo las nuevas cláusulas (inecuaciones). Este resultado
-final es un nuevo sistema de inecuaciones que define un \textbf{poliedro S'} tal que \textit{S' es equivalente a S}.
+final es un nuevo sistema de inecuaciones que define un \textbf{poliedro S'} tal que \textbf{S' es equivalente a S}.
 Esta conversión en nuestro \textbf{doble loop} se representa como en la Figura \ref{fig:fourier_motzkin}. El código
 resultante para las cabeceras es el de Código \ref{doble_loop:striping-tiling}.
 
@@ -366,7 +366,7 @@ recalcularlo. Esto asume algo de asociatividad, pero no afecta los resultados nu
 Además, este segundo bucle \textit{j} es la única parte vectorizable del cálculo de fuerzas, ya que por alguna razón el
 cálculo de fuerzas resultantes y su posterior adición a los objetos en una reducción, cambia los resultados. Sin embargo,
 esta pequeña vectorización otorga un speedup pequeño (pero hace una diferencia en fin). Este bucle está fusionado
-con el primero en AoS, por la distancia de memoria entre los datos usado para el cálculo de este factor, el loop
+con el primero en AoS, por la distancia de memoria entre los datos usados para el cálculo de este factor, el bucle
 no es vectorizado por el compilador de todas maneras.
 
 	\item Finalmente, el último bucle \textit{j} funciona como reducción y tiene en su cabecera la directiva de ordenamiento
@@ -376,7 +376,7 @@ necesaria por \textit{OpenMP} para forzar el orden de ejecución.
 \subsubsection{Uso de Strip-mining para paralelismo.\label{strip-mining-parallel}}
 Strip-mining en paralelismo facilita la división la tarea en tiras del tamaño \textit{stride}, de la misma
 manera en que los bloques generados por loop-tiling son la unidad de trabajo candidata para la división
-de tareas \cite{Wolfe89moreiteration}. Con esto y ayuda del parámetro de directiva \textit{schedule} de \textit{OpenMP},
+de tareas \cite{Wolfe89moreiteration}. Sumado al parámetro de directiva \textit{schedule} de \textit{OpenMP},
 se reduce el exceso de sincronización, y \textit{cache-thrashing}\footnote{cantidad excesiva
 de fallos a caché por múltiples núcleos intentando accediendo a la misma dirección de memoria.}. Esto último
 es confirmado por la herramienta \textit{perf c2c}, donde para SoA los fallos a caché L1 fueron por debajo
@@ -411,10 +411,10 @@ estudiamos las combinaciones $(4000, 250)$, $(4000, 500)$, $(8000, 250)$, y $(80
 un total de 4 pruebas por configuración.
 
 Cada prueba tiene una muestra de tamaño ${n}=10$. Estadísticamente
-hablando, una muestra tan pequeña ($n < 30$) no nos permite asumir normalidad.
+hablando, una muestra tan pequeña ($n < 30$) no nos permite usar el estadístico normal \textit{Z}.
 Por lo que las pruebas de comparación de 2 medias por distribución normal de dos colas, y ANOVA\footnote{Análisis de Varianza.}
 no han sido utilizadas. En su lugar, se optó por \textbf{T-Test} para la comparación de dos medias, y se reemplazó a ANOVA
-por su equivalente no paramétrico: \textbf{Kruskal-Wallis H-Test}.
+por su alternativa no paramétrica: \textbf{Kruskal-Wallis H-Test}.
 
 \subsection{Todos contra todos.\label{kruskal}}
 En esta primera comparación buscamos las diferencias en tiempos de ejecución para el programa
@@ -453,18 +453,17 @@ las hipótesis alternativa y nula correspondientes:
 
 Los resultados obtenidos en Kruskal-Wallis H-Test para todas las configuraciones de SoA comparadas entre sí
 (original, y 1, 2, 4, 8, 16 cores) resultan en \textit{p\_valor} muy pequeño (${p\_valor} < 0.05$) para todas
-las pruebas realizadas. Lo mismo sucede para AoS. El bajo valor numérico de \textit{p\_valor} hace que para todas las configuraciones se rechace
-la hipótesis nula ${H_0}$ de Kruskal-Wallis. Se concluye que hay una diferencia significativa
+las pruebas realizadas. Lo mismo sucede para AoS. El bajo valor numérico de \textit{p\_valor} nos indica que para todas las configuraciones se rechaza
+la hipótesis nula ${H_0}$. Se concluye que hay una diferencia significativa
 en los tiempos de ejecución.
 
 Usar 8 hilos de ejecución da la mejor performance del programa paralelo. El procesador
 usado en las pruebas tiene 4 núcleos, 8 hilos (\textit{hyper-threading} de intel).
 Entonces el programa que usa 8 hilos de ejecución es el que más aprovecha la configuración del hardware.
-Tanto menos hilos como más hilos consiguen peores resultados que los obtenidos en 8 hilos de ejecución (Figura \ref{fig:8core}).
+Tanto menos hilos como más hilos consiguen peores resultados que los obtenidos en 8 hilos de ejecución.
 
 Por cuestiones de extensión de la memoria, y porque es de más interes reservar espacio
-para la siguiente sección, los resultados de las pruebas de Kruskal-Wallis quedan como archivos adjuntos a la memoria (archivos soa/resultados\_kruskal
-y aos/resultados\_kruskal).
+para la siguiente sección, las muestras, sus gráficos, y los resultados de las pruebas de Kruskal-Wallis quedan como archivos adjuntos a la memoria (en carpetas aos\_extra/ y soa\_extra/).
 
 \subsection{Aos vs. SoA. Paralelo vs. Secuencial.\label{t-test}}
 Para completar los datos con una visualización de AoS, el gráfico \ref{fig:aos_8core_&_no_if} muestra los resultados
@@ -561,7 +560,7 @@ Empezando por lo `secuencial', SoA es más apto a optimizaciones de vectorizaci�
 de chips de hoy en día. SoA en muchos casos, como el de este programa, se puede ajustar mejor a técnicas que buscan mejorar
 la localidad temporal y espacial.
 
-A la hora de paralelizar nuestro algoritmo, la mejora en localidad de SoA se acentúa aún más. A diferencia de AoS, tener en caché únicamente
+Al paralelizar nuestro algoritmo, la mejora en localidad de SoA se acentúa aún más. A diferencia de AoS, tener en caché únicamente
 los datos necesarios para el cálculo disminuye los fallos de caché y mejora la efectividad de técnicas como strip-mining.
 Es verdad que gran parte del desarrollo de esta segunda parte
 se concentró en SoA, en lugar de AoS, porque desde un inicio considermos más optimizable por paralelismo y nos permitiría sacar mejores conclusiones
