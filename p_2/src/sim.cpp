@@ -85,7 +85,6 @@ static inline void calc_vel(struct obj &o, double time_step)
 	o.vx = o.vx + accel_no_recalc * o.fx;
 	o.vy = o.vy + accel_no_recalc * o.fy;
 	o.vz = o.vz + accel_no_recalc * o.fz;
-	//printf("o.vx: %f, o.vy: %f, o.vz: %f\n", o.vx, o.vy, o.vz);
 }
 
 static inline void adjust_limits(double size_enclosure,
@@ -111,7 +110,6 @@ static inline void calc_pos(struct obj &o, double size_enclosure, double time_st
 
 	o.z = o.z + o.vz * time_step;
 	adjust_limits(size_enclosure, o.z, o.vz);
-	//printf("o.x: %f, o.y: %f, o.z: %f\n", o.x, o.y, o.z);
 }
 
 static inline void mark(struct obj &o)
@@ -198,13 +196,7 @@ int main(int argc, char *argv[])
 	if (write_config("init_config.txt", arg_list.size_enclosure, arg_list.time_step, o_list))
 		log_n_exit("Error while trying to write to init_config.txt\n", 1);
 
-	double tic = omp_get_wtime();
-
 	simulate(o_list, arg_list.num_iterations, arg_list.size_enclosure, arg_list.time_step);
-
-	double toc = omp_get_wtime();
-
-	printf("tiempo de ejecucion: %f\n", toc-tic);
 
 	if (write_config("final_config.txt", arg_list.size_enclosure, arg_list.time_step, o_list))
 		log_n_exit("Error while trying to write to final_config.txt\n", 1);
