@@ -36,6 +36,7 @@ public:
   {
 	  mtx.lock();
 	  value_++;
+	  time_ += 0.25;
 	  mtx.unlock();
   }
 
@@ -46,6 +47,7 @@ public:
 
 private:
   double value_;
+  float time_;
   spinlock_mutex mtx;
 };
 
