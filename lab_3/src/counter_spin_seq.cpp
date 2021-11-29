@@ -2,16 +2,50 @@
 #include <thread>
 #include <vector>
 
+#include <atomic>
+
+class spinlock_mutex {
+public:
+	spinlock_mutex() :
+		flag_{}
+	{
+	}
+
+	void lock()
+	{
+		while (flag_.test_and_set(std::memory_order_seq_cst))
+			;
+	}
+
+	void unlock()
+	{
+		flag_.clear(std::memory_order_seq_cst);
+	}
+private:
+	std::atomic_flag flag_;
+};
+
 class counter {
 public:
-  counter() : value_{0} {}
+  counter() : value_{0}
+  {
+  }
 
-  void update() { value_++; }
+  void update()
+  {
+	  mtx.lock();
+	  value_++;
+	  mtx.unlock();
+  }
 
-  void print() const { std::cout << "counter = " << value_ << "\n"; }
+  void print() const
+  {
+	  std::cout << "counter = " << value_ << "\n";
+  }
 
 private:
   double value_;
+  spinlock_mutex mtx;
 };
 
 int main(int argc, char *argv[])

@@ -2,16 +2,27 @@
 #include <thread>
 #include <vector>
 
+#include <atomic>
+
 class counter {
 public:
-  counter() : value_{0} {}
+  counter() :
+	  value_{0}
+  {
+  }
 
-  void update() { value_++; }
+  void update()
+  {
+	  value_.fetch_add(1.0);
+  }
 
-  void print() const { std::cout << "counter = " << value_ << "\n"; }
+  void print() const
+  {
+	  std::cout << "counter = " << value_ << "\n";
+  }
 
 private:
-  double value_;
+  std::atomic<double> value_;
 };
 
 int main(int argc, char *argv[])

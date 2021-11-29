@@ -2,16 +2,29 @@
 #include <thread>
 #include <vector>
 
+#include <mutex>
+
 class counter {
 public:
-  counter() : value_{0} {}
+  counter() :
+	  value_{0}
+  {
+  }
 
-  void update() { value_++; }
+  void update()
+  {
+	  std::lock_guard<std::mutex> guard(mtx);
+	  value_++;
+  }
 
-  void print() const { std::cout << "counter = " << value_ << "\n"; }
+  void print() const
+  {
+	  std::cout << "counter = " << value_ << "\n";
+  }
 
 private:
   double value_;
+  std::mutex mtx;
 };
 
 int main(int argc, char *argv[])
