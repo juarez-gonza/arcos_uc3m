@@ -1,0 +1,3 @@
+/mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/lab_3/src/build/CMakeFiles/rebuild_cache.dir
+/mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/lab_3/src/build/CMakeFiles/edit_cache.dir
+/mnt/shared/gonzalo/Facultad/uc3m/arcos/lab/lab_3/src/build/CMakeFiles/counter.dir
