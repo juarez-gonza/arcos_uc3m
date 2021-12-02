@@ -9,8 +9,6 @@ link_libraries(Threads::Threads)
 
 add_compile_options(-Wall -Wextra -Werror -pedantic -pedantic-errors)
 
-add_executable(counter counter.cpp)
-
 add_executable(counter_mutex counter_mutex.cpp)
 add_executable(counter_atomic counter_atomic.cpp)
 
